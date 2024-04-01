@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{432E4C88-9A89-40F1-BE0B-73BAB489D3F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xLib</RootNamespace>
+    <AssemblyName>xLib</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="MQTTnet, Version=4.3.3.952, Culture=neutral, PublicKeyToken=fdb7629f2e364a63, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\MQTTnet.4.3.3.952\lib\net48\MQTTnet.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Text.Json.8.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CSharp_DevicePattern\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Attributes\ModelAttribute.cs" />
+    <Compile Include="Attributes\ModelFunctionAttribute.cs" />
+    <Compile Include="Attributes\ModelPropertyAttribute.cs" />
+    <Compile Include="Attributes\SubmodelAttribute.cs" />
+    <Compile Include="Common\DataBuffer.cs" />
+    <Compile Include="Common\Json.cs" />
+    <Compile Include="Common\xCircularBuffer.cs" />
+    <Compile Include="Common\xConverter.cs" />
+    <Compile Include="Common\xMath.cs" />
+    <Compile Include="Common\xMemory.cs" />
+    <Compile Include="Common\xSupport.cs" />
+    <Compile Include="Components\MQTT\Broker\Control.cs" />
+    <Compile Include="Components\Peripherals\Common\ActionResult.cs" />
+    <Compile Include="Components\Peripherals\xADC\Control.cs" />
+    <Compile Include="Components\Peripherals\xADC\Info.cs" />
+    <Compile Include="Components\Peripherals\xADC\Models\Charts.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Events.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Get.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Requests.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Responses.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\RxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Set.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Try.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\TxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xADC\Transactions\Types.cs" />
+    <Compile Include="Components\Peripherals\xADC\Types\Types.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IChartsView.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IChartsViewModel.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IControlViewModel.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\ISelectable.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Models\ChartsViewModel.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Models\ControlViewModel.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Views\ChartsView.xaml.cs">
+      <DependentUpon>ChartsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Peripherals\xADC\UI\Views\ControlView.xaml.cs">
+      <DependentUpon>ControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Peripherals\xADC\UI\Views\Interfaces\IWindowsFormsChat.cs" />
+    <Compile Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.Designer.cs">
+      <DependentUpon>WindowsFormsChat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Peripherals\xCAN\Control.cs" />
+    <Compile Include="Components\Peripherals\xCAN\Info.cs" />
+    <Compile Include="Components\Peripherals\xGPIO\Control.cs" />
+    <Compile Include="Components\Peripherals\xGPIO\Info.cs" />
+    <Compile Include="Components\Peripherals\xMQTT\Control.cs" />
+    <Compile Include="Components\Peripherals\xMQTT\Info.cs" />
+    <Compile Include="Components\Peripherals\xNet\Control.cs" />
+    <Compile Include="Components\Peripherals\xNet\Info.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Control.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Info.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Get.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Requests.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Responses.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\RxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Set.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Try.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\TxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xRTOS\Transactions\Types.cs" />
+    <Compile Include="Components\Peripherals\xSPI\Control.cs" />
+    <Compile Include="Components\Peripherals\xSPI\Info.cs" />
+    <Compile Include="Components\Peripherals\xSystem\Control.cs" />
+    <Compile Include="Components\Peripherals\xSystem\Info.cs" />
+    <Compile Include="Components\Peripherals\xTimer\Control.cs" />
+    <Compile Include="Components\Peripherals\xTimer\Info.cs" />
+    <Compile Include="Components\Peripherals\xUSART\Control.cs" />
+    <Compile Include="Components\Peripherals\xUSART\Info.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Control.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Info.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Models\Config.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Models\Interfaces\IConfig.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Models\Interfaces\IStatus.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Models\Status.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Events.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Get.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Requests.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Responses.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\RxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Set.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Try.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\TxTransaction.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Transactions\Types.cs" />
+    <Compile Include="Components\Peripherals\xWiFi\Types\Types.cs" />
+    <Compile Include="Components\WaveGenerators\LineWaveGenerator.cs" />
+    <Compile Include="Components\WaveGenerators\SineWaveGenerator.cs" />
+    <Compile Include="Components\WaveGenerators\WaveGenerator.cs" />
+    <Compile Include="Controls\Control.cs" />
+    <Compile Include="Controls\ModelBase.cs" />
+    <Compile Include="Controls\Results.cs" />
+    <Compile Include="Net\MQTT\MqttBroker.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerTopicOptions.cs" />
+    <Compile Include="Net\MQTT\MqttClient.cs" />
+    <Compile Include="Net\MQTT\MqttClientOptions.cs" />
+    <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
+    <Compile Include="Net\MQTT\MqttTopic.cs" />
+    <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
+    <Compile Include="Net\TCP\TCPClient.cs" />
+    <Compile Include="Net\TCP\TCPClientOptions.cs" />
+    <Compile Include="Net\TCP\TCPServer.cs" />
+    <Compile Include="Net\TCP\TCPServerOptions.cs" />
+    <Compile Include="Ports\Attributes\PortPropertyAttribute.cs" />
+    <Compile Include="Ports\Interfaces\IPort.cs" />
+    <Compile Include="Ports\PortBase.cs" />
+    <Compile Include="Ports\PortOptions.cs" />
+    <Compile Include="Ports\PortResult.cs" />
+    <Compile Include="Ports\PortSerializer.cs" />
+    <Compile Include="Ports\RxReceiver.cs" />
+    <Compile Include="Ports\SerialPort\SerialPort.cs" />
+    <Compile Include="Ports\SerialPort\SerialPortOptions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializers\PortSubscriptions.cs" />
+    <Compile Include="Terminal\Interfaces\ITerminal.cs" />
+    <Compile Include="Terminal\Interfaces\ITerminalObject.cs" />
+    <Compile Include="Terminal\TerminalBase.cs" />
+    <Compile Include="Terminal\TerminalObject.cs" />
+    <Compile Include="Tracer\InfoReceivePacket.cs" />
+    <Compile Include="Tracer\UI\View\xTracerView.xaml.cs">
+      <DependentUpon>xTracerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tracer\xTracer.cs" />
+    <Compile Include="Transactions\Common\ControlBase.cs" />
+    <Compile Include="Transactions\Common\IControl.cs" />
+    <Compile Include="Transactions\Common\Request.cs" />
+    <Compile Include="Transactions\Common\Response.cs" />
+    <Compile Include="Transactions\Common\RxTransaction.cs" />
+    <Compile Include="Transactions\Common\TransactionsBase.cs" />
+    <Compile Include="Transactions\Common\TxTransaction.cs" />
+    <Compile Include="Transactions\RxTransactionAttribute.cs" />
+    <Compile Include="Transactions\RxTransactionBase.cs" />
+    <Compile Include="Transactions\TxTransactionAttribute.cs" />
+    <Compile Include="Transactions\TxTransactionBase.cs" />
+    <Compile Include="Transceiver\IReceiver.cs" />
+    <Compile Include="Transceiver\IRequestAdapter.cs" />
+    <Compile Include="Transceiver\IResponseAdapter.cs" />
+    <Compile Include="Transceiver\PacketBase.cs" />
+    <Compile Include="Transceiver\ReceivedContent.cs" />
+    <Compile Include="Transceiver\ReceiverBase.cs" />
+    <Compile Include="Transceiver\RequestBase.cs" />
+    <Compile Include="Transceiver\ResponseHandle.cs" />
+    <Compile Include="Transceiver\RxPacketManager.cs" />
+    <Compile Include="Types\Types.cs" />
+    <Compile Include="UI\Attributes\ButtonConstructorAttribute.cs" />
+    <Compile Include="UI\Attributes\ContextMenuConstructorAttribute.cs" />
+    <Compile Include="UI\Attributes\SubViewModelAttribute.cs" />
+    <Compile Include="UI\Attributes\UIPropertyAttribute.cs" />
+    <Compile Include="UI\Attributes\ViewConstructorAttribute.cs" />
+    <Compile Include="UI\CellElements\ButtonCellElement.cs" />
+    <Compile Include="UI\CellElements\ContentControlCellElement.cs" />
+    <Compile Include="UI\CellElements\LabelCellElement.cs" />
+    <Compile Include="UI\CellElements\ListViewRow.cs" />
+    <Compile Include="UI\CellElements\TextBoxCellElement.cs" />
+    <Compile Include="UI\CellElements\UserTemplateCellElement.cs" />
+    <Compile Include="UI\Command\RelayCommand.cs" />
+    <Compile Include="UI\Common\RecognizedElement.cs" />
+    <Compile Include="UI\Interfaces\ICellElement.cs" />
+    <Compile Include="UI\Interfaces\IListViewHolder.cs" />
+    <Compile Include="UI\Interfaces\IPortInfoViewModel.cs" />
+    <Compile Include="UI\Interfaces\IPortOptionsViewModel.cs" />
+    <Compile Include="UI\Interfaces\IPortsViewModel.cs" />
+    <Compile Include="UI\Interfaces\ISubscriptionOfPortViewModel.cs" />
+    <Compile Include="UI\Models\MediatorViewModel.cs" />
+    <Compile Include="UI\Models\PortInfoViewModel.cs" />
+    <Compile Include="UI\Models\PortOptionsViewModel.cs" />
+    <Compile Include="UI\Models\PortsViewModel.cs" />
+    <Compile Include="UI\Models\RequestPresenterViewModel.cs" />
+    <Compile Include="UI\Models\SubscriptionOfPortViewModel.cs" />
+    <Compile Include="UI\Models\WaveGeneratorViewModel.cs" />
+    <Compile Include="UI\Resources\Resources.cs" />
+    <Compile Include="UI\TemplateSelectors\TemplateSelectorForSubscriptionOfPort.cs" />
+    <Compile Include="UI\TemplateSelectors\TemplateSelectorForTxState.cs" />
+    <Compile Include="UI\TemplateSelectors\UniversalCellTemplateSelector.cs" />
+    <Compile Include="UI\UINotifyPropertyChanged.cs" />
+    <Compile Include="UI\UIProperty.cs" />
+    <Compile Include="UI\ViewElements\ToggleButtonViewElement.xaml.cs">
+      <DependentUpon>ToggleButtonViewElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ViewModelBase.cs" />
+    <Compile Include="UI\Views\Interfaces\IViewBase.cs" />
+    <Compile Include="UI\Views\LabelView.xaml.cs">
+      <DependentUpon>LabelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\OpenPortView.xaml.cs">
+      <DependentUpon>OpenPortView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\PortInfoView.xaml.cs">
+      <DependentUpon>PortInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\PortOptionsView.xaml.cs">
+      <DependentUpon>PortOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\PortsView.xaml.cs">
+      <DependentUpon>PortsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\PortView.xaml.cs">
+      <DependentUpon>PortView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\UniversalListView.xaml.cs">
+      <DependentUpon>UniversalListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TerminalWindow.xaml.cs">
+      <DependentUpon>TerminalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowConfirmation.xaml.cs">
+      <DependentUpon>WindowConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowViewPresenter.xaml.cs">
+      <DependentUpon>WindowViewPresenter.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\Peripherals\xADC\UI\Views\ChartsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\Peripherals\xADC\UI\Views\ControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tracer\UI\View\xTracerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\ButtonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\ComboBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\GlobalStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\ListViewStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\MenuStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\TabControlStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\TabItemStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\TextBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\WindowStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ViewElements\ToggleButtonViewElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\LabelView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\OpenPortView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\PortInfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\PortOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\PortsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\PortView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\UniversalListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TerminalWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WindowConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WindowViewPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.resx">
+      <DependentUpon>WindowsFormsChat.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Peripherals\xADC\Models\Interfaces\" />
+    <Folder Include="Components\Peripherals\xCAN\Models\" />
+    <Folder Include="Components\Peripherals\xCAN\Types\" />
+    <Folder Include="Components\Peripherals\xGPIO\Models\" />
+    <Folder Include="Components\Peripherals\xGPIO\Types\" />
+    <Folder Include="Components\Peripherals\xMQTT\Models\" />
+    <Folder Include="Components\Peripherals\xMQTT\Types\" />
+    <Folder Include="Components\Peripherals\xNet\Models\" />
+    <Folder Include="Components\Peripherals\xNet\Types\" />
+    <Folder Include="Components\Peripherals\xRTOS\Models\" />
+    <Folder Include="Components\Peripherals\xRTOS\Types\" />
+    <Folder Include="Components\Peripherals\xSPI\Models\" />
+    <Folder Include="Components\Peripherals\xSPI\Types\" />
+    <Folder Include="Components\Peripherals\xSystem\Models\" />
+    <Folder Include="Components\Peripherals\xSystem\Types\" />
+    <Folder Include="Components\Peripherals\xTimer\Models\" />
+    <Folder Include="Components\Peripherals\xTimer\Types\" />
+    <Folder Include="Components\Peripherals\xUSART\Models\" />
+    <Folder Include="Components\Peripherals\xUSART\Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

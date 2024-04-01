@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="xLibV100.UI.Views.UniversalListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:templateSelectors="clr-namespace:xLibV100.UI"
+             xmlns:local="clr-namespace:xLibV100.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" MaxHeight="1800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" x:Name="ButtonStyle" BasedOn="{StaticResource ButtonStyle1}">
+            <Setter Property="Margin" Value="5,5,5,0"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <ListView SizeChanged="ListView_SizeChanged"
+                      x:Name="ListView"
+                      Style="{StaticResource ListViewStyle3}"
+                      Loaded="ListView_Loaded"
+                      BorderBrush="#FF834545"
+                      ItemsSource="{Binding Properties}"
+                      VerticalContentAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch">
+                
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="auto"/>
+                    </GridView>
+                </ListView.View>
+                
+                <ListView.ContextMenu>
+                    <ContextMenu ItemsSource="{Binding ListViewContextMenuCommands}">
+                        <ContextMenu.ItemTemplate>
+                            <DataTemplate>
+                                <MenuItem Header="{Binding DisplayName}"
+                                          CommandParameter="{Binding Parameter}"
+                                          Command="{Binding Command}">
+                                    <!--CommandParameter="{Binding Path=PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"-->
+                                </MenuItem>
+                            </DataTemplate>
+                        </ContextMenu.ItemTemplate>
+
+                        <ContextMenu.Style>
+                            <Style TargetType="ContextMenu">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ListViewContextMenuCommands.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContextMenu.Style>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding Commands}" Grid.Column="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}"
+                    Command="{Binding Command}"
+                    Style="{StaticResource ButtonStyle1}"
+                    MinWidth="200"
+                    Margin="5"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel x:Name="StackPanelControl" Grid.Column="1">
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

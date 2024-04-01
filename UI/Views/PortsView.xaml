@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="xLibV100.UI.Views.PortsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:xLibV100.UI.Views"
+        xmlns:LoacalTemplateSelectors="clr-namespace:xLibV100.UI.TemplateSelectors"
+        xmlns:commonTemplateSelectors="clr-namespace:xLibV100.UI.TemplateSelectors"
+        mc:Ignorable="d" 
+        d:DesignHeight="600" d:DesignWidth="800" Style="{StaticResource UserControlGlobalStyle}">
+    <UserControl.Resources>
+        <commonTemplateSelectors:UniversalCellTemplateSelector x:Key="InfoTemplateSelector" ColumnKey="Info"/>
+        <commonTemplateSelectors:UniversalCellTemplateSelector x:Key="OptionsTemplateSelector" ColumnKey="Options"/>
+        <commonTemplateSelectors:UniversalCellTemplateSelector x:Key="ActionsTemplateSelector" ColumnKey="Actions"/>
+
+        <LoacalTemplateSelectors:TemplateSelectorForSubscriptionOfPort x:Key="TemplateSelectorForSubscriptionOfPort">
+            <LoacalTemplateSelectors:TemplateSelectorForSubscriptionOfPort.DataTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Port.State}" Style="{StaticResource LabelGlobalStyle}" Background="{Binding BackgroundForState}" Padding="-2"/>
+                </DataTemplate>
+            </LoacalTemplateSelectors:TemplateSelectorForSubscriptionOfPort.DataTemplate>
+        </LoacalTemplateSelectors:TemplateSelectorForSubscriptionOfPort>
+        
+        <LoacalTemplateSelectors:TemplateSelectorForTxState x:Key="TemplateSelectorForTxState">
+            <LoacalTemplateSelectors:TemplateSelectorForTxState.DataTemplate>
+                <DataTemplate>
+                    <Label Content="" Style="{StaticResource LabelGlobalStyle}" Background="{Binding BackgroundForTx}" Padding="-2"/>
+                </DataTemplate>
+            </LoacalTemplateSelectors:TemplateSelectorForTxState.DataTemplate>
+        </LoacalTemplateSelectors:TemplateSelectorForTxState>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="*" MinWidth="180" MaxWidth="180"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="ListViewPorts" ItemsSource="{Binding Device.Terminal.UI.ConnectionsViewModel.Properties}" SelectedValue="{Binding SelectedPort}" Loaded="ListViewPorts_Loaded" Style="{StaticResource ListViewStyle1}" Margin="0,-0,0,0" Grid.Row="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Model.Name}" Width="auto"/>
+                    <GridViewColumn Header="Info" CellTemplateSelector="{StaticResource InfoTemplateSelector}" Width="auto"/>
+                    <GridViewColumn Header="Options" CellTemplateSelector="{StaticResource OptionsTemplateSelector}" Width="auto"/>
+                    <GridViewColumn Header="Action" CellTemplateSelector="{StaticResource ActionsTemplateSelector}" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButSubscribe" Content="Subscribe" Margin="5,5,5,0" Style="{StaticResource ButtonStyle1}" VerticalAlignment="Top" Grid.Column="1" Height="34" Click="ButSubscribe_Click"/>
+        <ListView x:Name="ListViewSubscribers" Style="{StaticResource ListViewStyle1}" Height="auto" SelectedValue="{Binding SelectedSubscribedPort}" ItemsSource="{Binding SubscriptionsOfPorts}" Margin="0,0,0,0" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Port.Name}" Width="160"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Port.Id}" Width="auto"/>
+                    <GridViewColumn Header="Layer" DisplayMemberBinding="{Binding Port.TransferLayer}" Width="100"/>
+                    <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Port.Role}" Width="100"/>
+                    <GridViewColumn Header="State" CellTemplateSelector="{StaticResource TemplateSelectorForSubscriptionOfPort}" Width="auto"/>
+                    <GridViewColumn Header="Tx" CellTemplateSelector="{StaticResource TemplateSelectorForTxState}" Width="50"/>
+                </GridView>
+            </ListView.View>            
+        </ListView>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,0,5">            
+            <Button x:Name="ButUnsubscribe" Content="Unsubscribe" Margin="5,5,5,0" Style="{StaticResource ButtonStyle1}" VerticalAlignment="Top" Height="34" Click="ButUnsubscribe_Click"/>
+            <Button x:Name="ButInstallAsTx" Content="Set Tx" Margin="5,45,5,0" Style="{StaticResource ButtonStyle1}" VerticalAlignment="Top" Height="34" Click="ButInstallAsTx_Click"/>
+            <Button x:Name="ButResetTx" Content="Reset Tx" Margin="5,85,5,0" Style="{StaticResource ButtonStyle1}" VerticalAlignment="Top" Height="34" Click="ButResetTx_Click"/>
+        </Grid>
+    </Grid>
+</UserControl>

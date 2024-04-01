@@ -1,0 +1,20 @@
+﻿<Application x:Class="xLibV100.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="xLib/UI/Resources/GlobalStyles.xaml"/>
+
+                <ResourceDictionary Source="xLib/UI/Resources/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/ListViewStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/MenuStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/TabControlStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/TabItemStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/ComboBoxStyles.xaml"/>
+                <ResourceDictionary Source="xLib/UI/Resources/WindowStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
