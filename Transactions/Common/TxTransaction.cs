@@ -1,6 +1,4 @@
-﻿using xLibV100;
-using xLibV100.Transactions;
-using xLibV100.Transceiver;
+﻿using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions.Common
 {

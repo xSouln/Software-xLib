@@ -25,4 +25,16 @@ namespace xLibV100.Transactions.Common
             return this;
         }
     }
+
+    public class ResponseResult : IResponseAdapter
+    {
+        public ActionResult Result;
+
+        public object Recieve(RxPacketManager manager, xContent content)
+        {
+            content.Get(out Result);
+
+            return this;
+        }
+    }
 }

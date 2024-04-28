@@ -24,19 +24,6 @@ namespace xLibV100.Peripherals.xWiFi.Transactions
         EVENT_STATUS_CHANGED
     }
 
-    public enum ActionResult : ushort
-    {
-        ACCEPT = 0,
-        ERROR_DATA,
-        ERROR_CONTENT_SIZE,
-        ERROR_REQUEST,
-        ERROR_RESOLUTION,
-        UNKNOWN_COMMAND,
-        BUSY,
-        OUTSIDE,
-        ERROR_ACTION
-    }
-
     public struct RequestSetConfig : IRequestAdapter
     {
         public byte Mask;

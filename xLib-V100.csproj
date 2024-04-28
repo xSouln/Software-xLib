@@ -101,7 +101,7 @@
     <Compile Include="Common\xMemory.cs" />
     <Compile Include="Common\xSupport.cs" />
     <Compile Include="Components\MQTT\Broker\Control.cs" />
-    <Compile Include="Components\Peripherals\Common\ActionResult.cs" />
+    <Compile Include="Transactions\Common\ActionResult.cs" />
     <Compile Include="Components\Peripherals\xADC\Control.cs" />
     <Compile Include="Components\Peripherals\xADC\Info.cs" />
     <Compile Include="Components\Peripherals\xADC\Models\Charts.cs" />
@@ -297,9 +297,6 @@
     <Compile Include="Windows\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\TerminalWindow.xaml.cs">
-      <DependentUpon>TerminalWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\WindowConfirmation.xaml.cs">
       <DependentUpon>WindowConfirmation.xaml</DependentUpon>
     </Compile>
@@ -396,10 +393,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\TerminalWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Windows\WindowConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -415,6 +408,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\Peripherals\Common\" />
     <Folder Include="Components\Peripherals\xADC\Models\Interfaces\" />
     <Folder Include="Components\Peripherals\xCAN\Models\" />
     <Folder Include="Components\Peripherals\xCAN\Types\" />

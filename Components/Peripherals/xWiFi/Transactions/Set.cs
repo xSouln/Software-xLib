@@ -1,8 +1,8 @@
 ﻿using xLibV100.Peripherals.xWiFi.Types;
 using System.Collections.Generic;
-using xLibV100;
 using xLibV100.Common;
 using xLibV100.Transceiver;
+using xLibV100.Transactions.Common;
 
 namespace xLibV100.Peripherals.xWiFi.Transactions
 {

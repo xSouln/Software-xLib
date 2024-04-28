@@ -210,7 +210,7 @@
                             <Label x:Name="ContentSite"
                                    VerticalContentAlignment="Center"
                                    HorizontalContentAlignment="Center"
-                                   Content="{Binding Name}"
+                                   Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Header}"
                                    Margin="0,0,0,0">
                                 <Label.LayoutTransform>
                                     <RotateTransform Angle="0"/>

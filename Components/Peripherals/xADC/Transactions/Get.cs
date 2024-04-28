@@ -1,6 +1,5 @@
-﻿using xLibV100.Peripherals.Common;
-using xLibV100;
-using xLibV100.Transceiver;
+﻿using xLibV100.Transceiver;
+using xLibV100.Transactions.Common;
 
 namespace xLibV100.Peripherals.xADC.Transactions
 {

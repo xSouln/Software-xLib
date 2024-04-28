@@ -6,6 +6,14 @@
              xmlns:local="clr-namespace:xLibV100.Tracer.UI.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" Height="auto" MinHeight="500" Style="{StaticResource UserControlGlobalStyle}" >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle1}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5,0,5,5"/>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,7 +24,12 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="TabControl" Margin="5,5,5,5" SelectedItem="{Binding SelectedItem}" Style="{StaticResource TabControlGlobalStyle}">
             <TabItem x:Name="TabItemRequests" Header="Requests" Width="auto" Style="{StaticResource TabItemStyle4}">
-                <ListView x:Name="ListViewRequestsInfo" Style="{StaticResource ListViewStyle1}" FontSize="18" Background="#FF3F3F46" Foreground="#FFDEC316" BorderBrush="{x:Null}">
+                <ListView x:Name="ListViewRequestsInfo"
+                          Style="{StaticResource ListViewStyle1}"
+                          FontSize="18"
+                          Background="#FF3F3F46"
+                          Foreground="#FFDEC316"
+                          BorderBrush="{x:Null}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}" Width="180"/>
@@ -43,22 +56,16 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="ButPause" Background="{Binding ButPauseBackground}" Content="{Binding ButPauseName}" Template="{DynamicResource ButtonTemplate1}" Margin="5,42,5,0" BorderBrush="#FFB26A22" FontSize="20" Foreground="#FFDEC316" RenderTransformOrigin="4.725,4.075" Grid.Column="1" Height="40" VerticalAlignment="Top" Click="ButPause_Click">
-            <Button.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Style.Triggers>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="DarkBlue"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="DarkBlue"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button x:Name="ButClear" Content="Clear" Template="{DynamicResource ButtonTemplate1}" Margin="5,87,5,0" BorderBrush="#FFB26A22" Background="#FF4F4F4F" FontSize="20" Foreground="#FFDEC316" RenderTransformOrigin="4.725,4.075" Grid.Column="1" Height="40" VerticalAlignment="Top" Click="ButClear_Click">
 
-        </Button>
+        <StackPanel Grid.Column="1">
+            
+            <Button x:Name="ButPause" Background="{Binding ButPauseBackground}" Content="{Binding ButPauseName}" Margin="5,42,5,5" Click="ButPause_Click"/>
+
+            <Button x:Name="ButClear" Content="Clear" Click="ButClear_Click"/>
+
+            <Button Content="Save" Command="{Binding SaveLogCommand}"/>
+
+        </StackPanel>
+        
     </Grid>
 </UserControl>
