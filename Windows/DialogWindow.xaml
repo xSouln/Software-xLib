@@ -6,7 +6,13 @@
         xmlns:templateSelectors="clr-namespace:xLibV100.UI.TemplateSelectors"
         xmlns:local="clr-namespace:xLibV100.Windows"
         mc:Ignorable="d"
-        Title="DialogWindow" Height="450" Width="800" Style="{StaticResource WindowGlobalStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SizeToContent="WidthAndHeight">
+        Title="DialogWindow" Height="450" Width="800"
+        MinWidth="350"
+        MinHeight="250"
+        Style="{StaticResource WindowGlobalStyle}"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        SizeToContent="WidthAndHeight">
     <Window.Resources>
         <templateSelectors:UniversalCellTemplateSelector x:Key="ValueTemplateSelector" ColumnKey="Value"/>
     </Window.Resources>

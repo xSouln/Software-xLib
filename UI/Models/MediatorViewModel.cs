@@ -87,7 +87,7 @@ namespace xLibV100.Common.UI
             {
                 row.AddElement(new UserTemplateCellElement(model, propertyName, columnName, typeof(ToggleButtonViewElement)));
             }
-            else if (info.PropertyType.IsClass)
+            else if (info.PropertyType.IsClass && info.PropertyType != typeof(string))
             {
                 return;
             }
@@ -247,13 +247,19 @@ namespace xLibV100.Common.UI
                     {
                         if (typeof(ICollection).IsAssignableFrom(property.PropertyType))
                         {
+                            continue;
+                        }
+                        else if (property.PropertyType == typeof(string))
+                        {
 
                         }
                         else if (property.PropertyType.IsClass)
                         {
                             Parse(viewModel, property.GetValue(model));
+                            continue;
                         }
-                        else if (Description.Group == propertyAttribute.Group || Description.Group == null)
+
+                        if (Description.Group == propertyAttribute.Group || Description.Group == null)
                         {
                             viewModel.AddProperty(model, propertyAttribute, property, property.Name, propertyAttribute.Group);
                         }
