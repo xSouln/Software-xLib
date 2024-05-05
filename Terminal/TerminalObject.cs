@@ -110,9 +110,11 @@ namespace xLibV100.Controls
         {
             Stopwatch update_time = new Stopwatch();
 
+            CancellationToken token = updateStatesTaskTokenSource.Token;
+
             try
             {
-                while (true && updateStatesTaskTokenSource != null)
+                while (true && !token.IsCancellationRequested)
                 {
                     int time = 0;
 
@@ -131,7 +133,7 @@ namespace xLibV100.Controls
 
                     if (delay > 0)
                     {
-                        await Task.Delay(delay, updateStatesTaskTokenSource.Token);
+                        await Task.Delay(delay, token);
                     }
                 }
             }

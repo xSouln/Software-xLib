@@ -58,7 +58,7 @@ namespace xLibV100.Common
 
         public static unsafe int Add<TData>(List<byte> packet, TData[] data) where TData : unmanaged
         {
-            if (packet != null && data != null)
+            if (packet != null && data != null && data.Length > 0)
             {
                 foreach (TData element in data)
                 {
@@ -69,8 +69,10 @@ namespace xLibV100.Common
                         packet.Add(ptr[i]);
                     }
                 }
-                return sizeof(TData);
+
+                return sizeof(TData) * data.Length;
             }
+
             return 0;
         }
 
