@@ -267,6 +267,11 @@ namespace xLibV100.UI
         public ViewModelBase(TModel model) : base(model)
         {
             View = new TView();
+
+            if (view is FrameworkElement frameworkElement)
+            {
+                frameworkElement.DataContext = this;
+            }
             /*View = new TView();
 
             if (View is FrameworkElement element)
