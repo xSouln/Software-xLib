@@ -199,6 +199,11 @@ namespace xLibV100.UI
         {
             CellSizeChanged = null;
             UpdateEvent = null;
+            ViewUpdateEvent = null;
+            ApplyEvent = null;
+
+            ViewEventListener = null;
+            EventListener = null;
 
             if (models != null)
             {
@@ -209,6 +214,21 @@ namespace xLibV100.UI
                         disposable.Dispose();
                     }
                 }
+
+                models.Clear();
+            }
+
+            if (properties != null)
+            {
+                foreach (var property in properties)
+                {
+                    if (property is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                }
+
+                properties.Clear();
             }
         }
 
@@ -223,7 +243,14 @@ namespace xLibV100.UI
         public new TModel Model
         {
             get => model != null ? (TModel)model : null;
-            set => model = value;
+            set
+            {
+                if (value != model)
+                {
+                    model = value;
+                    OnPropertyChanged(nameof(Model), model);
+                }
+            }
         }
 
         public ViewModelBase(TModel model)
@@ -235,10 +262,11 @@ namespace xLibV100.UI
         }
     }
 
-    public class ViewModelBase<TModel, TView> : ViewModelBase<TModel> where TModel : class where TView : class
+    public class ViewModelBase<TModel, TView> : ViewModelBase<TModel> where TModel : class where TView : class, new()
     {
         public ViewModelBase(TModel model) : base(model)
         {
+            View = new TView();
             /*View = new TView();
 
             if (View is FrameworkElement element)

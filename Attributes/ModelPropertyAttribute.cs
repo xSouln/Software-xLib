@@ -8,7 +8,7 @@ namespace xLibV100.Controls
         None = 0,
 
         ReadOnly = 1 << 0,
-
+        BitsField = 1 << 1,
     }
 
     /// <summary>
@@ -39,5 +39,7 @@ namespace xLibV100.Controls
         public ModelPropertyFlags Flags;
 
         public bool ReadOnly => (Flags & ModelPropertyFlags.ReadOnly) > 0;
+
+        public bool IsBitsField => (Flags & ModelPropertyFlags.BitsField) > 0;
     }
 }

@@ -268,8 +268,17 @@
     <Compile Include="UI\TemplateSelectors\UniversalCellTemplateSelector.cs" />
     <Compile Include="UI\UINotifyPropertyChanged.cs" />
     <Compile Include="UI\UIProperty.cs" />
+    <Compile Include="UI\ViewElements\BitFieldButtonViewElement.xaml.cs">
+      <DependentUpon>BitFieldButtonViewElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ViewElements\BitsFieldViewElement.xaml.cs">
+      <DependentUpon>BitsFieldViewElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewElements\ToggleButtonViewElement.xaml.cs">
       <DependentUpon>ToggleButtonViewElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ViewElements\ViewElementsPresenter.xaml.cs">
+      <DependentUpon>ViewElementsPresenter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ViewModelBase.cs" />
     <Compile Include="UI\Views\Interfaces\IViewBase.cs" />
@@ -296,6 +305,9 @@
     </Compile>
     <Compile Include="Windows\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DialogWindowPresenter.xaml.cs">
+      <DependentUpon>DialogWindowPresenter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowConfirmation.xaml.cs">
       <DependentUpon>WindowConfirmation.xaml</DependentUpon>
@@ -357,9 +369,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\ViewElements\BitFieldButtonViewElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ViewElements\BitsFieldViewElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ViewElements\ToggleButtonViewElement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ViewElements\ViewElementsPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Views\LabelView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -390,6 +414,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\DialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DialogWindowPresenter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

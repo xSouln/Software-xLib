@@ -12,15 +12,36 @@ using System.Windows.Input;
 using xLibV100.Controls;
 using xLibV100.Windows;
 using xLibV100.UI.Views;
+using System.ComponentModel;
+using xLib.UI.ViewElements;
+using System.Runtime.InteropServices;
 
 namespace xLibV100.Common.UI
 {
     public class MediatorViewModel : ViewModelBase<object, FrameworkElement>, ICellElement
     {
+        [Flags]
+        protected enum ParseOptionsFlags
+        {
+            None = 0,
+
+            ReadOnly = 1 << 0,
+            WriteOnly = 1 << 1,
+        }
+
         public class Options
         {
             public object Model;
             public object[] Descriptions;
+        }
+
+        protected class ParseOptions
+        {
+            public ParseOptionsFlags Flags;
+            public ModelPropertyAttribute Attribute;
+            public PropertyInfo Info;
+            public string PropertyName;
+            public string ColumnName;
         }
 
         public string CellElementKey { get; set; }
@@ -45,19 +66,19 @@ namespace xLibV100.Common.UI
         }
 
         public ObservableCollection<ContextMenuElement> ListViewContextMenuCommands { get; set; } = new ObservableCollection<ContextMenuElement>();
-        public ObservableCollection<CommandElement> Commands { get; set; } = new ObservableCollection<CommandElement>();
+        public ObservableCollection<RelayCommand> Commands { get; set; } = new ObservableCollection<RelayCommand>();
 
-        protected void AddProperty(object model, ModelPropertyAttribute attribute, PropertyInfo info, string propertyName, string columnName)
+        protected void AddProperty(object model, ParseOptions options)
         {
             ListViewRow row = null;
 
             foreach (ListViewRow item in properties.Cast<ListViewRow>())
             {
-                if (item.Name == info.Name)
+                if (item.Name == options.Info.Name)
                 {
                     foreach (var element in item.Elements)
                     {
-                        if (element.PropertyName == propertyName)
+                        if (element.PropertyName == options.PropertyName)
                         {
                             return;
                         }
@@ -70,30 +91,34 @@ namespace xLibV100.Common.UI
 
             if (row == null)
             {
-                row = new ListViewRow(propertyName);
+                row = new ListViewRow(options.PropertyName);
             }
 
-            if (columnName == null)
+            if (options.ColumnName == null)
             {
-                columnName = "Value";
+                options.ColumnName = "Value";
             }
 
-            if (attribute != null && attribute.ReadOnly)
+            if (options.Attribute != null && options.Attribute.ReadOnly)
             {
-                row.AddElement(new ContentControlCellElement(model, propertyName, columnName));
+                row.AddElement(new ContentControlCellElement(model, options.PropertyName, options.ColumnName));
 
             }
-            else if (info.PropertyType == typeof(bool))
+            else if (options.Info.PropertyType == typeof(bool))
             {
-                row.AddElement(new UserTemplateCellElement(model, propertyName, columnName, typeof(ToggleButtonViewElement)));
+                row.AddElement(new UserTemplateCellElement(model, options.PropertyName, options.ColumnName, typeof(ToggleButtonViewElement)));
             }
-            else if (info.PropertyType.IsClass && info.PropertyType != typeof(string))
+            else if (options.Info.PropertyType.IsEnum && options.Attribute.IsBitsField)
+            {
+                row.AddElement(new BitFieldCellElement(model, options.Info, options.PropertyName, options.ColumnName));
+            }
+            else if (options.Info.PropertyType.IsClass && options.Info.PropertyType != typeof(string))
             {
                 return;
             }
-            else if (typeof(ICollection).IsAssignableFrom(info.PropertyType))
+            else if (typeof(ICollection).IsAssignableFrom(options.Info.PropertyType))
             {
-                ICollection collection = (ICollection)info.GetValue(model);
+                ICollection collection = (ICollection)options.Info.GetValue(model);
 
                 foreach (var element in collection)
                 {
@@ -106,7 +131,7 @@ namespace xLibV100.Common.UI
                         }
                     });
 
-                    viewModel.Name = columnName;
+                    viewModel.Name = options.ColumnName;
                     viewModel.ViewEventListener += SubViewEventListener;
 
                     Properties.Add(viewModel);
@@ -116,7 +141,7 @@ namespace xLibV100.Common.UI
             }
             else
             {
-                row.AddElement(new TextBoxCellElement(model, propertyName, columnName) { Parent = this });
+                row.AddElement(new TextBoxCellElement(model, options.PropertyName, options.ColumnName) { Parent = this });
             }
 
             Properties.Add(row);
@@ -148,17 +173,14 @@ namespace xLibV100.Common.UI
                     var viewModel = new MediatorViewModel<UniversalListView>(this);
                     WindowViewPresenter viewPresenter = new WindowViewPresenter(viewModel.View);
 
-                    viewModel.Commands.Add(new CommandElement
+                    viewModel.Commands.Add(new RelayCommand((command, parameter) =>
+                    {
+                        WindowViewPresenter windowViewPresenter = command.Content as WindowViewPresenter;
+                        windowViewPresenter.DialogResult = true;
+                    })
                     {
                         Name = "Apply",
-                        Command = new RelayCommand((command, parameter) =>
-                        {
-                            WindowViewPresenter windowViewPresenter = command.Content as WindowViewPresenter;
-                            windowViewPresenter.DialogResult = true;
-                        })
-                        {
-                            Content = viewPresenter
-                        },
+                        Content = viewPresenter
                     });
 
                     viewModel.ApplyOptions(new Options[]
@@ -167,8 +189,6 @@ namespace xLibV100.Common.UI
                     });
 
                     viewPresenter.ShowDialog();
-
-
                 }
 
                 method.Invoke(model, methodParameters.ToArray());
@@ -204,10 +224,9 @@ namespace xLibV100.Common.UI
                 {
                     if (function.GetCustomAttribute(typeof(ModelFunctionAttribute)) is ModelFunctionAttribute attribute)
                     {
-                        viewModel.Commands.Add(new CommandElement
+                        viewModel.Commands.Add(new RelayCommand(viewModel.RelayCommandHandler)
                         {
-                            Name = attribute.Name == null ? function.Name : attribute.Name,
-                            Command = new RelayCommand(viewModel.RelayCommandHandler) { Parameters = new object[] { model, function } },
+                            Name = attribute.Name ?? function.Name,
                             Parameters = new object[] { model, function }
                         });
                     }
@@ -261,12 +280,119 @@ namespace xLibV100.Common.UI
 
                         if (Description.Group == propertyAttribute.Group || Description.Group == null)
                         {
-                            viewModel.AddProperty(model, propertyAttribute, property, property.Name, propertyAttribute.Group);
+                            ParseOptions parseOptions = new ParseOptions();
+                            parseOptions.Attribute = propertyAttribute;
+                            parseOptions.Info = property;
+                            parseOptions.PropertyName = property.Name;
+                            parseOptions.ColumnName = propertyAttribute.Group;
+
+                            viewModel.AddProperty(model, parseOptions);
                         }
                     }
                 }
 
                 return 0;
+            }
+        }
+
+        public class BitFieldCellElement : UserTemplateCellElement
+        {
+            public ObservableCollection<BitFieldProperty> Field { get; set; } = new ObservableCollection<BitFieldProperty>();
+
+            public BitFieldCellElement(object model, PropertyInfo property, string propertyName, string column) : base(model, propertyName, column, typeof(BitsFieldViewElement))
+            {
+                var enums = property.PropertyType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+                foreach (var enumElement in enums)
+                {
+                    Field.Add(new BitFieldProperty(model, property, enumElement.GetValue(null)));
+                }
+            }
+        }
+
+        public class BitFieldProperty : UINotifyPropertyChanged, IDisposable
+        {
+            private object model;
+            private ulong flagMask;
+            private object flagName;
+            private PropertyInfo propertyInfo;
+
+            public RelayCommand ClickCommand { get; set; }
+
+            public BitFieldProperty(object model, PropertyInfo propertyInfo, object flagMask)
+            {
+                this.model = model;
+                this.flagMask = Convert.ToUInt64(flagMask);
+                this.propertyInfo = propertyInfo;
+                flagName = flagMask;
+
+                ClickCommand = new RelayCommand(ClickCommandHandler);
+
+                if (model is UINotifyPropertyChanged notification)
+                {
+                    notification.PropertyChanged += OnPropertyChangedHandler;
+                }
+
+                OnPropertyChanged(nameof(FlagIsEnabled));
+                OnPropertyChanged(nameof(StateName));
+            }
+
+            private void ClickCommandHandler(object obj)
+            {
+                ulong value = Convert.ToUInt64(propertyInfo.GetValue(model));
+
+                if (flagMask == 0)
+                {
+                    propertyInfo.SetValue(model, 0);
+                }
+                else if ((value & flagMask) > 0)
+                {
+                    value &= ~flagMask;
+                    propertyInfo.SetValue(model, Enum.ToObject(propertyInfo.PropertyType, value));
+                }
+                else
+                {
+                    value |= flagMask;
+                    propertyInfo.SetValue(model, Enum.ToObject(propertyInfo.PropertyType, value));
+                }
+            }
+
+            private void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == propertyInfo.Name)
+                {
+                    OnPropertyChanged(nameof(FlagIsEnabled));
+                    OnPropertyChanged(nameof(StateName));
+                }
+            }
+
+            public string StateName
+            {
+                get
+                {
+                    string state = FlagIsEnabled ? " Is Enabled" : " Is Disabled";
+
+                    return "" + flagName + state;
+                }
+            }
+
+
+            public bool FlagIsEnabled
+            {
+                get
+                {
+                    var value = Convert.ToUInt64(propertyInfo.GetValue(model));
+                    
+                    return flagMask == 0 ? value == 0 : (value & flagMask) == flagMask;
+                }
+            }
+
+            public void Dispose()
+            {
+                if (model is UINotifyPropertyChanged notification)
+                {
+                    notification.PropertyChanged -= OnPropertyChangedHandler;
+                }
             }
         }
 
@@ -319,7 +445,12 @@ namespace xLibV100.Common.UI
                             case string groupe:
                                 foreach (var property in propterties)
                                 {
-                                    AddProperty(option.Model, null, property, property.Name, groupe);
+                                    ParseOptions parseOptions = new ParseOptions();
+                                    parseOptions.Info = property;
+                                    parseOptions.PropertyName = property.Name;
+                                    parseOptions.ColumnName = groupe;
+
+                                   AddProperty(option.Model, parseOptions);
                                 }
                                 break;
 
@@ -378,6 +509,20 @@ namespace xLibV100.Common.UI
 
     public class MediatorViewModel<TView> : MediatorViewModel where TView : FrameworkElement, new()
     {
+        public new TView View
+        {
+            get => view as TView;
+            set
+            {
+                if (value != view)
+                {
+                    view = value;
+                    OnPropertyChanged(nameof(View));
+                    OnPropertyChanged(nameof(UIModel));
+                }
+            }
+        }
+
         public MediatorViewModel(object model) : base(model)
         {
             View = new TView
@@ -402,6 +547,34 @@ namespace xLibV100.Common.UI
             frameworkElement.SetValue(FrameworkElement.DataContextProperty, this);
 
             Template = new DataTemplate { VisualTree = frameworkElement };
+        }
+    }
+
+    public class MediatorViewModel<TModel, TView> : MediatorViewModel<TView>
+        where TView : FrameworkElement, new()
+        where TModel : class
+    {
+        public new TModel Model
+        {
+            get => model as TModel;
+            set
+            {
+                if (value != model)
+                {
+                    model = value;
+                    OnPropertyChanged(nameof(Model), model);
+                }
+            }
+        }
+
+        public MediatorViewModel(object model) : base(model)
+        {
+
+        }
+
+        public MediatorViewModel(object model, Options[] options) : base(model, options)
+        {
+
         }
     }
 }

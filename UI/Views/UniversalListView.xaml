@@ -70,7 +70,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding Name}"
-                    Command="{Binding Command}"
+                    Command="{Binding }"
                     Style="{StaticResource ButtonStyle1}"
                     MinWidth="200"
                     Margin="5"/>

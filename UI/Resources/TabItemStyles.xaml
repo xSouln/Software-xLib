@@ -93,9 +93,10 @@
                                     <Setter Property="FontSize" Value="{Binding Path=FontSize, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                     <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                     <Setter Property="BorderBrush" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
-                                    <Setter Property="Height" Value="33"/>
-                                    <Setter Property="MinWidth" Value="150"/>
+                                    <Setter Property="Height" Value="auto"/>
+                                    <Setter Property="MinHeight" Value="33"/>
                                     <Setter Property="Width" Value="auto"/>
+                                    <Setter Property="MinWidth" Value="150"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
@@ -172,8 +173,10 @@
                                         <Setter Property="FontSize" Value="{Binding Path=FontSize, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                         <Setter Property="BorderBrush" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
-                                        <Setter Property="Height" Value="33"/>
-                                        <Setter Property="Width" Value="150"/>
+                                        <Setter Property="Height" Value="auto"/>
+                                        <Setter Property="MinHeight" Value="33"/>
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="MinWidth" Value="150"/>
                                         <Setter Property="HorizontalAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                     </Style>
@@ -220,8 +223,10 @@
                                         <Setter Property="FontSize" Value="{Binding Path=FontSize, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
                                         <Setter Property="BorderBrush" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"/>
-                                        <Setter Property="Height" Value="33"/>
-                                        <Setter Property="Width" Value="150"/>
+                                        <Setter Property="Height" Value="auto"/>
+                                        <Setter Property="MinHeight" Value="33"/>
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="MinWidth" Value="150"/>
                                         <Setter Property="HorizontalAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                     </Style>

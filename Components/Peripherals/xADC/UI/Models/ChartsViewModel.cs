@@ -11,7 +11,7 @@ using static xLibV100.Peripherals.xADC.Models.Charts;
 
 namespace xLibV100.Peripherals.xADC.UI.Models
 {
-    public class ChartsViewModel : ViewModelBase<Charts, IChartsView>, IChartsViewModel
+    public class ChartsViewModel : ViewModelBase<Charts, ChartsView>, IChartsViewModel
     {
         //public virtual System.Windows.Forms.DataVisualization.Charting.Chart Chart { get; set; }
         public virtual System.Windows.Forms.DataVisualization.Charting.Series S1 { get; set; }
@@ -87,14 +87,14 @@ namespace xLibV100.Peripherals.xADC.UI.Models
             chart.Series.Add(S1);
             chart.Update();
 
-            var view = new ChartsView(this);
-            View = view;
+            //var view = new ChartsView(this);
+            //View = view;
 
             View.HostElement = WindowChat;
 
             //model.Channels[0].PointsEventUpdate += PointsEventUpdate;
 
-            UIModel = view;
+            UIModel = View;
 
             //UpdateGraphThread = new Thread(UpdateGraph);
             //UpdateGraphThread.Start();

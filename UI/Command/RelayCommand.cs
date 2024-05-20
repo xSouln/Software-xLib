@@ -5,6 +5,7 @@ namespace xLibV100.UI
 {
     public class RelayCommand : ICommand
     {
+        private string name;
         private readonly Action<object> _execute;
         private readonly Action<RelayCommand, object> _extansionExecute;
         private readonly Func<object, bool> _canExecute;
@@ -15,6 +16,12 @@ namespace xLibV100.UI
         {
             get => content;
             set => content = value;
+        }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
         }
 
         public object[] Parameters;
