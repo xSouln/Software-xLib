@@ -72,8 +72,7 @@
                     <Button Content="{Binding Name}"
                     Command="{Binding }"
                     Style="{StaticResource ButtonStyle1}"
-                    MinWidth="200"
-                    Margin="5"/>
+                    MinWidth="200" Margin="0,0,0,5"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

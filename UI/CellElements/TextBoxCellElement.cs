@@ -11,6 +11,8 @@ namespace xLibV100.UI.CellElements
 
         public string Name => throw new System.NotImplementedException();
 
+        public FrameworkElementFactory Element => frameworkElement;
+
         public TextBoxCellElement(object model, string propertyName, string column)
         {
             Model = model;
@@ -35,6 +37,11 @@ namespace xLibV100.UI.CellElements
             frameworkElement.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(TextChangedEventHandler));
 
             Template = new DataTemplate { VisualTree = frameworkElement };
+        }
+
+        public TextBoxCellElement(object model, string propertyName, string column, bool readOnly) : this(model, propertyName, column)
+        {
+            frameworkElement.SetBinding(TextBox.TextProperty, new Binding { Path = new PropertyPath(nameof(Model) + "." + propertyName), Mode = readOnly ? BindingMode.OneWay : BindingMode.Default });
         }
 
         private void TextChangedEventHandler(object sender, TextChangedEventArgs e)
