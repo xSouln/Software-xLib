@@ -157,6 +157,11 @@ namespace xLibV100.Net
                     incomingClient.ConnectionStateChanged += IncomingClientConnectionChangedHandler;
                     incomingClient.PacketReceiver += IncomingClientPacketReceiverHandler;
 
+                    foreach (var bridge in bridges)
+                    {
+                        incomingClient.AddBridge(bridge);
+                    }
+
                     if (incomingClient.Connect(client) == PortResult.Accept)
                     {
                         addPortSynchronizer.WaitOne();
@@ -183,6 +188,16 @@ namespace xLibV100.Net
         private void IncomingClientPacketReceiverHandler(PortBase port, ReceivedPacketHandlerArg arg)
         {
             OnReceive(port, arg);
+
+            /*int index = SubPorts.IndexOf(port);
+            if (index != -1)
+            {
+                iReceive(arg);
+            }
+            else
+            {
+                OnReceive(port, arg);
+            }*/
         }
 
         private void IncomingClientConnectionChangedHandler(PortBase port, ConnectionStateChangedEventHandlerArg arg)
@@ -277,6 +292,16 @@ namespace xLibV100.Net
             });
 
             return result;
+        }
+
+        public override PortResult Send(byte[] data, int offset, int size)
+        {
+            foreach (var port in SubPorts)
+            {
+                port.Send(data, offset, size);
+            }
+
+            return PortResult.Error;
         }
     }
 }

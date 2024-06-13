@@ -13,6 +13,7 @@ namespace xLibV100.Transceiver
         TransmiteError,
         TransmiteActionError,
         Busy,
+        Cancelled,
         AddError
     }
 

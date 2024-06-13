@@ -1,4 +1,5 @@
-﻿using xLibV100.Transceiver;
+﻿using System.Collections.Generic;
+using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions.Common
 {
@@ -12,15 +13,14 @@ namespace xLibV100.Transactions.Common
 
         public unsafe object Recieve(RxPacketManager manager, xContent content)
         {
-            TValue* values = (TValue*)content.Data;
+            List<TValue> elements = new List<TValue>();
 
-            int count = content.DataSize / sizeof(TValue);
-            Values = new TValue[count];
-
-            for (int i = 0; i < count; i++)
+            while (content.Get(out TValue element) == 0)
             {
-                Values[i] = values[i];
+                elements.Add(element);
             }
+
+            Values = elements.ToArray();
 
             return this;
         }

@@ -1,11 +1,8 @@
 ﻿using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Server;
-using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using xLibV100.Ports;
@@ -40,6 +37,29 @@ namespace xLibV100.Net.MQTT
             mqttClient.ApplicationMessageReceivedAsync += ApplicationMessageReceivedAsync;
 
             SubPorts.CollectionChanged += (sender, e) => { OnPropertyChanged(nameof(NumberOfTopics)); };
+        }
+
+        public override async void Dispose()
+        {
+            base.Dispose();
+
+            if (mqttClient != null)
+            {
+                foreach (var subport in SubPorts)
+                {
+                    subport.ValuePropertyChanged -= SubPortPropertyValueChangedHandler;
+                }
+
+                mqttClient.ConnectedAsync -= ConnectedAsync;
+                mqttClient.ConnectingAsync -= ConnectingAsync;
+                mqttClient.DisconnectedAsync -= DisconnectedAsync;
+                mqttClient.ApplicationMessageReceivedAsync -= ApplicationMessageReceivedAsync;
+
+                cancelTokenSource?.Cancel();
+                await mqttClient.DisconnectAsync();
+                mqttClient.Dispose();
+                mqttClient = null;
+            }
         }
 
         public MqttClient(PortBase port) : this()
@@ -86,7 +106,7 @@ namespace xLibV100.Net.MQTT
             return Task.CompletedTask;
         }
 
-        private Task ConnectedAsync(MqttClientConnectedEventArgs arg)
+        private async Task ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             synchronize?.WaitOne();
             State = States.Connected;
@@ -96,11 +116,11 @@ namespace xLibV100.Net.MQTT
             {
                 if (element is MqttTopic port && port.TopicName != null && port.IsSubscribed)
                 {
-                    mqttClient.SubscribeAsync(port.TopicName);
+                    MqttClientSubscribeResult result = await mqttClient.SubscribeAsync(port.TopicName);
                 }
             }
 
-            return Task.CompletedTask;
+            //return Task.CompletedTask;
         }
 
         [PortProperty(Name = nameof(Address), Key = "Options")]
@@ -271,7 +291,6 @@ namespace xLibV100.Net.MQTT
                 .WithTcpServer(Address, Port)
                 .WithClientId(Id.ToString())
                 .WithWillQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
-                //.WithCredentials("roehrgwl", "hwIdm3L4VljF")
                 .Build();
 
                 State = States.Connecting;
@@ -342,24 +361,6 @@ namespace xLibV100.Net.MQTT
             }
 
             return PortResult.Accept;
-        }
-
-        public override async void Dispose()
-        {
-            base.Dispose();
-
-            if (mqttClient != null)
-            {
-                foreach (var subport in SubPorts)
-                {
-                    subport.ValuePropertyChanged -= SubPortPropertyValueChangedHandler;
-                }
-
-                cancelTokenSource?.Cancel();
-                await mqttClient.DisconnectAsync();
-                mqttClient.Dispose();
-                mqttClient = null;
-            }
         }
     }
 }

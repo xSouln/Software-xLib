@@ -25,6 +25,7 @@ namespace xLibV100.Transceiver
         protected byte[] data;
         protected Stopwatch stopwatchResponseTime = new Stopwatch();
         protected CancellationToken cancellationToken;
+        protected bool isFinished;
 
         public int ResponseTimeOut => responseTimeOut;
         public int ResponseTime => responseTime;
@@ -185,7 +186,7 @@ namespace xLibV100.Transceiver
         {
             coreSynchronize.WaitOne();
 
-            status = TxStatus.Free;
+            status = TxStatus.Cancelled;
             responseSynchronize?.Set();
             Handle?.Remove(this);
 
@@ -209,12 +210,16 @@ namespace xLibV100.Transceiver
                 goto end;
             }
 
+            isFinished = false;
+
             this.transmitter = port.Send;
             this.tryCount = tryCount;
             this.responseTimeOut = responseTimeOut;
             this.tryNumber = 0;
 
             await Task.Run(() => Transmit());
+
+            isFinished = true;
 
         end:;
             txSynchronize.Set();
@@ -243,6 +248,8 @@ namespace xLibV100.Transceiver
                 goto end;
             }
 
+            isFinished = false;
+
             this.transmitter = port.Send;
             this.tryCount = tryCount;
             this.responseTimeOut = responseTimeOut;
@@ -250,6 +257,8 @@ namespace xLibV100.Transceiver
             this.cancellationToken = cancellation;
 
             await Task.Run(() => Transmit(), cancellation);
+
+            isFinished = true;
 
         end:;
             txSynchronize.Set();
@@ -277,6 +286,8 @@ namespace xLibV100.Transceiver
                 goto end;
             }
 
+            isFinished = false;
+
             this.transmitter = port.Send;
             this.tryCount = tryCount;
             this.responseTimeOut = responseTimeOut;
@@ -284,11 +295,26 @@ namespace xLibV100.Transceiver
 
             Transmit();
 
+            isFinished = true;
+
         end:;
             txSynchronize.Set();
 
             return this;
         }
+
+
+        public async Task Await()
+        {
+            await Task.Run(() =>
+            {
+                while (!isFinished)
+                {
+
+                }
+            });
+        }
+
 
         public void Dispose()
         {

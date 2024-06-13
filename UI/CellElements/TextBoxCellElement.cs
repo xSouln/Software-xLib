@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using xLibV100.UI;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -41,7 +40,12 @@ namespace xLibV100.UI.CellElements
 
         public TextBoxCellElement(object model, string propertyName, string column, bool readOnly) : this(model, propertyName, column)
         {
-            frameworkElement.SetBinding(TextBox.TextProperty, new Binding { Path = new PropertyPath(nameof(Model) + "." + propertyName), Mode = readOnly ? BindingMode.OneWay : BindingMode.Default });
+            frameworkElement.SetValue(TextBox.IsReadOnlyProperty, readOnly);
+            frameworkElement.SetBinding(TextBox.TextProperty, new Binding
+            {
+                Path = new PropertyPath(nameof(Model) + "." + propertyName),
+                Mode = readOnly ? BindingMode.OneWay : BindingMode.Default
+            });
         }
 
         private void TextChangedEventHandler(object sender, TextChangedEventArgs e)

@@ -101,6 +101,15 @@
     <Compile Include="Common\xMemory.cs" />
     <Compile Include="Common\xSupport.cs" />
     <Compile Include="Components\MQTT\Broker\Control.cs" />
+    <Compile Include="Net\MQTT\MqttBroker.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />
+    <Compile Include="Net\MQTT\MqttBrokerTopicOptions.cs" />
+    <Compile Include="Net\MQTT\MqttClient.cs" />
+    <Compile Include="Net\MQTT\MqttClientOptions.cs" />
+    <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
+    <Compile Include="Net\MQTT\MqttTopic.cs" />
+    <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
     <Compile Include="Transactions\Common\ActionResult.cs" />
     <Compile Include="Components\Peripherals\xADC\Control.cs" />
     <Compile Include="Components\Peripherals\xADC\Info.cs" />
@@ -182,15 +191,6 @@
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ModelBase.cs" />
     <Compile Include="Controls\Results.cs" />
-    <Compile Include="Net\MQTT\MqttBroker.cs" />
-    <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
-    <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />
-    <Compile Include="Net\MQTT\MqttBrokerTopicOptions.cs" />
-    <Compile Include="Net\MQTT\MqttClient.cs" />
-    <Compile Include="Net\MQTT\MqttClientOptions.cs" />
-    <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
-    <Compile Include="Net\MQTT\MqttTopic.cs" />
-    <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
     <Compile Include="Net\TCP\TCPClient.cs" />
     <Compile Include="Net\TCP\TCPClientOptions.cs" />
     <Compile Include="Net\TCP\TCPServer.cs" />
@@ -256,6 +256,7 @@
     <Compile Include="UI\Interfaces\IPortsViewModel.cs" />
     <Compile Include="UI\Interfaces\ISubscriptionOfPortViewModel.cs" />
     <Compile Include="UI\Models\MediatorViewModel.cs" />
+    <Compile Include="UI\Models\MediatorViewModelParser.cs" />
     <Compile Include="UI\Models\PortInfoViewModel.cs" />
     <Compile Include="UI\Models\PortOptionsViewModel.cs" />
     <Compile Include="UI\Models\PortsViewModel.cs" />
@@ -268,11 +269,11 @@
     <Compile Include="UI\TemplateSelectors\UniversalCellTemplateSelector.cs" />
     <Compile Include="UI\UINotifyPropertyChanged.cs" />
     <Compile Include="UI\UIProperty.cs" />
-    <Compile Include="UI\ViewElements\BitFieldButtonViewElement.xaml.cs">
-      <DependentUpon>BitFieldButtonViewElement.xaml</DependentUpon>
+    <Compile Include="UI\ViewElements\BitsFieldControlViewElement.xaml.cs">
+      <DependentUpon>BitsFieldControlViewElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ViewElements\BitsFieldViewElement.xaml.cs">
-      <DependentUpon>BitsFieldViewElement.xaml</DependentUpon>
+    <Compile Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml.cs">
+      <DependentUpon>BitsFieldIndicatorViewElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ViewElements\ToggleButtonViewElement.xaml.cs">
       <DependentUpon>ToggleButtonViewElement.xaml</DependentUpon>
@@ -369,11 +370,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ViewElements\BitFieldButtonViewElement.xaml">
+    <Page Include="UI\ViewElements\BitsFieldControlViewElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ViewElements\BitsFieldViewElement.xaml">
+    <Page Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

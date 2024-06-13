@@ -14,6 +14,7 @@ namespace xLibV100.Net.MQTT
 
         public event xPropertyChangedEventHandler<MqttTopic, xPropertyChangedEventHandlerArgs> PropertyChangedEvent;
 
+
         [PortProperty(Name = nameof(TopicName), Key = "Options")]
         public string TopicName
         {

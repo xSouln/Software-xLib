@@ -24,6 +24,16 @@ namespace xLibV100.Windows
             DataContext = this;
         }
 
+        public DialogWindowPresenter(UIElement view) : this()
+        {
+            View = view;
+        }
+
+        public DialogWindowPresenter(ViewModelBase viewModel) : this()
+        {
+            ViewModel = viewModel;
+        }
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

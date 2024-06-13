@@ -5,9 +5,9 @@ namespace xLib.UI.ViewElements
     /// <summary>
     /// Логика взаимодействия для BitsFieldElementPresenter.xaml
     /// </summary>
-    public partial class BitsFieldViewElement : UserControl
+    public partial class BitsFieldControlViewElement : UserControl
     {
-        public BitsFieldViewElement()
+        public BitsFieldControlViewElement()
         {
             InitializeComponent();
         }
