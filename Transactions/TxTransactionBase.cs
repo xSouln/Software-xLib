@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using xLibV100.Common;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions
@@ -93,7 +94,7 @@ namespace xLibV100.Transactions
             transaction.ResponseReceiver += ResponseReceiver;
             transaction.Id = (uint)new Random().Next();
 
-            List<byte> request_data = new List<byte>();
+            List<byte> packet = new List<byte>();
 
             PacketInfoT info = new PacketInfoT
             {
@@ -101,11 +102,11 @@ namespace xLibV100.Transactions
                 RequestId = transaction.Id
             };
 
-            PacketBase.Add(request_data, RequestHeader);
-            PacketBase.Add(request_data, info);
-            PacketBase.Add(request_data, EndPacket);
+            PacketBase.Add(packet, RequestHeader);
+            PacketBase.Add(packet, info);
+            PacketBase.Add(packet, EndPacket);
 
-            transaction.Data = request_data.ToArray();
+            transaction.Data = packet.ToArray();
             transaction.handle = handle;
 
             return transaction;
@@ -202,21 +203,23 @@ namespace xLibV100.Transactions
             transaction.Id = (uint)random.Next();
             randomSynchronize.Set();
 
-            List<byte> request_data = new List<byte>();
+            List<byte> packet = new List<byte>();
+            List<byte> content = new List<byte>();
+            request.Add(content);
 
             PacketInfoT info = new PacketInfoT
             {
                 Action = (ushort)(object)action,
-                ContentSize = (ushort)request.GetSize(),
+                ContentSize = (ushort)content.Count,
                 RequestId = transaction.Id
             };
 
-            PacketBase.Add(request_data, RequestHeader);
-            PacketBase.Add(request_data, info);
-            PacketBase.Aggregate(request_data, request);
-            PacketBase.Add(request_data, EndPacket);
+            xMemory.Add(packet, RequestHeader);
+            xMemory.Add(packet, info);
+            xMemory.Add(packet, content);
+            xMemory.Add(packet, EndPacket);
 
-            transaction.Data = request_data.ToArray();
+            transaction.Data = packet.ToArray();
             transaction.handle = handle;
 
             return transaction;

@@ -70,7 +70,6 @@ namespace xLibV100.Common.UI
         }
 
         public ObservableCollection<ContextMenuElement> ListViewContextMenuCommands { get; set; } = new ObservableCollection<ContextMenuElement>();
-        public ObservableCollection<RelayCommand> Commands { get; set; } = new ObservableCollection<RelayCommand>();
 
         protected void AddProperty(object model, ParseOptions options)
         {
@@ -127,6 +126,17 @@ namespace xLibV100.Common.UI
                 else
                 {
                     row.AddElement(new BitFieldCellElement(model, options.Info, options.PropertyName, options.ColumnName, (options.Flags & ParseOptionsFlags.SetReadTemplate) == 0));
+                }
+            }
+            else if (options.Info.PropertyType.IsEnum)
+            {
+                if ((options.Flags & ParseOptionsFlags.SetReadTemplate) > 0)
+                {
+                    row.AddElement(new ContentControlCellElement(model, options.PropertyName, options.ColumnName));
+                }
+                else
+                {
+                    row.AddElement(new EnumCellElement(model, options.Info, options.ColumnName));
                 }
             }
             else if (options.Info.PropertyType.IsClass && options.Info.PropertyType != typeof(string))
@@ -343,6 +353,28 @@ namespace xLibV100.Common.UI
                 {
                     Field.Add(new BitFieldProperty(model, property, enumElement.GetValue(null)));
                 }
+            }
+        }
+
+        public class EnumCellElement : UserTemplateCellElement
+        {
+            protected PropertyInfo propertyInfo;
+
+            public List<object> EnumValues { get; set; }
+
+            public object SelectedValue
+            {
+                get => propertyInfo.GetValue(Model);
+                set => propertyInfo.SetValue(Model, value);
+            }
+
+            public EnumCellElement(object model, PropertyInfo property, string column)
+                : base(model, property.Name, column, typeof(EnumCellViewElement))
+            {
+                propertyInfo = property;
+                EnumValues = Enum.GetValues(property.PropertyType).Cast<object>().ToList();
+
+                //SelectedValue = default(property);
             }
         }
 

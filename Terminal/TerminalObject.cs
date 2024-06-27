@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using xLibV100.Components;
 using xLibV100.Ports;
+using xLibV100.Transactions;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Controls
@@ -13,6 +15,8 @@ namespace xLibV100.Controls
     {
         protected Task updateStatesTask;
         protected CancellationTokenSource updateStatesTaskTokenSource;
+        protected CancellationTokenSource transactionRequestsHandlerTokenSource = new CancellationTokenSource();
+        protected AutoResetEvent transactionSynchronize;
         protected PortBase selectedPort;
         protected PortBase lastSelectedPort;
         protected int UpdateStatePeriod = 800;
@@ -20,6 +24,8 @@ namespace xLibV100.Controls
 
         public event PropertyChangedEventHandler<TerminalObject, PortBase> SelectedPortChanged;
         public event xPropertyChangedEventHandler<PortBase, ConnectionStateChangedEventHandlerArg> SelectedPortConnectionChanged;
+
+        protected List<TerminalTransactionRequest> transactionRequests = new List<TerminalTransactionRequest>();
 
         public ObservableCollection<PortBase> Ports { get; protected set; } = new ObservableCollection<PortBase>();
 
@@ -32,9 +38,50 @@ namespace xLibV100.Controls
             Terminal = model;
 
             updateStatesTaskTokenSource = new CancellationTokenSource();
+            transactionSynchronize = new AutoResetEvent(true);
             updateStatesTask = Task.Run(StateUpdateTask, updateStatesTaskTokenSource.Token);
 
             //Ports.CollectionChanged += PortsCollectionChanged;
+            Task.Run(TransactionRequestHandler, transactionRequestsHandlerTokenSource.Token);
+        }
+
+        protected async void TransactionRequestHandler()
+        {
+            while (true)
+            {
+                transactionSynchronize.WaitOne();
+
+                TerminalTransactionRequest element = null;
+
+                if (transactionRequests.Count > 0)
+                {
+                    element = transactionRequests[0];
+                }
+
+                transactionSynchronize.Set();
+
+                if (element != null)
+                {
+                    xTracer.Trace(await element.Transaction.TransmitAsync(SelectedPort, 1, 2000), element.Description);
+
+                    transactionSynchronize.WaitOne();
+                    transactionRequests.Remove(element);
+                    transactionSynchronize.Set();
+                }
+
+                await Task.Delay(1);
+            }
+        }
+
+        public int AddTransactionToLine(TxTransactionBase transaction, string description)
+        {
+            transactionSynchronize.WaitOne();
+
+            transactionRequests.Add(new TerminalTransactionRequest { Transaction = transaction, Description = description });
+
+            transactionSynchronize.Set();
+
+            return 0;
         }
 
         public uint Id
@@ -151,6 +198,9 @@ namespace xLibV100.Controls
         public override void Dispose()
         {
             base.Dispose();
+
+            transactionRequestsHandlerTokenSource.Cancel();
+            transactionRequestsHandlerTokenSource.Dispose();
 
             if (updateStatesTaskTokenSource != null)
             {

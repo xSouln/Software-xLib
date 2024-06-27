@@ -306,11 +306,11 @@ namespace xLibV100.Transceiver
 
         public async Task Await()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 while (!isFinished)
                 {
-
+                    await Task.Delay(1);
                 }
             });
         }

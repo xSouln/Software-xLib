@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace xLibV100.Common
@@ -71,6 +72,26 @@ namespace xLibV100.Common
                 }
 
                 return sizeof(TData) * data.Length;
+            }
+
+            return 0;
+        }
+
+        public static unsafe int Add<T>(List<byte> packet, ICollection<T> data) where T : unmanaged
+        {
+            if (packet != null && data != null && data.Count > 0)
+            {
+                foreach (T element in data)
+                {
+                    byte* ptr = (byte*)&element;
+
+                    for (int i = 0; i < sizeof(T); i++)
+                    {
+                        packet.Add(ptr[i]);
+                    }
+                }
+
+                return sizeof(T) * data.Count;
             }
 
             return 0;

@@ -110,6 +110,7 @@
     <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
     <Compile Include="Net\MQTT\MqttTopic.cs" />
     <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
+    <Compile Include="Terminal\TerminalTransactionRequest.cs" />
     <Compile Include="Transactions\Common\ActionResult.cs" />
     <Compile Include="Components\Peripherals\xADC\Control.cs" />
     <Compile Include="Components\Peripherals\xADC\Info.cs" />
@@ -275,6 +276,9 @@
     <Compile Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml.cs">
       <DependentUpon>BitsFieldIndicatorViewElement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ViewElements\EnumCellViewElement.xaml.cs">
+      <DependentUpon>EnumCellViewElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewElements\ToggleButtonViewElement.xaml.cs">
       <DependentUpon>ToggleButtonViewElement.xaml</DependentUpon>
     </Compile>
@@ -377,6 +381,10 @@
     <Page Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ViewElements\EnumCellViewElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ViewElements\ToggleButtonViewElement.xaml">
       <Generator>MSBuild:Compile</Generator>

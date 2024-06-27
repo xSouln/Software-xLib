@@ -18,7 +18,7 @@
                                         <Setter Property="Background" Value="#FF641818"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding FlagIsEnabled}" Value="False">
-                                        <Setter Property="Background" Value="#FF21662A"/>
+                                        <Setter Property="Background" Value="#FF434853"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -28,4 +28,4 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
-</UserControl>
+</UserControl> 

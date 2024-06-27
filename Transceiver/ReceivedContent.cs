@@ -40,5 +40,15 @@ namespace xLibV100.Transceiver
 
             return 0;
         }
+
+        public unsafe void Offset(int offset)
+        {
+            if (offset > DataSize)
+            {
+                offset = DataSize;
+            }
+
+            Data += offset;
+        }
     }
 }

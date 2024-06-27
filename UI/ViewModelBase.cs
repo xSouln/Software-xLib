@@ -60,6 +60,10 @@ namespace xLibV100.UI
         public event EventHandler<ChildWindowEventListenerArg> ViewEventListener;
         public event EventHandler<ViewModelEventListenerArg> EventListener;
 
+        public ObservableCollection<RelayCommand> Commands { get; set; } = new ObservableCollection<RelayCommand>();
+
+        public object SelectedModel { get; set; }
+
         public virtual void PropertyChangedRequestListener(object sender, object dataContext, object value, object description)
         {
 
