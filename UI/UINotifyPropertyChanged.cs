@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace xLibV100.UI
 {
-    public abstract class UINotifyPropertyChanged : INotifyPropertyChanged
+    public abstract class UINotifyPropertyChanged : INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// событие изменения значения свойства
@@ -27,6 +28,12 @@ namespace xLibV100.UI
                 Name = propertyName,
                 State = state
             });
+        }
+
+        public virtual void Dispose()
+        {
+            PropertyChanged = null;
+            ValuePropertyChanged = null;
         }
     }
 }

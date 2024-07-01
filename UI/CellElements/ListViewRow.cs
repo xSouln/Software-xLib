@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,7 +7,7 @@ using xLibV100.UI;
 
 namespace xLibV100.UI.CellElements
 {
-    public class ListViewRow : ICellElement
+    public class ListViewRow : ICellElement, IDisposable
     {
         public class Element : UINotifyPropertyChanged
         {
@@ -77,6 +78,17 @@ namespace xLibV100.UI.CellElements
         public virtual void TemplateLoaded(object sender, object component)
         {
 
+        }
+
+        public void Dispose()
+        {
+            foreach(var element in Elements)
+            {
+                if (element is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
         }
     }
 }

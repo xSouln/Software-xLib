@@ -19,14 +19,13 @@ namespace xLibV100.Controls
         protected AutoResetEvent transactionSynchronize;
         protected PortBase selectedPort;
         protected PortBase lastSelectedPort;
-        protected int UpdateStatePeriod = 800;
+        protected uint updateStatePeriod = 800;
         protected uint id;
 
         public event PropertyChangedEventHandler<TerminalObject, PortBase> SelectedPortChanged;
         public event xPropertyChangedEventHandler<PortBase, ConnectionStateChangedEventHandlerArg> SelectedPortConnectionChanged;
 
         protected List<TerminalTransactionRequest> transactionRequests = new List<TerminalTransactionRequest>();
-
         public ObservableCollection<PortBase> Ports { get; protected set; } = new ObservableCollection<PortBase>();
 
         public ObservableCollection<object> Models = new ObservableCollection<object>();
@@ -176,7 +175,7 @@ namespace xLibV100.Controls
                         time += (int)update_time.ElapsedMilliseconds;
                     }
 
-                    int delay = UpdateStatePeriod - time;
+                    int delay = (int)updateStatePeriod - time;
 
                     if (delay > 0)
                     {
@@ -199,6 +198,9 @@ namespace xLibV100.Controls
         {
             base.Dispose();
 
+            SelectedPortChanged = null;
+            SelectedPortConnectionChanged = null;
+
             transactionRequestsHandlerTokenSource.Cancel();
             transactionRequestsHandlerTokenSource.Dispose();
 
@@ -211,6 +213,30 @@ namespace xLibV100.Controls
                 }
                 updateStatesTaskTokenSource?.Dispose();
                 updateStatesTaskTokenSource = null;
+            }
+
+            foreach (var element in Models)
+            {
+                if (element is IDisposable model)
+                {
+                    model.Dispose();
+                }
+            }
+
+            Models.Clear();
+        }
+
+        [ModelProperty]
+        public uint UpdateStatePeriod
+        {
+            get => updateStatePeriod;
+            set
+            {
+                if (value != updateStatePeriod)
+                {
+                    updateStatePeriod = value;
+                    OnPropertyChanged(nameof(UpdateStatePeriod), updateStatePeriod);
+                }
             }
         }
     }

@@ -1,12 +1,11 @@
-﻿using System;
-using xLibV100.UI;
+﻿using xLibV100.UI;
 
 namespace xLibV100.Controls
 {
     /// <summary>
     /// класс определяющий базовый набор для модели
     /// </summary>
-    public abstract class ModelBase : UINotifyPropertyChanged, IDisposable
+    public abstract class ModelBase : UINotifyPropertyChanged
     {
         protected object parent;
         protected string name;
@@ -30,11 +29,6 @@ namespace xLibV100.Controls
         public virtual object GetParent()
         {
             return parent;
-        }
-
-        public virtual void Dispose()
-        {
-
         }
     }
 

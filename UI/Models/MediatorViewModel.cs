@@ -57,19 +57,22 @@ namespace xLibV100.Common.UI
 
         public string CellElementKey { get; set; }
 
+        public ObservableCollection<ContextMenuElement> ListViewContextMenuCommands { get; set; } = new ObservableCollection<ContextMenuElement>();
+
         public MediatorViewModel(object model) : base(model)
         {
 
         }
 
-        public class ContextMenuElement
+        public MediatorViewModel(object model, Options[] options) : this(model)
         {
-            public string DisplayName { get; set; }
-            public ICommand Command { get; set; }
-            public object Parameter { get; set; }
+            ApplyOptions(options);
         }
 
-        public ObservableCollection<ContextMenuElement> ListViewContextMenuCommands { get; set; } = new ObservableCollection<ContextMenuElement>();
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
 
         protected void AddProperty(object model, ParseOptions options)
         {
@@ -356,7 +359,7 @@ namespace xLibV100.Common.UI
             }
         }
 
-        public class EnumCellElement : UserTemplateCellElement
+        public class EnumCellElement : UserTemplateCellElement, IDisposable
         {
             protected PropertyInfo propertyInfo;
 
@@ -374,7 +377,30 @@ namespace xLibV100.Common.UI
                 propertyInfo = property;
                 EnumValues = Enum.GetValues(property.PropertyType).Cast<object>().ToList();
 
+                if (model is UINotifyPropertyChanged notifier)
+                {
+                    notifier.PropertyChanged += PropertyChangedHandler;
+                }
+
                 //SelectedValue = default(property);
+            }
+
+            private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == propertyInfo.Name)
+                {
+                    OnPropertyChanged(nameof(SelectedValue));
+                }
+            }
+
+            public override void Dispose()
+            {
+                base.Dispose();
+
+                if (model is UINotifyPropertyChanged notifier)
+                {
+                    notifier.PropertyChanged -= PropertyChangedHandler;
+                }
             }
         }
 
@@ -455,8 +481,10 @@ namespace xLibV100.Common.UI
                 }
             }
 
-            public void Dispose()
+            public override void Dispose()
             {
+                base.Dispose();
+
                 if (model is UINotifyPropertyChanged notification)
                 {
                     notification.PropertyChanged -= OnPropertyChangedHandler;
@@ -464,9 +492,11 @@ namespace xLibV100.Common.UI
             }
         }
 
-        public MediatorViewModel(object model, Options[] options) : this(model)
+        public class ContextMenuElement
         {
-            ApplyOptions(options);
+            public string DisplayName { get; set; }
+            public ICommand Command { get; set; }
+            public object Parameter { get; set; }
         }
 
 
