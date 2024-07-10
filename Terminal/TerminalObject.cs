@@ -61,7 +61,12 @@ namespace xLibV100.Controls
 
                 if (element != null)
                 {
-                    xTracer.Trace(await element.Transaction.TransmitAsync(SelectedPort, 1, 2000), element.Description);
+                    if (element.Transaction.Status != TxStatus.Cancelled)
+                    {
+                        xTracer.Trace(await element.Transaction.TransmitAsync(SelectedPort,
+                            element.TryNumber > 0 ? element.TryNumber : 1,
+                            element.Timeout > 0 ? element.Timeout : 2000), element.Description);
+                    }
 
                     transactionSynchronize.WaitOne();
                     transactionRequests.Remove(element);
@@ -77,6 +82,23 @@ namespace xLibV100.Controls
             transactionSynchronize.WaitOne();
 
             transactionRequests.Add(new TerminalTransactionRequest { Transaction = transaction, Description = description });
+
+            transactionSynchronize.Set();
+
+            return 0;
+        }
+
+        public int AddTransactionToLine(TxTransactionBase transaction, string description, int tryNumber, int timeout)
+        {
+            transactionSynchronize.WaitOne();
+
+            transactionRequests.Add(new TerminalTransactionRequest
+            {
+                Transaction = transaction,
+                Description = description,
+                TryNumber = tryNumber,
+                Timeout = timeout
+            });
 
             transactionSynchronize.Set();
 

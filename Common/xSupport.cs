@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Threading;
 
 namespace xLibV100.Common
@@ -65,6 +68,19 @@ namespace xLibV100.Common
                 }
                 catch { }
             }
+        }
+
+        public static void WaitingForTask(Task task, uint timeout)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            while (!task.IsCompleted && !task.IsFaulted && !task.IsCanceled && timer.ElapsedMilliseconds < timeout)
+            {
+                Thread.Sleep(1);
+            }
+
+            timer.Stop();
         }
     }
 }

@@ -199,8 +199,10 @@ namespace xLibV100.UI
             }
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+
             CellSizeChanged = null;
             UpdateEvent = null;
             ViewUpdateEvent = null;

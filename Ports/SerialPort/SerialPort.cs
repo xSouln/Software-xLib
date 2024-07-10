@@ -24,6 +24,7 @@ namespace xLibV100.Ports
         protected AutoResetEvent TxSynchronizer = new AutoResetEvent(true);
         protected RxReceiver Receiver = new RxReceiver(0x1fff, new byte[] { (byte)'\r' });
         public static List<int> BaudRateList { get; set; } = new List<int>() { 9600, 38400, 115200, 128000, 256000, 521600, 840000, 900000, 921600 };
+
         public static ObservableCollection<string> PortList { get; set; } = new ObservableCollection<string>();
 
         public SerialPort() : base()

@@ -315,6 +315,17 @@ namespace xLibV100.Transceiver
             });
         }
 
+        public async Task Await(CancellationToken cancellation)
+        {
+            await Task.Run(async () =>
+            {
+                while (!isFinished)
+                {
+                    await Task.Delay(1);
+                }
+            }, cancellation);
+        }
+
 
         public void Dispose()
         {

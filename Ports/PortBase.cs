@@ -462,8 +462,10 @@ namespace xLibV100.Ports
             Closed?.Invoke(this);
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+
             Close();
         }
     }

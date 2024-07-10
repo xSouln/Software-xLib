@@ -101,6 +101,21 @@
     <Compile Include="Common\xMemory.cs" />
     <Compile Include="Common\xSupport.cs" />
     <Compile Include="Components\MQTT\Broker\Control.cs" />
+    <Compile Include="Components\Peripherals\Base\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\Ethernet\Instance.cs" />
+    <Compile Include="Components\Peripherals\Controls\Ethernet\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\GSM\Gsm.cs" />
+    <Compile Include="Components\Peripherals\Controls\GSM\Instance.cs" />
+    <Compile Include="Components\Peripherals\Base\Instance.cs" />
+    <Compile Include="Components\Peripherals\Controls\GSM\Mqtt.cs" />
+    <Compile Include="Components\Peripherals\Controls\GSM\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\MQTT\Instance.cs" />
+    <Compile Include="Components\Peripherals\Base\PeripheralBase.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Control\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Ethernet\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\GSM\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\GSM\Types.cs" />
+    <Compile Include="Components\Peripherals\Transactions\MQTT\Control.cs" />
     <Compile Include="Net\MQTT\MqttBroker.cs" />
     <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
     <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />
@@ -112,80 +127,72 @@
     <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
     <Compile Include="Terminal\TerminalTransactionRequest.cs" />
     <Compile Include="Transactions\Common\ActionResult.cs" />
-    <Compile Include="Components\Peripherals\xADC\Control.cs" />
-    <Compile Include="Components\Peripherals\xADC\Info.cs" />
-    <Compile Include="Components\Peripherals\xADC\Models\Charts.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Events.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Get.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Requests.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Responses.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\RxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Set.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Try.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\TxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xADC\Transactions\Types.cs" />
-    <Compile Include="Components\Peripherals\xADC\Types\Types.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IChartsView.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IChartsViewModel.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\IControlViewModel.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Interfaces\ISelectable.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Models\ChartsViewModel.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Models\ControlViewModel.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Views\ChartsView.xaml.cs">
+    <Compile Include="Components\Peripherals\Controls\xADC\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Models\Charts.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Events.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Get.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Requests.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Responses.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\RxTransaction.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Set.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Try.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\TxTransaction.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Transactions\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\Types\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Interfaces\IChartsView.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Interfaces\IChartsViewModel.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Interfaces\IControlViewModel.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Interfaces\ISelectable.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Models\ChartsViewModel.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Models\ControlViewModel.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Views\ChartsView.xaml.cs">
       <DependentUpon>ChartsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\Peripherals\xADC\UI\Views\ControlView.xaml.cs">
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Views\ControlView.xaml.cs">
       <DependentUpon>ControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\Peripherals\xADC\UI\Views\Interfaces\IWindowsFormsChat.cs" />
-    <Compile Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.cs">
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Views\Interfaces\IWindowsFormsChat.cs" />
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Views\WindowsFormsChat.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.Designer.cs">
+    <Compile Include="Components\Peripherals\Controls\xADC\UI\Views\WindowsFormsChat.Designer.cs">
       <DependentUpon>WindowsFormsChat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\Peripherals\xCAN\Control.cs" />
-    <Compile Include="Components\Peripherals\xCAN\Info.cs" />
-    <Compile Include="Components\Peripherals\xGPIO\Control.cs" />
-    <Compile Include="Components\Peripherals\xGPIO\Info.cs" />
-    <Compile Include="Components\Peripherals\xMQTT\Control.cs" />
-    <Compile Include="Components\Peripherals\xMQTT\Info.cs" />
-    <Compile Include="Components\Peripherals\xNet\Control.cs" />
-    <Compile Include="Components\Peripherals\xNet\Info.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Control.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Info.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Get.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Requests.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Responses.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\RxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Set.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Try.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\TxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xRTOS\Transactions\Types.cs" />
-    <Compile Include="Components\Peripherals\xSPI\Control.cs" />
-    <Compile Include="Components\Peripherals\xSPI\Info.cs" />
-    <Compile Include="Components\Peripherals\xSystem\Control.cs" />
-    <Compile Include="Components\Peripherals\xSystem\Info.cs" />
-    <Compile Include="Components\Peripherals\xTimer\Control.cs" />
-    <Compile Include="Components\Peripherals\xTimer\Info.cs" />
-    <Compile Include="Components\Peripherals\xUSART\Control.cs" />
-    <Compile Include="Components\Peripherals\xUSART\Info.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Control.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Info.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Models\Config.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Models\Interfaces\IConfig.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Models\Interfaces\IStatus.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Models\Status.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Events.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Get.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Requests.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Responses.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\RxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Set.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Try.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\TxTransaction.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Transactions\Types.cs" />
-    <Compile Include="Components\Peripherals\xWiFi\Types\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\xCAN\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xCAN\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xGPIO\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xGPIO\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\MQTT\MQTT.cs" />
+    <Compile Include="Components\Peripherals\Controls\MQTT\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\Ethernet\Ethernet.cs" />
+    <Compile Include="Components\Peripherals\Controls\Ethernet\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\RTOS\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\RTOS\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xSPI\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xSPI\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xSystem\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xSystem\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xTimer\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xTimer\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\USART\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\USART\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Models\Config.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Models\Interfaces\IConfig.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Models\Interfaces\IStatus.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Models\Status.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Events.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Get.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Requests.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Responses.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\RxTransaction.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Set.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Try.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\TxTransaction.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Transactions\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\xWiFi\Types\Types.cs" />
     <Compile Include="Components\WaveGenerators\LineWaveGenerator.cs" />
     <Compile Include="Components\WaveGenerators\SineWaveGenerator.cs" />
     <Compile Include="Components\WaveGenerators\WaveGenerator.cs" />
@@ -326,11 +333,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\Peripherals\xADC\UI\Views\ChartsView.xaml">
+    <Page Include="Components\Peripherals\Controls\xADC\UI\Views\ChartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\Peripherals\xADC\UI\Views\ControlView.xaml">
+    <Page Include="Components\Peripherals\Controls\xADC\UI\Views\ControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -440,31 +447,22 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Components\Peripherals\xADC\UI\Views\WindowsFormsChat.resx">
+    <EmbeddedResource Include="Components\Peripherals\Controls\xADC\UI\Views\WindowsFormsChat.resx">
       <DependentUpon>WindowsFormsChat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Peripherals\Common\" />
-    <Folder Include="Components\Peripherals\xADC\Models\Interfaces\" />
-    <Folder Include="Components\Peripherals\xCAN\Models\" />
-    <Folder Include="Components\Peripherals\xCAN\Types\" />
-    <Folder Include="Components\Peripherals\xGPIO\Models\" />
-    <Folder Include="Components\Peripherals\xGPIO\Types\" />
-    <Folder Include="Components\Peripherals\xMQTT\Models\" />
-    <Folder Include="Components\Peripherals\xMQTT\Types\" />
-    <Folder Include="Components\Peripherals\xNet\Models\" />
-    <Folder Include="Components\Peripherals\xNet\Types\" />
-    <Folder Include="Components\Peripherals\xRTOS\Models\" />
-    <Folder Include="Components\Peripherals\xRTOS\Types\" />
-    <Folder Include="Components\Peripherals\xSPI\Models\" />
-    <Folder Include="Components\Peripherals\xSPI\Types\" />
-    <Folder Include="Components\Peripherals\xSystem\Models\" />
-    <Folder Include="Components\Peripherals\xSystem\Types\" />
-    <Folder Include="Components\Peripherals\xTimer\Models\" />
-    <Folder Include="Components\Peripherals\xTimer\Types\" />
-    <Folder Include="Components\Peripherals\xUSART\Models\" />
-    <Folder Include="Components\Peripherals\xUSART\Types\" />
+    <Folder Include="Components\Peripherals\Controls\xADC\Models\Interfaces\" />
+    <Folder Include="Components\Peripherals\Controls\xCAN\Models\" />
+    <Folder Include="Components\Peripherals\Controls\xCAN\Types\" />
+    <Folder Include="Components\Peripherals\Controls\xGPIO\Models\" />
+    <Folder Include="Components\Peripherals\Controls\xGPIO\Types\" />
+    <Folder Include="Components\Peripherals\Controls\xSPI\Models\" />
+    <Folder Include="Components\Peripherals\Controls\xSPI\Types\" />
+    <Folder Include="Components\Peripherals\Controls\xSystem\Models\" />
+    <Folder Include="Components\Peripherals\Controls\xSystem\Types\" />
+    <Folder Include="Components\Peripherals\Controls\xTimer\Models\" />
+    <Folder Include="Components\Peripherals\Controls\xTimer\Types\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
