@@ -416,6 +416,7 @@ namespace xLibV100.Common.UI
             public BitFieldProperty(object model, PropertyInfo propertyInfo, object flagMask)
             {
                 this.model = model;
+
                 this.flagMask = Convert.ToUInt64(flagMask);
                 this.propertyInfo = propertyInfo;
                 flagName = flagMask;

@@ -1,6 +1,6 @@
 ﻿using xLibV100.Transactions.Common;
 
-namespace xLibV100.Peripherals.Ethernet.Transactions
+namespace xLibV100.Peripherals.EthernetControl.Transactions
 {
     public partial class Control : ControlBase
     {

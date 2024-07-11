@@ -1,12 +1,12 @@
 ﻿using xLibV100.Controls;
 
-namespace xLibV100.Peripherals.MQTT
+namespace xLibV100.Peripherals.MqttControl
 {
-    public class MQTT : PeripheralBase
+    public class Mqtt : PeripheralBase
     {
-        public MQTT(Control model) : base(model)
+        public Mqtt(Control model) : base(model)
         {
-            Name = nameof(MQTT);
+            Name = nameof(Mqtt);
 
         }
 

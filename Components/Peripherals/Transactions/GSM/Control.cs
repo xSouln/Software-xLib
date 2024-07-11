@@ -4,7 +4,7 @@ using xLibV100.Transactions;
 using xLibV100.Transactions.Common;
 using xLibV100.Transceiver;
 
-namespace xLibV100.Peripherals.GSM.Transactions
+namespace xLibV100.Peripherals.GsmControl.Transactions
 {
     public partial class Control : ControlBase
     {

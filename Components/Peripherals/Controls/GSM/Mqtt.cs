@@ -2,7 +2,7 @@
 using xLibV100.Controls;
 using xLibV100.UI;
 
-namespace xLibV100.Peripherals.GSM
+namespace xLibV100.Peripherals.GsmControl
 {
     public partial class Instance
     {

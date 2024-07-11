@@ -1,6 +1,6 @@
-﻿namespace xLibV100.Peripherals.Ethernet
+﻿namespace xLibV100.Peripherals.EthernetControl
 {
-    public class Ethernet : PeripheralBase
+    public class Ethernet : PeripheralBase<Instance>
     {
         protected bool dhcpIsEnabled;
         protected bool sntpIsEnabled;

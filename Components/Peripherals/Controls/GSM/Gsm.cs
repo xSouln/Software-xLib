@@ -3,15 +3,13 @@ using System.Threading.Tasks;
 using xLibV100.Controls;
 using xLibV100.Transactions.Common;
 
-namespace xLibV100.Peripherals.GSM
+namespace xLibV100.Peripherals.GsmControl
 {
-    public partial class Gsm : PeripheralBase
+    public partial class Gsm : PeripheralBase<Instance>
     {
         protected string description;
         protected string version;
         protected int countOfInstances;
-
-        public ObservableCollection<Instance> Instances { get; set; } = new ObservableCollection<Instance>();
 
         public Gsm(Control model) : base(model)
         {

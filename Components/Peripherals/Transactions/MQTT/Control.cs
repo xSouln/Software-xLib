@@ -1,10 +1,10 @@
 ﻿using xLibV100.Transactions.Common;
 
-namespace xLibV100.Peripherals.MQTT.Transactions
+namespace xLibV100.Peripherals.MqttControl.Transactions
 {
     public partial class Control : ControlBase
     {
-        public Control(MQTT model, uint uid) : base(model, uid)
+        public Control(Mqtt model, uint uid) : base(model, uid)
         {
 
         }

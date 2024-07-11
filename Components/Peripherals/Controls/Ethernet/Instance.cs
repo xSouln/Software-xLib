@@ -1,4 +1,4 @@
-﻿namespace xLibV100.Peripherals.Ethernet
+﻿namespace xLibV100.Peripherals.EthernetControl
 {
     public class Instance : Peripherals.Instance
     {

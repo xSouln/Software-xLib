@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xLibV100.Peripherals.GSM
+namespace xLibV100.Peripherals.GsmControl
 {
     public enum InstanceTypes : byte
     {

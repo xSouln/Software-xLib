@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using xLibV100.Controls;
 
 namespace xLibV100.UI
 {
@@ -180,6 +181,7 @@ namespace xLibV100.UI
 
         public virtual object GetModel() => model;
 
+
         public object View
         {
             get => view;
@@ -241,6 +243,61 @@ namespace xLibV100.UI
         public virtual void Close()
         {
 
+        }
+
+        protected int RemoveFromModels(object model)
+        {
+            if (model == null)
+            {
+                return -1;
+            }
+
+            int index = 0;
+
+            foreach (var element in models)
+            {
+                if (element is ViewModelBase viewModel && viewModel.model == model)
+                {
+                    models.Remove(element);
+
+                    if (model is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                    return index;
+                }
+
+                index++;
+            }
+
+            return -1;
+        }
+
+        protected int AddToModels(Type viewModelType, params object[] args)
+        {
+            models.Add(Activator.CreateInstance(viewModelType, args));
+            return 0;
+        }
+
+
+        protected int AddToModels<TViewModel>(params object[] args)
+            where TViewModel : ViewModelBase
+        {
+            models.Add(Activator.CreateInstance(typeof(TViewModel), args));
+            return 0;
+        }
+
+
+        protected void ClearModels()
+        {
+            while (models.Count > 0)
+            {
+                var disposable = models[0] as IDisposable;
+
+                models.RemoveAt(0);
+
+                disposable?.Dispose();
+            }
         }
     }
 

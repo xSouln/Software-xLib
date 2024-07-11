@@ -1,4 +1,4 @@
-﻿namespace xLibV100.Peripherals.MQTT
+﻿namespace xLibV100.Peripherals.MqttControl
 {
     public class Info
     {

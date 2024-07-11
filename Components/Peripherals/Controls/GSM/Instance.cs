@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using xLibV100.Controls;
 using xLibV100.Transactions.Common;
 
-namespace xLibV100.Peripherals.GSM
+namespace xLibV100.Peripherals.GsmControl
 {
     public partial class Instance : Peripherals.Instance
     {

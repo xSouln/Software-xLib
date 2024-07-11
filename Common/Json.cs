@@ -55,9 +55,9 @@ namespace xLibV100.Common
             return Save(fileName, arg, null);
         }
 
-        public static int Save<TObject>(string file_name, in TObject arg, JsonConverter converter)
+        public static int Save<TObject>(string fileName, in TObject arg, JsonConverter converter)
         {
-            if (file_name == null)
+            if (fileName == null)
             {
                 trace("json file save error: file_name = null");
                 return -1;
@@ -71,7 +71,14 @@ namespace xLibV100.Common
 
             try
             {
-                using (FileStream stream = new FileStream(file_name, FileMode.Create))
+                string directoryPath = Path.GetDirectoryName(fileName);
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                using (FileStream stream = new FileStream(fileName, FileMode.Create))
                 {
                     var options = new JsonSerializerOptions
                     {
@@ -84,7 +91,7 @@ namespace xLibV100.Common
                     }
 
                     JsonSerializer.Serialize(stream, arg, options);
-                    trace("json file is save:\r" + file_name);
+                    trace("json file is save:\r" + fileName);
                     stream.Close();
                     return -1;
                 }
