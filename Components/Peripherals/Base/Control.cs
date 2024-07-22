@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using xLibV100.Controls;
+using xLibV100.Serializers;
+using xLibV100.Transceiver;
 
 namespace xLibV100.Peripherals
 {
@@ -17,7 +19,34 @@ namespace xLibV100.Peripherals
 
         public Control(TerminalBase model) : base(model)
         {
+            GsmIsEnabled = true;
 
+            PortSubscriptions.Open(this, "Components\\PeripheralsControl\\Saves");
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            PortSubscriptions.Save(this, "Components\\PeripheralsControl\\Saves");
+        }
+
+        public override unsafe bool ResponseIdentification(RxPacketManager manager, xContent content)
+        {
+            if (manager.Packet != null && manager.Packet->Header.DeviceId != Id)
+            {
+                return false;
+            }
+
+            foreach (var element in Peripherals)
+            {
+                if (element.ResponseIdentification(manager, content))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 

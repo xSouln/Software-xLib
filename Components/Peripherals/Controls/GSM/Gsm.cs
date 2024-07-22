@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using xLibV100.Controls;
 using xLibV100.Transactions.Common;
+using xLibV100.Transceiver;
 
 namespace xLibV100.Peripherals.GsmControl
 {
@@ -11,9 +12,15 @@ namespace xLibV100.Peripherals.GsmControl
         protected string version;
         protected int countOfInstances;
 
+        public Transactions.Control Transactions;
+
         public Gsm(Control model) : base(model)
         {
             Name = nameof(Gsm);
+
+            Transactions = new Transactions.Control(this, 0x75FC61E8);
+
+            Instances.Add(new Instance(this));
         }
 
         public virtual Task<ActionResult> GetInfoAsync()
@@ -25,6 +32,11 @@ namespace xLibV100.Peripherals.GsmControl
         public virtual Task<ActionResult> GetInstancesAsync()
         {
             return Task.FromResult(ActionResult.NotSupported);
+        }
+
+        public override bool ResponseIdentification(RxPacketManager manager, xContent content)
+        {
+            return Transactions.Identification(manager, content);
         }
 
 

@@ -10,6 +10,16 @@ namespace xLibV100.Controls
         protected object parent;
         protected string name;
 
+        public ModelBase()
+        {
+
+        }
+
+        public ModelBase(object parent)
+        {
+            this.parent = parent;
+        }
+
         /// <summary>
         /// имя модели
         /// </summary>
@@ -36,7 +46,7 @@ namespace xLibV100.Controls
     /// класс определяющий базовый набор для модели
     /// </summary>
     /// <typeparam name="TParent"></typeparam>
-    public class ModelBase<TParent> : ModelBase where TParent : ModelBase
+    public class ModelBase<TParent> : ModelBase where TParent : class
     {
         public TParent Parent
         {

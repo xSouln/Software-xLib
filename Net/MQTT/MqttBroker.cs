@@ -70,8 +70,7 @@ namespace xLibV100.Net.MQTT
 
             unsafe
             {
-                ushort[] points = new ushort[payload.Length / sizeof(ushort)];
-                xMemory.Copy(points, payload);
+                xMemory.Convert(out ushort[] points, payload);
             }
 
             xTracer.Message("MQTT Broker", "topic: " + arg.ApplicationMessage.Topic + "\rdata: " + data);

@@ -1,4 +1,5 @@
-﻿using xLibV100.Common;
+﻿using System.Windows.Markup;
+using xLibV100.Common;
 
 namespace xLibV100.Transceiver
 {
@@ -24,6 +25,21 @@ namespace xLibV100.Transceiver
             return 0;
         }
 
+        public unsafe byte[] GetSegment(int dataSize)
+        {
+            if (DataSize < dataSize)
+            {
+                return null;
+            }
+
+            xMemory.Convert(out byte[] data, Data, dataSize);
+
+            Data += dataSize;
+            DataSize -= dataSize;
+
+            return data;
+        }
+
         public unsafe int Get(out byte[] data, int dataSize)
         {
             if (dataSize > DataSize)
@@ -32,8 +48,7 @@ namespace xLibV100.Transceiver
                 return -1;
             }
 
-            data = new byte[dataSize];
-            xMemory.Copy(data, Data, dataSize);
+            xMemory.Convert(out data, Data, dataSize);
 
             Data += dataSize;
             DataSize -= dataSize;
