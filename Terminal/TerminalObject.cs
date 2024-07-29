@@ -77,18 +77,7 @@ namespace xLibV100.Controls
             }
         }
 
-        public int AddTransactionToLine(TxTransactionBase transaction, string description)
-        {
-            transactionSynchronize.WaitOne();
-
-            transactionRequests.Add(new TerminalTransactionRequest { Transaction = transaction, Description = description });
-
-            transactionSynchronize.Set();
-
-            return 0;
-        }
-
-        public int AddTransactionToLine(TxTransactionBase transaction, string description, int tryNumber, int timeout)
+        public int AddTransactionToLine(TxTransactionBase transaction, string description = "", int tryNumber = 1, int timeout = 2000)
         {
             transactionSynchronize.WaitOne();
 

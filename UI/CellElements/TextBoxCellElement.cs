@@ -8,7 +8,7 @@ namespace xLibV100.UI.CellElements
     {
         protected FrameworkElementFactory frameworkElement;
 
-        public string Name => throw new System.NotImplementedException();
+        public string Name => "";
 
         public FrameworkElementFactory Element => frameworkElement;
 

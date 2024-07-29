@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -496,6 +497,31 @@ namespace xLibV100.Common
             {
                 desteny[i + destenyOffset] = source[i + sourceOffset];
             }
+
+            return 0;
+        }
+
+        public static int Copy(object source, object desteny)
+        {
+            if (source == null || desteny == null)
+            {
+                throw new ArgumentNullException("source || desteny");
+            }
+
+            try
+            {
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap(source.GetType(), desteny.GetType());
+                });
+
+                IMapper mapper = config.CreateMapper();
+                mapper.Map(source, desteny);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
 
             return 0;
         }
