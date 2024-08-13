@@ -1,8 +1,6 @@
-﻿using xLibV100.UI;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using xLibV100.Controls;
 
 namespace xLibV100.UI
 {
@@ -213,6 +211,8 @@ namespace xLibV100.UI
             ViewEventListener = null;
             EventListener = null;
 
+            Close();
+
             if (models != null)
             {
                 foreach (var element in models)
@@ -238,6 +238,11 @@ namespace xLibV100.UI
 
                 properties.Clear();
             }
+        }
+
+        public virtual int Open()
+        {
+            return -1;
         }
 
         public virtual void Close()
@@ -301,7 +306,8 @@ namespace xLibV100.UI
         }
     }
 
-    public class ViewModelBase<TModel> : ViewModelBase where TModel : class
+    public class ViewModelBase<TModel> : ViewModelBase
+        where TModel : class
     {
         public new TModel Model
         {
@@ -325,7 +331,9 @@ namespace xLibV100.UI
         }
     }
 
-    public class ViewModelBase<TModel, TView> : ViewModelBase<TModel> where TModel : class where TView : class, new()
+    public class ViewModelBase<TModel, TView> : ViewModelBase<TModel>
+        where TModel : class
+        where TView : class, new()
     {
         public ViewModelBase(TModel model) : base(model)
         {

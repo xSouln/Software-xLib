@@ -24,6 +24,13 @@ namespace xLibV100.Windows
             DataContext = this;
         }
 
+        public static bool OpenDialog(ViewModelBase viewModel)
+        {
+            var window = new DialogWindowPresenter(viewModel);
+
+            return (bool)window.ShowDialog();
+        }
+
         public DialogWindowPresenter(UIElement view) : this()
         {
             View = view;

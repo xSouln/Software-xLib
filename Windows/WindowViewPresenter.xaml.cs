@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using xLibV100.UI;
 
 namespace xLibV100.Windows
 {
@@ -32,9 +33,22 @@ namespace xLibV100.Windows
             }
         }
 
-        public WindowViewPresenter()
+        public static void Open(ViewModelBase viewModel)
+        {
+            var presenter = new WindowViewPresenter();
+            presenter.View = viewModel.View as UIElement;
+
+            presenter.Show();
+        }
+
+        public WindowViewPresenter(ViewModelBase viewModel = null)
         {
             InitializeComponent();
+
+            if (viewModel != null)
+            {
+                View = viewModel.View as UIElement;
+            }
 
             MaxWidth = SystemParameters.PrimaryScreenWidth;
         }
