@@ -125,6 +125,8 @@
     <Compile Include="Components\Peripherals\Transactions\GSM\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\MQTT\Control.cs" />
     <Compile Include="Adaptation\SynchronizedProperty.cs" />
+    <Compile Include="Controls\IComponent.cs" />
+    <Compile Include="Controls\IEnvironment.cs" />
     <Compile Include="Net\MQTT\MqttBroker.cs" />
     <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
     <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />

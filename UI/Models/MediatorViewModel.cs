@@ -243,6 +243,24 @@ namespace xLibV100.Common.UI
             return (bool)viewPresenter.DialogResult;
         }
 
+        public static bool OpenDialog(object requestParameters, object parent = null, Window window = null)
+        {
+            DialogWindowPresenter viewPresenter = null;
+            var viewModel = new MediatorViewModel<UniversalListView>(parent);
+
+            viewModel.ApplyOptions(new Options
+            {
+                Model = requestParameters,
+                Descriptions = new object[] { new ModelPropertyAttribute() },
+                Parameters = new ParseParameters() { Flags = ParseOptionsFlags.WriteOnly }
+            });
+
+            viewPresenter = new DialogWindowPresenter(viewModel);
+            viewPresenter.ShowDialog();
+
+            return (bool)viewPresenter.DialogResult;
+        }
+
         public class ModelFunctionAttributeParser : MediatorViewModelParser
         {
             protected int Depth;
@@ -579,6 +597,11 @@ namespace xLibV100.Common.UI
                         }
                     }
                 }
+            }
+
+            if (model == null)
+            {
+                return;
             }
 
             foreach (var property in model.GetType().GetProperties())
