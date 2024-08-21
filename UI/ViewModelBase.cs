@@ -250,7 +250,7 @@ namespace xLibV100.UI
 
         }
 
-        protected int RemoveFromModels(object model)
+        protected virtual int RemoveFromModels(object model)
         {
             if (model == null)
             {
@@ -278,20 +278,25 @@ namespace xLibV100.UI
             return -1;
         }
 
-        protected int AddToModels(Type viewModelType, params object[] args)
+        protected virtual int AddToModels(Type viewModelType, params object[] args)
         {
+            int number = models.Count;
+
             models.Add(Activator.CreateInstance(viewModelType, args));
-            return 0;
+
+            return number;
         }
 
 
-        protected int AddToModels<TViewModel>(params object[] args)
+        protected virtual TViewModel AddToModels<TViewModel>(params object[] args)
             where TViewModel : ViewModelBase
         {
-            models.Add(Activator.CreateInstance(typeof(TViewModel), args));
-            return 0;
-        }
+            TViewModel viewModel = (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
 
+            models.Add(viewModel);
+
+            return viewModel;
+        }
 
         protected void ClearModels()
         {

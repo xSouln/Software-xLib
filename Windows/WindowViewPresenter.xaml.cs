@@ -50,7 +50,18 @@ namespace xLibV100.Windows
                 View = viewModel.View as UIElement;
             }
 
+            DataContext = viewModel;
+
             MaxWidth = SystemParameters.PrimaryScreenWidth;
+            MaxHeight = SystemParameters.PrimaryScreenHeight * 0.9;
+
+            Closed += (sender, e) =>
+            {
+                if (view != null)
+                {
+                    Container.Children.Remove(view);
+                }
+            };
         }
 
         public WindowViewPresenter(UIElement view) : this()

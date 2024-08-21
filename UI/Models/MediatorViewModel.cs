@@ -325,6 +325,11 @@ namespace xLibV100.Common.UI
 
                 var propterties = model?.GetType().GetProperties();
 
+                if (propterties == null)
+                {
+                    return 0;
+                }
+
                 foreach (var property in propterties)
                 {
                     if (property.GetCustomAttribute(typeof(ModelPropertyAttribute)) is ModelPropertyAttribute propertyAttribute)

@@ -125,6 +125,7 @@
     <Compile Include="Components\Peripherals\Transactions\GSM\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\MQTT\Control.cs" />
     <Compile Include="Adaptation\SynchronizedProperty.cs" />
+    <Compile Include="Controls\ComponentInfo.cs" />
     <Compile Include="Controls\IComponent.cs" />
     <Compile Include="Controls\IEnvironment.cs" />
     <Compile Include="Net\MQTT\MqttBroker.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="UI\TemplateSelectors\UniversalCellTemplateSelector.cs" />
     <Compile Include="UI\UINotifyPropertyChanged.cs" />
     <Compile Include="UI\UIProperty.cs" />
+    <Compile Include="UI\ValueConverters\PropertyCheckConverter.cs" />
     <Compile Include="UI\ViewElements\BitsFieldControlViewElement.xaml.cs">
       <DependentUpon>BitsFieldControlViewElement.xaml</DependentUpon>
     </Compile>

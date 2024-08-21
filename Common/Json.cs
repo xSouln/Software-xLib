@@ -50,12 +50,7 @@ namespace xLibV100.Common
             return true;
         }
 
-        public static int Save<TObject>(string fileName, in TObject arg)
-        {
-            return Save(fileName, arg, null);
-        }
-
-        public static int Save<TObject>(string fileName, in TObject arg, JsonConverter converter)
+        public static int Save(string fileName, in object arg, Type inType = null)
         {
             if (fileName == null)
             {
@@ -85,12 +80,12 @@ namespace xLibV100.Common
                         WriteIndented = true
                     };
 
-                    if (converter != null)
+                    if (inType == null)
                     {
-                        options.Converters.Add(converter);
+                        inType = arg.GetType();
                     }
 
-                    JsonSerializer.Serialize(stream, arg, options);
+                    JsonSerializer.Serialize(stream, arg, inType, options);
                     trace("json file is save:\r" + fileName);
                     stream.Close();
                     return -1;
@@ -106,6 +101,43 @@ namespace xLibV100.Common
         public static int Open<TObject>(string fileName, out TObject arg)
         {
             return Open(fileName, out arg, null);
+        }
+
+        public static object Deserialize(string fileName, Type outType)
+        {
+            if (fileName == null)
+            {
+                trace("json file open error: file_name = null");
+                return null;
+            }
+
+            if (!File.Exists(fileName))
+            {
+                trace("json file open error: file not found");
+                return null;
+            }
+
+            try
+            {
+                using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                {
+                    var options = new JsonSerializerOptions();
+                    options.PropertyNameCaseInsensitive = true;
+                    options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    options.AllowTrailingCommas = true;
+
+                    var result = JsonSerializer.Deserialize(stream, outType, options);
+
+                    trace("json file is open:\r" + fileName);
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                trace("json file save error:\r" + e);
+            }
+
+            return null;
         }
 
         public static int Open<TObject>(string file_name, out TObject arg, JsonConverter converter)

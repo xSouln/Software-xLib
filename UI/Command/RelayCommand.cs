@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace xLibV100.UI
@@ -9,8 +10,9 @@ namespace xLibV100.UI
         private readonly Action<object> _execute;
         private readonly Action<RelayCommand, object> _extansionExecute;
         private readonly Func<object, bool> _canExecute;
-
         private object content;
+
+        public List<(int index, object extension)> Extensions { get; set; } = new List<(int index, object extension)>();
 
         public object Content
         {
@@ -26,10 +28,28 @@ namespace xLibV100.UI
 
         public object[] Parameters;
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public virtual object this[int index]
+        {
+            get
+            {
+                foreach (var element in Extensions)
+                {
+                    if (element.index == index)
+                    {
+                        return element.extension;
+                    }
+                }
+
+                return null;
+            }
+        }
+
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null, string name = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
+
+            Name = name;
         }
 
         public RelayCommand(Action<RelayCommand, object> execute, Func<object, bool> canExecute = null)

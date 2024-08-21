@@ -4,6 +4,6 @@ namespace xLibV100.Controls
 {
     public interface IEnvironment
     {
-        List<object> GetComponents();
+        List<ComponentInfo> GetComponents();
     }
 }

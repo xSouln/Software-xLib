@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using xLibV100.UI;
 
 namespace xLibV100.Windows
@@ -27,6 +25,7 @@ namespace xLibV100.Windows
         public static bool OpenDialog(ViewModelBase viewModel)
         {
             var window = new DialogWindowPresenter(viewModel);
+            window.DataContext = viewModel;
 
             return (bool)window.ShowDialog();
         }

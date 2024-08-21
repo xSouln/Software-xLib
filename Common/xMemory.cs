@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using static xLibV100.Ports.RxReceiver;
 
 namespace xLibV100.Common
 {
