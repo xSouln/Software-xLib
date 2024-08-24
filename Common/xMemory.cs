@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -517,7 +518,29 @@ namespace xLibV100.Common
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
+
+            return 0;
+        }
+
+        public static int Copy<TElement>(IEnumerable<TElement> source, ICollection<TElement> desteny)
+        {
+            if (source == null || desteny == null)
+            {
+                throw new ArgumentNullException("source || desteny");
+            }
+
+            try
+            {
+                foreach (var element in source)
+                {
+                    desteny.Add(element);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return 0;
         }

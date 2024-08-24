@@ -5,7 +5,7 @@ namespace xLibV100.Attributes
 {
     public class SynchronizedPropertySelectorAttribute : Attribute
     {
-        public SynchronizedPropertyTypes Type;
-        public SynchronizedPropertyFlags Flags;
+        public RWPropertyTypes Type;
+        public RWPropertyFlags Flags;
     }
 }

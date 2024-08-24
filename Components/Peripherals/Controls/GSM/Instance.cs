@@ -70,7 +70,7 @@ namespace xLibV100.Peripherals.GsmControl
             {
                 foreach (var synchronizedProperty in SynchronizedProperties)
                 {
-                    if ((int)synchronizedProperty.PropertyId == property.Id)
+                    if ((int)synchronizedProperty.PropertyId == property.Info.Id)
                     {
                         synchronizedProperty.SetValue(this, property.Content);
                         break;
@@ -125,7 +125,7 @@ namespace xLibV100.Peripherals.GsmControl
             return ActionResult.Accept;
         }
 
-        public async virtual Task<ActionResult> SetPropertiesAsync(SynchronizedPropertyForSetting property, params SynchronizedPropertyForSetting[] properties)
+        public async virtual Task<ActionResult> SetPropertiesAsync(WritableProperty property, params WritableProperty[] properties)
         {
             var request = Parent.Transactions.SetProperties.Prepare(new Transactions.RequestSetProperties(properties));
             Control.AddTransactionToLine(request, Name);
@@ -141,7 +141,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         public virtual Task<ActionResult> SetPropertiesAsync(params object[] models)
         {
-            List<SynchronizedPropertyForSetting> request = new List<SynchronizedPropertyForSetting>();
+            List<WritableProperty> request = new List<WritableProperty>();
 
             foreach (var model in models)
             {
@@ -163,7 +163,7 @@ namespace xLibV100.Peripherals.GsmControl
                             continue;
                         }
 
-                        request.Add(new SynchronizedPropertyForSetting(new SynchronizedPropertySettingInfoT
+                        request.Add(new WritableProperty(new WritablePropertyInfoT
                         {
                             Id = (ushort)attribute.PropertyId,
                             Type = attribute.PropertySelector.Type,

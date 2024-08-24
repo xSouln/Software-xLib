@@ -124,7 +124,7 @@
     <Compile Include="Components\Peripherals\Transactions\GSM\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\GSM\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\MQTT\Control.cs" />
-    <Compile Include="Adaptation\SynchronizedProperty.cs" />
+    <Compile Include="Adaptation\ReadableProperty.cs" />
     <Compile Include="Controls\ComponentInfo.cs" />
     <Compile Include="Controls\IComponent.cs" />
     <Compile Include="Controls\IEnvironment.cs" />
@@ -137,6 +137,12 @@
     <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
     <Compile Include="Net\MQTT\MqttTopic.cs" />
     <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
+    <Compile Include="Serialization\Enums.cs" />
+    <Compile Include="Serialization\ISerializable.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\Serialization.cs" />
+    <Compile Include="Serialization\Association.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Terminal\TerminalTransactionRequest.cs" />
     <Compile Include="Transactions\Common\ActionResult.cs" />
     <Compile Include="Components\Peripherals\Controls\xADC\Control.cs" />

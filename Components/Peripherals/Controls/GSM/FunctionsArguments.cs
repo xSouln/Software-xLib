@@ -2,9 +2,9 @@
 
 namespace xLibV100.Peripherals.GsmControl
 {
-    public class SetPropertiesArg : SynchronizedPropertyForSetting
+    public class SetPropertiesArg : WritableProperty
     {
-        public SetPropertiesArg(SynchronizedPropertySettingInfoT info, byte[] content) : base(info, content)
+        public SetPropertiesArg(WritablePropertyInfoT info, byte[] content) : base(info, content)
         {
 
         }

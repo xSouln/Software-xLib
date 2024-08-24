@@ -91,30 +91,30 @@ namespace xLibV100.Peripherals.GsmControl.Transactions
 
     public class ResponseGetProperties : IResponseAdapter
     {
-        public List<SynchronizedProperty> Properties = new List<SynchronizedProperty>();
+        public List<ReadableProperty> Properties = new List<ReadableProperty>();
 
         public unsafe object Recieve(RxPacketManager manager, xContent content)
         {
-            while (content.DataSize >= sizeof(SynchronizedPropertyInfoT))
+            while (content.DataSize >= sizeof(ReadablePropertyInfoT))
             {
-                content.Get(out SynchronizedPropertyInfoT info);
+                content.Get(out ReadablePropertyInfoT info);
 
                 if (info.Size > content.DataSize)
                 {
                     break;
                 }
 
-                Properties.Add(new SynchronizedProperty(info, content.GetSegment(info.Size)));
+                Properties.Add(new ReadableProperty(info, content.GetSegment(info.Size)));
             }
 
             return this;
         }
 
-        public SynchronizedProperty GetPropertyById(PropertySelector id)
+        public ReadableProperty GetPropertyById(PropertySelector id)
         {
             foreach (var property in Properties)
             {
-                if (property.Id == (ushort)id)
+                if (property.Info.Id == (ushort)id)
                 {
                     return property;
                 }
@@ -127,14 +127,14 @@ namespace xLibV100.Peripherals.GsmControl.Transactions
 
     public class RequestSetProperties : RequestToInstance
     {
-        protected List<SynchronizedPropertyForSetting> Properties = new List<SynchronizedPropertyForSetting>();
+        protected List<WritableProperty> Properties = new List<WritableProperty>();
 
-        public RequestSetProperties(SynchronizedPropertyForSetting property, byte number = 0) : base(number)
+        public RequestSetProperties(WritableProperty property, byte number = 0) : base(number)
         {
             Properties.Add(property);
         }
 
-        public RequestSetProperties(SynchronizedPropertyForSetting[] properties, byte number = 0) : base(number)
+        public RequestSetProperties(WritableProperty[] properties, byte number = 0) : base(number)
         {
             if (properties == null || properties.Length == 0)
             {

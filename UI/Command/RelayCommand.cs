@@ -4,6 +4,18 @@ using System.Windows.Input;
 
 namespace xLibV100.UI
 {
+    public class RelayCommandExtension
+    {
+        public int Index { get; set; }
+        public object Extension { get; set; }
+
+        public RelayCommandExtension(int index = 0, object extension = null)
+        {
+            Index = index;
+            Extension = extension;
+        }
+    }
+
     public class RelayCommand : ICommand
     {
         private string name;
@@ -12,7 +24,7 @@ namespace xLibV100.UI
         private readonly Func<object, bool> _canExecute;
         private object content;
 
-        public List<(int index, object extension)> Extensions { get; set; } = new List<(int index, object extension)>();
+        public List<RelayCommandExtension> Extensions { get; set; } = new List<RelayCommandExtension>();
 
         public object Content
         {
@@ -34,9 +46,9 @@ namespace xLibV100.UI
             {
                 foreach (var element in Extensions)
                 {
-                    if (element.index == index)
+                    if (element.Index == index)
                     {
-                        return element.extension;
+                        return element.Extension;
                     }
                 }
 
@@ -44,12 +56,17 @@ namespace xLibV100.UI
             }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null, string name = null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null, string name = null, params RelayCommandExtension[] extensions)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
 
             Name = name;
+
+            if (extensions != null)
+            {
+                Extensions.AddRange(extensions);
+            }
         }
 
         public RelayCommand(Action<RelayCommand, object> execute, Func<object, bool> canExecute = null)
