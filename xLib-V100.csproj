@@ -107,6 +107,7 @@
     <Compile Include="Attributes\SynchronizedPropertyAttribute.cs" />
     <Compile Include="Components\Peripherals\Base\Control.cs" />
     <Compile Include="Components\Peripherals\Base\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\Common\Types.cs" />
     <Compile Include="Components\Peripherals\Controls\Ethernet\Instance.cs" />
     <Compile Include="Components\Peripherals\Controls\Ethernet\Types.cs" />
     <Compile Include="Components\Peripherals\Controls\GSM\FunctionsArguments.cs" />
@@ -119,6 +120,9 @@
     <Compile Include="Components\Peripherals\Controls\MQTT\Instance.cs" />
     <Compile Include="Components\Peripherals\Base\PeripheralBase.cs" />
     <Compile Include="Components\Peripherals\Controls\MQTT\Types.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Common\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Common\Requests.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Common\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\Control\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\Ethernet\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\GSM\Control.cs" />

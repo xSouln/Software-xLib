@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using xLibV100.Controls;
 using xLibV100.Transactions.Common;
 using xLibV100.Transceiver;

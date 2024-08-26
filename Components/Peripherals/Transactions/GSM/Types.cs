@@ -4,23 +4,19 @@ namespace xLibV100.Peripherals.GsmControl.Transactions
 {
     public enum Actions : ushort
     {
-        Get = 20,
-
-        GetInfo,
-        GetInstances,
+        Get = Peripherals.Transactions.Actions.GetTransactionsOffset,
 
         GetCredentials,
-        GetInstanceInfo,
+
+        GetStatus,
 
         GetIMEI,
         GetAPN,
         GetClient,
         GetPassword,
-        GetProperties,
 
-        Set = 1000,
+        Set = Peripherals.Transactions.Actions.SetTransactionsOffset,
 
         SetCredentials,
-        SetProperties,
     }
 }

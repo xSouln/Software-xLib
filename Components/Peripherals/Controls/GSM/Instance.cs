@@ -64,7 +64,7 @@ namespace xLibV100.Peripherals.GsmControl
             }
         }
 
-        private void GetPropertiesResponseReceiver(RxPacketManager obj, Transactions.ResponseGetProperties arg)
+        private void GetPropertiesResponseReceiver(RxPacketManager obj, Peripherals.Transactions.ResponseGetProperties arg)
         {
             foreach (var property in arg.Properties)
             {
@@ -82,7 +82,7 @@ namespace xLibV100.Peripherals.GsmControl
         [ModelFunction(Name = "Update APN")]
         public async virtual Task<ActionResult> UpdateAPNAsync()
         {
-            var request = Parent.Transactions.GetProperties.Prepare(new Transactions.RequestGetProperties(PropertySelector.APN));
+            var request = Parent.Transactions.GetProperties.Prepare(new Peripherals.Transactions.RequestGetProperties((ushort)PropertySelector.APN));
             Control.AddTransactionToLine(request, Name);
             await request.Await();
 
@@ -98,7 +98,7 @@ namespace xLibV100.Peripherals.GsmControl
         [ModelFunction(Name = "Update IMEI")]
         public async virtual Task<ActionResult> UpdateIMEIAsync()
         {
-            var request = Parent.Transactions.GetProperties.Prepare(new Transactions.RequestGetProperties(PropertySelector.IMEI));
+            var request = Parent.Transactions.GetProperties.Prepare(new Peripherals.Transactions.RequestGetProperties((ushort)PropertySelector.IMEI));
             Control.AddTransactionToLine(request, Name);
             await request.Await();
 
@@ -113,7 +113,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         public async virtual Task<ActionResult> UpdatePropertiesAsync(params PropertySelector[] properties)
         {
-            var request = Parent.Transactions.GetProperties.Prepare(new Transactions.RequestGetProperties(properties));
+            var request = Parent.Transactions.GetProperties.Prepare(new Peripherals.Transactions.RequestGetProperties(properties: properties));
             Control.AddTransactionToLine(request, Name);
             await request.Await();
 
@@ -127,7 +127,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         public async virtual Task<ActionResult> SetPropertiesAsync(WritableProperty property, params WritableProperty[] properties)
         {
-            var request = Parent.Transactions.SetProperties.Prepare(new Transactions.RequestSetProperties(properties));
+            var request = Parent.Transactions.SetProperties.Prepare(new Peripherals.Transactions.RequestSetProperties(properties));
             Control.AddTransactionToLine(request, Name);
             await request.Await();
 
@@ -180,7 +180,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         public async Task<ActionResult> GetCredentialsAsync()
         {
-            var request = Parent.Transactions.GetProperties.Prepare(new Transactions.RequestGetProperties(new PropertySelector[]
+            var request = Parent.Transactions.GetProperties.Prepare(new Peripherals.Transactions.RequestGetProperties(properties: new PropertySelector[]
             {
                 PropertySelector.APN,
                 PropertySelector.IMEI,

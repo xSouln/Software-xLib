@@ -4,6 +4,10 @@ namespace xLibV100.Peripherals.MqttControl
 {
     public class Mqtt : PeripheralBase
     {
+        protected string description;
+        protected string version;
+        protected int countOfInstances;
+
         public Mqtt(Control model) : base(model)
         {
             Name = nameof(Mqtt);

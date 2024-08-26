@@ -13,5 +13,8 @@
     public enum PropertySelector
     {
         None = 0,
+
+        CountOfTopics,
+
     }
 }
