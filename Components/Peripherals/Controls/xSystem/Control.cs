@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using xLibV100.Controls;
+﻿using xLibV100.Controls;
 
 namespace xLibV100.Peripherals.xSystem
 {

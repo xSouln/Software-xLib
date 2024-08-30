@@ -2,6 +2,6 @@
 {
     public class Info
     {
-        public const uint UID = 0x1848BF7;
+        public const uint UID = 0x1348BF7;
     }
 }

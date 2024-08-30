@@ -14,6 +14,7 @@ using xLibV100.Windows;
 using xLibV100.UI.Views;
 using System.ComponentModel;
 using xLib.UI.ViewElements;
+using static xLibV100.UI.CellElements.ListViewRow;
 
 namespace xLibV100.Common.UI
 {
@@ -523,7 +524,6 @@ namespace xLibV100.Common.UI
             public object Parameter { get; set; }
         }
 
-
         public void ApplyOptions(object model, MediatorViewModelParser parser, ParseParameters parameters)
         {
             parser.Parse(this, model, parameters);
@@ -533,6 +533,17 @@ namespace xLibV100.Common.UI
         public void ApplyOptions(Options option)
         {
             ApplyOptions(new Options[] { option });
+        }
+
+        public void RemoveOptions(object model)
+        {
+            foreach (var row in Properties)
+            {
+                if (row is Element element)
+                {
+
+                }
+            }
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using xLibV100.Controls;
 
-namespace xLibV100.Peripherals
+namespace xLibV100.Peripherals.RTOSControl
 {
     public class RTOS : PeripheralBase
     {

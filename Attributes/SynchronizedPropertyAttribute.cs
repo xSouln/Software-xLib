@@ -82,5 +82,10 @@ namespace xLibV100.Controls
 
             }
         }
+
+        /*public int Apply()
+        {
+
+        }*/
     }
 }

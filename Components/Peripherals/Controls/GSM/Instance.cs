@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using xLibV100.Adaptation;
@@ -20,22 +19,13 @@ namespace xLibV100.Peripherals.GsmControl
         protected int signalQuality;
         protected InstanceTypes instanceType;
         protected NetworkState networkState;
+        protected StatusRegisterT statusRegister;
 
         protected Control Control;
-        protected static List<SynchronizedPropertyAttribute> SynchronizedProperties = new List<SynchronizedPropertyAttribute>();
 
         static Instance()
         {
-            var properties = typeof(Instance).GetProperties();
-
-            foreach (var property in properties)
-            {
-                if (property.GetCustomAttribute(typeof(SynchronizedPropertyAttribute)) is SynchronizedPropertyAttribute attribute)
-                {
-                    attribute.Apply(property);
-                    SynchronizedProperties.Add(attribute);
-                }
-            }
+            PropertyControl = new SynchronizedPropertyControl(typeof(Instance));
         }
 
         public Instance(Gsm model) : base(model)
@@ -66,17 +56,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         private void GetPropertiesResponseReceiver(RxPacketManager obj, Peripherals.Transactions.ResponseGetProperties arg)
         {
-            foreach (var property in arg.Properties)
-            {
-                foreach (var synchronizedProperty in SynchronizedProperties)
-                {
-                    if ((int)synchronizedProperty.PropertyId == property.Info.Id)
-                    {
-                        synchronizedProperty.SetValue(this, property.Content);
-                        break;
-                    }
-                }
-            }
+            PropertyControl.Apply(arg.Properties);
         }
 
         [ModelFunction(Name = "Update APN")]
@@ -200,7 +180,18 @@ namespace xLibV100.Peripherals.GsmControl
 
 
         [SynchronizedProperty(PropertyId = PropertySelector.Status, CopyingByMapping = true)]
-        public StatusRegisterT StatusRegister { get; set; }
+        public StatusRegisterT StatusRegister
+        {
+            get => statusRegister;
+            set
+            {
+                if (xMemory.Compare(statusRegister, value) != 0)
+                {
+                    statusRegister = value;
+                    OnPropertyChanged(nameof(StatusRegister), statusRegister);
+                }
+            }
+        }
 
 
         [SynchronizedProperty(PropertyId = PropertySelector.IMEI)]

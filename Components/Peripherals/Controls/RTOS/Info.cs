@@ -1,6 +1,6 @@
-﻿namespace xLibV100.Peripherals
+﻿namespace xLibV100.Peripherals.RTOSControl
 {
-    public class RTOSInfo
+    public class Info
     {
         public const uint UID = 0x1848BF7;
     }

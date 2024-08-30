@@ -39,6 +39,19 @@ namespace xLibV100.UI.CellElements
             Name = name;
         }
 
+        public Element FindElementByModel(object model)
+        {
+            foreach (var element in Elements)
+            {
+                if (element == model)
+                {
+                    return element;
+                }
+            }
+
+            return null;
+        }
+
         public virtual void AddElement(object model, string propertyName, string column)
         {
             var frameworkElement = new FrameworkElementFactory(typeof(ContentControl));

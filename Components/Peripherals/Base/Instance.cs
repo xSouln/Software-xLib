@@ -4,6 +4,8 @@ namespace xLibV100.Peripherals
 {
     public class Instance : ModelBase
     {
+        protected static SynchronizedPropertyControl PropertyControl;
+
         public Instance(object parent) : base(parent)
         {
 

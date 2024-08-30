@@ -48,5 +48,14 @@ namespace xLibV100.Common
 
             return null;
         }
+
+        public static bool VerifyFlags<TFlags>(TFlags state, TFlags flags)
+            where TFlags : Enum
+        {
+            int _state = Convert.ToInt32(state);
+            int _flags = Convert.ToInt32(flags);
+
+            return (_state & _flags) == _flags;
+        }
     }
 }

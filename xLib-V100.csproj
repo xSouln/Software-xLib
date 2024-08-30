@@ -107,6 +107,7 @@
     <Compile Include="Attributes\SynchronizedPropertyAttribute.cs" />
     <Compile Include="Components\Peripherals\Base\Control.cs" />
     <Compile Include="Components\Peripherals\Base\Types.cs" />
+    <Compile Include="Components\Peripherals\Base\SynchronizedPropertyControl.cs" />
     <Compile Include="Components\Peripherals\Controls\Common\Types.cs" />
     <Compile Include="Components\Peripherals\Controls\Ethernet\Instance.cs" />
     <Compile Include="Components\Peripherals\Controls\Ethernet\Types.cs" />
@@ -120,15 +121,22 @@
     <Compile Include="Components\Peripherals\Controls\MQTT\Instance.cs" />
     <Compile Include="Components\Peripherals\Base\PeripheralBase.cs" />
     <Compile Include="Components\Peripherals\Controls\MQTT\Types.cs" />
+    <Compile Include="Components\Peripherals\Controls\Port\Info.cs" />
+    <Compile Include="Components\Peripherals\Controls\Port\Instance.cs" />
+    <Compile Include="Components\Peripherals\Controls\Port\Port.cs" />
+    <Compile Include="Components\Peripherals\Controls\Port\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\Common\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\Common\Requests.cs" />
     <Compile Include="Components\Peripherals\Transactions\Common\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\Control\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\Ethernet\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Ethernet\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\GSM\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\GSM\Types.cs" />
     <Compile Include="Components\Peripherals\Transactions\MQTT\Control.cs" />
     <Compile Include="Adaptation\ReadableProperty.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Port\Control.cs" />
+    <Compile Include="Components\Peripherals\Transactions\Port\Types.cs" />
     <Compile Include="Controls\ComponentInfo.cs" />
     <Compile Include="Controls\IComponent.cs" />
     <Compile Include="Controls\IEnvironment.cs" />
@@ -474,19 +482,7 @@
       <DependentUpon>WindowsFormsChat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Peripherals\Controls\xADC\Models\Interfaces\" />
-    <Folder Include="Components\Peripherals\Controls\xCAN\Models\" />
-    <Folder Include="Components\Peripherals\Controls\xCAN\Types\" />
-    <Folder Include="Components\Peripherals\Controls\xGPIO\Models\" />
-    <Folder Include="Components\Peripherals\Controls\xGPIO\Types\" />
-    <Folder Include="Components\Peripherals\Controls\xSPI\Models\" />
-    <Folder Include="Components\Peripherals\Controls\xSPI\Types\" />
-    <Folder Include="Components\Peripherals\Controls\xSystem\Models\" />
-    <Folder Include="Components\Peripherals\Controls\xSystem\Types\" />
-    <Folder Include="Components\Peripherals\Controls\xTimer\Models\" />
-    <Folder Include="Components\Peripherals\Controls\xTimer\Types\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

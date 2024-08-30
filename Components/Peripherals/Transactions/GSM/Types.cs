@@ -1,6 +1,4 @@
-﻿using xLibV100.Attributes;
-
-namespace xLibV100.Peripherals.GsmControl.Transactions
+﻿namespace xLibV100.Peripherals.GsmControl.Transactions
 {
     public enum Actions : ushort
     {

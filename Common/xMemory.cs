@@ -597,6 +597,30 @@ namespace xLibV100.Common
             return false;
         }
 
+        public static unsafe int Compare<T1, T2>(T1 source, T2 element)
+            where T1 : unmanaged
+            where T2 : unmanaged
+        {
+            if (sizeof(T1) != sizeof(T2))
+            {
+                return -2;
+            }
+
+            int length = sizeof(T1);
+            byte* ptr1 = (byte*)&source;
+            byte* ptr2 = (byte*)&element;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (ptr1[i] != ptr2[i])
+                {
+                    return -1;
+                }
+            }
+
+            return 0;
+        }
+
         public static unsafe bool Compare(void* in_1, void* in_2, int count)
         {
             if (in_1 != null && in_2 != null && count > 0)

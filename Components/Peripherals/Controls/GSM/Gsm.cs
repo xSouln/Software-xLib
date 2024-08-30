@@ -17,7 +17,7 @@ namespace xLibV100.Peripherals.GsmControl
         {
             Name = nameof(Gsm);
 
-            Transactions = new Transactions.Control(this, 0x75FC61E8);
+            Transactions = new Transactions.Control(this, Info.UID);
 
             Instances.Add(new Instance(this));
         }
