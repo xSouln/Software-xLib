@@ -163,9 +163,9 @@ namespace xLibV100.Peripherals.Transactions
 
         public unsafe object Recieve(RxPacketManager manager, xContent content)
         {
-            while (content.DataSize >= sizeof(ReadablePropertyInfoT))
+            /*while (content.DataSize >= sizeof(ReadablePropertyHeaderT))
             {
-                content.Get(out ReadablePropertyInfoT info);
+                content.Get(out ReadablePropertyHeaderT info);
 
                 if (info.Size > content.DataSize)
                 {
@@ -173,7 +173,7 @@ namespace xLibV100.Peripherals.Transactions
                 }
 
                 Properties.Add(new ReadableProperty(info, content.GetSegment(info.Size)));
-            }
+            }*/
 
             return this;
         }
@@ -195,14 +195,14 @@ namespace xLibV100.Peripherals.Transactions
 
     public class RequestSetProperties : RequestToInstance
     {
-        protected List<WritableProperty> Properties = new List<WritableProperty>();
+        protected List<RequestedWritableProperty> Properties = new List<RequestedWritableProperty>();
 
-        public RequestSetProperties(WritableProperty property, byte number = 0) : base(number)
+        public RequestSetProperties(RequestedWritableProperty property, byte number = 0) : base(number)
         {
             Properties.Add(property);
         }
 
-        public RequestSetProperties(WritableProperty[] properties, byte number = 0) : base(number)
+        public RequestSetProperties(RequestedWritableProperty[] properties, byte number = 0) : base(number)
         {
             if (properties == null || properties.Length == 0)
             {
@@ -216,11 +216,11 @@ namespace xLibV100.Peripherals.Transactions
         {
             int size = base.Add(buffer);
 
-            foreach (var property in Properties)
+            /*foreach (var property in Properties)
             {
                 size += xMemory.Add(buffer, property.Info);
                 size += xMemory.Add(buffer, property.Content);
-            }
+            }*/
 
             return size;
         }

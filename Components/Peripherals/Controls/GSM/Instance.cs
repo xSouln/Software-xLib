@@ -105,7 +105,7 @@ namespace xLibV100.Peripherals.GsmControl
             return ActionResult.Accept;
         }
 
-        public async virtual Task<ActionResult> SetPropertiesAsync(WritableProperty property, params WritableProperty[] properties)
+        public async virtual Task<ActionResult> SetPropertiesAsync(RequestedWritableProperty property, params RequestedWritableProperty[] properties)
         {
             var request = Parent.Transactions.SetProperties.Prepare(new Peripherals.Transactions.RequestSetProperties(properties));
             Control.AddTransactionToLine(request, Name);
@@ -121,7 +121,7 @@ namespace xLibV100.Peripherals.GsmControl
 
         public virtual Task<ActionResult> SetPropertiesAsync(params object[] models)
         {
-            List<WritableProperty> request = new List<WritableProperty>();
+            List<RequestedWritableProperty> request = new List<RequestedWritableProperty>();
 
             foreach (var model in models)
             {
@@ -143,12 +143,12 @@ namespace xLibV100.Peripherals.GsmControl
                             continue;
                         }
 
-                        request.Add(new WritableProperty(new WritablePropertyInfoT
+                        /*request.Add(new WritableProperty(new WritablePropertyInfoT
                         {
                             Id = (ushort)attribute.PropertyId,
                             Type = attribute.PropertySelector.Type,
                             Size = (ushort)content.Length,
-                        }, content));
+                        }, content));*/
                     }
                 }
             }

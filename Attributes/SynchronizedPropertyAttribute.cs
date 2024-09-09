@@ -3,16 +3,19 @@ using System;
 using System.Reflection;
 using xLibV100.Attributes;
 using xLibV100.Common;
+using xLibV100.Components;
 
 namespace xLibV100.Controls
 {
     public class SynchronizedPropertyAttribute : Attribute
     {
         protected object propertyId;
+
         protected IValueConverter ValueConverter;
         protected PropertyInfo PropertyInfo;
 
         public bool CopyingByMapping;
+        public ushort Extension;
 
         public SynchronizedPropertySelectorAttribute PropertySelector { get; protected set; }
 
@@ -77,15 +80,10 @@ namespace xLibV100.Controls
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                xTracer.Message(ex.Message);
             }
         }
-
-        /*public int Apply()
-        {
-
-        }*/
     }
 }

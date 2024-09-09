@@ -15,6 +15,7 @@ using xLibV100.UI.Views;
 using System.ComponentModel;
 using xLib.UI.ViewElements;
 using static xLibV100.UI.CellElements.ListViewRow;
+using System.Runtime.InteropServices;
 
 namespace xLibV100.Common.UI
 {
@@ -108,7 +109,20 @@ namespace xLibV100.Common.UI
 
             if (options.Attribute != null && options.Attribute.ReadOnly)
             {
-                row.AddElement(new ContentControlCellElement(model, options.PropertyName, options.ColumnName));
+                if (typeof(IEnumerable).IsAssignableFrom(options.Info.PropertyType) && options.Info.PropertyType != typeof(string))
+                {
+                    /*if (options.Info.PropertyType.GetElementType().IsPrimitive)
+                    {
+                        row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
+                        goto end;
+                    }*/
+
+                    row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
+                }
+                else
+                {
+                    row.AddElement(new ContentControlCellElement(model, options.PropertyName, options.ColumnName));
+                }
             }
             else if (options.Info.PropertyType == typeof(bool))
             {
@@ -147,9 +161,17 @@ namespace xLibV100.Common.UI
             {
                 return;
             }
-            else if (typeof(ICollection).IsAssignableFrom(options.Info.PropertyType))
+            else if (typeof(IEnumerable).IsAssignableFrom(options.Info.PropertyType))
             {
-                ICollection collection = (ICollection)options.Info.GetValue(model);
+                row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
+
+                /*if (options.Info.PropertyType.GetElementType().IsPrimitive)
+                {
+                    row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
+                    goto end;
+                }*/
+
+                /*IEnumerable collection = (IEnumerable)options.Info.GetValue(model);
 
                 foreach (var element in collection)
                 {
@@ -166,14 +188,18 @@ namespace xLibV100.Common.UI
                     viewModel.ViewEventListener += SubViewEventListener;
 
                     Properties.Add(viewModel);
-                }
+                }*/
 
                 return;
             }
             else
             {
-                row.AddElement(new TextBoxCellElement(model, options.PropertyName, options.ColumnName, (options.Flags & ParseOptionsFlags.SetReadTemplate) != 0) { Parent = this });
+                row.AddElement(new TextBoxCellElement(model,
+                    options.PropertyName,
+                    options.ColumnName,
+                    (options.Flags & ParseOptionsFlags.SetReadTemplate) != 0) { Parent = this });
             }
+
 
             Properties.Add(row);
         }
@@ -335,8 +361,23 @@ namespace xLibV100.Common.UI
                 {
                     if (property.GetCustomAttribute(typeof(ModelPropertyAttribute)) is ModelPropertyAttribute propertyAttribute)
                     {
-                        if (typeof(ICollection).IsAssignableFrom(property.PropertyType))
+                        if (typeof(ICollection).IsAssignableFrom(property.PropertyType)
+                            || typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
                         {
+                            //Type elementType = property.PropertyType.GetElementType();
+
+                            //if (elementType != null && elementType.IsPrimitive)
+                            {
+                                ParseOptions parseOptions = new ParseOptions();
+                                parseOptions.Attribute = propertyAttribute;
+                                parseOptions.Info = property;
+                                parseOptions.Flags = parameters != null ? parameters.Flags : 0;
+                                parseOptions.PropertyName = property.Name;
+                                parseOptions.ColumnName = propertyAttribute.Group;
+
+                                viewModel.AddProperty(model, parseOptions);
+                            }
+
                             continue;
                         }
                         else if (property.PropertyType == typeof(string))
@@ -380,6 +421,17 @@ namespace xLibV100.Common.UI
                 {
                     Field.Add(new BitFieldProperty(model, property, enumElement.GetValue(null)));
                 }
+            }
+        }
+
+        public class CollectionCellElement : UserTemplateCellElement
+        {
+            public object Values { get; set; }
+
+            public CollectionCellElement(object model, PropertyInfo property, string column)
+                : base(model, property.Name, column, typeof(CollectionPresenterViewElement))
+            {
+                Values = property.GetValue(model);
             }
         }
 

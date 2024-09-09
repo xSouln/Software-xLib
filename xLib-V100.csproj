@@ -86,6 +86,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptation\TransactionsTemplate-GetProperty.cs" />
+    <Compile Include="Adaptation\TransactionsTemplate-SetProperty.cs" />
+    <Compile Include="Adaptation\TransactionsTemplate.cs" />
+    <Compile Include="Adaptation\WritableProperty.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,7 @@
     <Compile Include="Attributes\ModelPropertyAttribute.cs" />
     <Compile Include="Attributes\SynchronizedPropertySelectorAttribute.cs" />
     <Compile Include="Attributes\SubmodelAttribute.cs" />
+    <Compile Include="Common\BitsFieldHelper.cs" />
     <Compile Include="Common\DataBuffer.cs" />
     <Compile Include="Common\EnumHelper.cs" />
     <Compile Include="Common\Json.cs" />
@@ -314,6 +319,9 @@
     <Compile Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml.cs">
       <DependentUpon>BitsFieldIndicatorViewElement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ViewElements\CollectionPresenterViewElement.xaml.cs">
+      <DependentUpon>CollectionPresenterViewElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ViewElements\EnumCellViewElement.xaml.cs">
       <DependentUpon>EnumCellViewElement.xaml</DependentUpon>
     </Compile>
@@ -419,6 +427,10 @@
     <Page Include="UI\ViewElements\BitsFieldIndicatorViewElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ViewElements\CollectionPresenterViewElement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ViewElements\EnumCellViewElement.xaml">
       <Generator>MSBuild:Compile</Generator>

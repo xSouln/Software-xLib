@@ -31,7 +31,6 @@ namespace xLibV100.Transactions
             ResponseReceiver = receiver;
         }
 
-
         public TAction Action
         {
             get => action;
@@ -61,7 +60,7 @@ namespace xLibV100.Transactions
 
             if (packet->Header.DeviceId == header.DeviceId
                 && packet->Header.UID == header.UID
-                && (packet->Info.Action == (ushort)(object)Action)
+                && (packet->Info.Action == Convert.ToUInt16(Action))
                 && packet->Info.RequestId == Id)
             {
                 if (packet->Header.Identificator == header.Identificator)
@@ -85,7 +84,7 @@ namespace xLibV100.Transactions
             return ReceiverResult.NotFound;
         }
 
-        protected virtual unsafe TxTransactionBase<TResponse, TAction> Prepare(ResponseHandle handle)
+        public virtual unsafe TxTransactionBase<TResponse, TAction> Prepare(ResponseHandle handle = null)
         {
             var transaction = (TxTransactionBase<TResponse, TAction>)Create();
 
@@ -107,14 +106,9 @@ namespace xLibV100.Transactions
             PacketBase.Add(packet, EndPacket);
 
             transaction.Data = packet.ToArray();
-            transaction.handle = handle;
+            transaction.handle = handle ?? this.handle;
 
             return transaction;
-        }
-
-        public virtual unsafe TxTransactionBase<TResponse, TAction> Prepare()
-        {
-            return Prepare(handle);
         }
     }
 
@@ -167,7 +161,7 @@ namespace xLibV100.Transactions
 
             if (packet->Header.DeviceId == header.DeviceId
                 && packet->Header.UID == header.UID
-                && (packet->Info.Action == (ushort)(object)Action)
+                && (packet->Info.Action == Convert.ToUInt16(Action))
                 && packet->Info.RequestId == Id)
             {
                 if (packet->Header.Identificator == header.Identificator)
@@ -191,7 +185,15 @@ namespace xLibV100.Transactions
             return ReceiverResult.NotFound;
         }
 
-        protected unsafe virtual TxTransactionBase<TResponse, TAction, TRequest> Prepare(ResponseHandle handle, TRequest request)
+        public unsafe virtual TxTransactionBase<TResponse, TAction, TRequest> Prepare(TRequest request, ResponseHandle handle = null)
+        {
+            List<byte> content = new List<byte>();
+            request.Add(content);
+
+            return Prepare(content.ToArray(), handle: handle);
+        }
+
+        public unsafe virtual TxTransactionBase<TResponse, TAction, TRequest> Prepare(byte[] content, ResponseHandle handle = null)
         {
             var transaction = (TxTransactionBase<TResponse, TAction, TRequest>)Create();
 
@@ -204,13 +206,11 @@ namespace xLibV100.Transactions
             randomSynchronize.Set();
 
             List<byte> packet = new List<byte>();
-            List<byte> content = new List<byte>();
-            request.Add(content);
 
             PacketInfoT info = new PacketInfoT
             {
-                Action = (ushort)(object)action,
-                ContentSize = (ushort)content.Count,
+                Action = Convert.ToUInt16(action),
+                ContentSize = (ushort)content.Length,
                 RequestId = transaction.Id
             };
 
@@ -220,14 +220,9 @@ namespace xLibV100.Transactions
             xMemory.Add(packet, EndPacket);
 
             transaction.Data = packet.ToArray();
-            transaction.handle = handle;
+            transaction.handle = handle == null ? this.handle : handle;
 
             return transaction;
-        }
-
-        public virtual unsafe TxTransactionBase<TResponse, TAction, TRequest> Prepare(TRequest request)
-        {
-            return Prepare(handle, request);
         }
     }
 }

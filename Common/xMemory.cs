@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using xLibV100.Components;
 
 namespace xLibV100.Common
 {
@@ -185,7 +185,8 @@ namespace xLibV100.Common
             return i;
         }
 
-        public unsafe static int Convert<TDestiny>(out TDestiny destiny, void* source, int limit = int.MaxValue) where TDestiny : unmanaged
+        public unsafe static int Convert<TDestiny>(out TDestiny destiny, void* source, int limit = int.MaxValue)
+            where TDestiny : unmanaged
         {
             if (limit < sizeof(TDestiny))
             {
@@ -198,7 +199,8 @@ namespace xLibV100.Common
             return sizeof(TDestiny);
         }
 
-        public unsafe static int Convert<TElement>(out TElement[] destiny, void* source, int sourceLength, int offset = 0) where TElement : unmanaged
+        public unsafe static int Convert<TElement>(out TElement[] destiny, void* source, int sourceLength, int offset = 0)
+            where TElement : unmanaged
         {
             if (source == null)
             {
@@ -227,12 +229,14 @@ namespace xLibV100.Common
             return countOfElements;
         }
 
-        public unsafe static int Copy<TDestiny>(out TDestiny destiny, byte[] source, int offset = 0, int limit = int.MaxValue) where TDestiny : unmanaged
+        public unsafe static int Copy<TDestiny>(out TDestiny destiny, byte[] source, int offset = 0, int limit = int.MaxValue)
+            where TDestiny : unmanaged
         {
             return Convert(out destiny, source, offset, limit);
         }
 
-        public unsafe static int Convert<TDestiny>(out TDestiny destiny, byte[] source, int offset = 0, int limit = int.MaxValue) where TDestiny : unmanaged
+        public unsafe static int Convert<TDestiny>(out TDestiny destiny, byte[] source, int offset = 0, int limit = int.MaxValue)
+            where TDestiny : unmanaged
         {
             if (source == null)
             {
@@ -404,6 +408,31 @@ namespace xLibV100.Common
             throw new ArgumentException("not suported type");
         }
 
+        public static byte[] ConvertToArray<TElement>(IEnumerable<TElement> source, int startIndex = 0, int length = int.MaxValue)
+            where TElement : unmanaged
+        {
+            List<byte> result = new List<byte>();
+
+            int i = 0;
+            foreach(var element in source)
+            {
+                if (i >= length)
+                {
+                    break;
+                }
+
+                if (i < startIndex)
+                {
+                    continue;
+                }
+
+                Add(result, element);
+                i++;
+            }
+
+            return result.ToArray();
+        }
+
         public static unsafe byte[] ConvertToArray(object source)
         {
             if (source == null)
@@ -464,7 +493,8 @@ namespace xLibV100.Common
             throw new ArgumentException("source type is not supported");
         }
 
-        public static unsafe int Convert<TElement>(List<TElement> desteny, byte[] data, int offset = 0, int limit = int.MaxValue) where TElement : unmanaged
+        public static unsafe int Convert<TElement>(List<TElement> desteny, byte[] data, int offset = 0, int limit = int.MaxValue)
+            where TElement : unmanaged
         {
             Convert(out TElement[] result, data, offset, limit);
 
@@ -543,6 +573,25 @@ namespace xLibV100.Common
             }
 
             return 0;
+        }
+
+        public static unsafe TValue GetValue<TValue>(byte[] source, int offset = 0, int length = int.MaxValue, bool generateException = false)
+            where TValue : unmanaged
+        {
+            if (source == null)
+            {
+                throw new ArgumentException();
+            }
+
+            if (length - source.Length + offset < sizeof(TValue))
+            {
+                throw new ArgumentException();
+            }
+
+            fixed (byte* sourcePtr = source)
+            {
+                return *(TValue*)(sourcePtr + offset);
+            }
         }
 
         public static unsafe bool Compare<T>(ref T source, ref T element) where T : unmanaged

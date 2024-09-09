@@ -8,7 +8,8 @@ namespace xLibV100.Transactions.Common
     /// базовый шаблон запроса
     /// </summary>
     /// <typeparam name="TContent">тип предостовляющий набор параметров запроса</typeparam>
-    public class Request<TContent> : IRequestAdapter where TContent : unmanaged
+    public class Request<TContent> : IRequestAdapter
+        where TContent : unmanaged
     {
         public TContent Content;
 

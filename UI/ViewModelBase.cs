@@ -287,6 +287,16 @@ namespace xLibV100.UI
             return number;
         }
 
+        protected virtual object GetModelFromViewModel(object element)
+        {
+            if (element is ViewModelBase viewModel)
+            {
+                return viewModel.Model;
+            }
+
+            return null;
+        }
+
 
         protected virtual TViewModel AddToModels<TViewModel>(params object[] args)
             where TViewModel : ViewModelBase

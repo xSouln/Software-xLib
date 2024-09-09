@@ -7,14 +7,14 @@ namespace xLibV100.UI.CellElements
     {
         protected FrameworkElementFactory frameworkElement;
 
-        public UserTemplateCellElement(object model, string propertyName, string column, Type type)
+        public UserTemplateCellElement(object model, string propertyName, string column, Type type, object dataContext = null)
         {
             Model = model;
             PropertyName = propertyName;
             Column = column;
 
             frameworkElement = new FrameworkElementFactory(type);
-            frameworkElement.SetValue(FrameworkElement.DataContextProperty, this);
+            frameworkElement.SetValue(FrameworkElement.DataContextProperty, dataContext == null ? this : dataContext);
             frameworkElement.SetValue(FrameworkElement.MinWidthProperty, 150.0);
 
             Template = new DataTemplate { VisualTree = this.frameworkElement };

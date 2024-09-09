@@ -8,25 +8,25 @@ namespace xLibV100.Peripherals.GsmControl
     {
         Idle,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.String)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.String)]
         IMEI,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.String)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.String)]
         APN,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.String)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.String)]
         Login,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.String)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.String)]
         Password,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.String)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.String)]
         SIMCardPassword,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.HalfWord)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.Base)]
         SignalQuality,
 
-        [SynchronizedPropertySelector(Type = RWPropertyTypes.Object)]
+        [SynchronizedPropertySelector(Type = SPropertyTypes.Object)]
         Status
     }
 
