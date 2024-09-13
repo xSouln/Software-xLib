@@ -145,6 +145,8 @@
     <Compile Include="Controls\ComponentInfo.cs" />
     <Compile Include="Controls\IComponent.cs" />
     <Compile Include="Controls\IEnvironment.cs" />
+    <Compile Include="Interfaces\IInheritable.cs" />
+    <Compile Include="Interfaces\IThreeElement.cs" />
     <Compile Include="Net\MQTT\MqttBroker.cs" />
     <Compile Include="Net\MQTT\MqttBrokerOptions.cs" />
     <Compile Include="Net\MQTT\MqttBrokerTopic.cs" />

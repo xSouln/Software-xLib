@@ -1,11 +1,12 @@
-﻿using xLibV100.UI;
+﻿using xLibV100.Interfaces;
+using xLibV100.UI;
 
 namespace xLibV100.Controls
 {
     /// <summary>
     /// класс определяющий базовый набор для модели
     /// </summary>
-    public abstract class ModelBase : UINotifyPropertyChanged
+    public abstract class ModelBase : UINotifyPropertyChanged, IInheritable
     {
         protected object parent;
         protected string name;
@@ -19,6 +20,8 @@ namespace xLibV100.Controls
         {
             this.parent = parent;
         }
+
+        public object Parent => parent;
 
         /// <summary>
         /// имя модели
@@ -48,7 +51,7 @@ namespace xLibV100.Controls
     /// <typeparam name="TParent"></typeparam>
     public class ModelBase<TParent> : ModelBase where TParent : class
     {
-        public TParent Parent
+        public new TParent Parent
         {
             get => parent != null ? (TParent)parent : null;
             set => parent = value;

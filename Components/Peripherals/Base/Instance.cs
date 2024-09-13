@@ -19,7 +19,7 @@ namespace xLibV100.Peripherals
 
         }
 
-        public TPeripheral Parent
+        public new TPeripheral Parent
         {
             get => parent as TPeripheral;
             set => parent = value;
