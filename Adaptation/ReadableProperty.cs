@@ -133,7 +133,9 @@ namespace xLibV100.Adaptation
 
     public struct RedablePropertyInfoT
     {
+#pragma warning disable CS0649 // данная переменная служит для согласования раммера(целостности) данных при преобразовании с массива
         private ushort value;
+#pragma warning restore CS0649
 
         public SPropertyTypes Type
         {
