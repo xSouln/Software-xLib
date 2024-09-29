@@ -9,7 +9,6 @@
         Style="{StaticResource WindowGlobalStyle}"
         HorizontalContentAlignment="Stretch"
         VerticalContentAlignment="Stretch"
-        MaxHeight="{x:Static SystemParameters.PrimaryScreenHeight}"
         MinHeight="400"
         SizeToContent="WidthAndHeight">
     <Grid Margin="5,5,5,5" x:Name="Container">

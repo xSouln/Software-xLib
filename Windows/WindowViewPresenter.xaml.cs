@@ -53,7 +53,7 @@ namespace xLibV100.Windows
             DataContext = viewModel;
 
             MaxWidth = SystemParameters.PrimaryScreenWidth;
-            MaxHeight = SystemParameters.PrimaryScreenHeight * 0.9;
+            MaxHeight = SystemParameters.PrimaryScreenHeight;
 
             Closed += (sender, e) =>
             {
