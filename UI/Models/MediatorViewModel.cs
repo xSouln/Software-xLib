@@ -161,37 +161,6 @@ namespace xLibV100.Common.UI
             {
                 return;
             }
-            else if (typeof(IEnumerable).IsAssignableFrom(options.Info.PropertyType))
-            {
-                row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
-
-                /*if (options.Info.PropertyType.GetElementType().IsPrimitive)
-                {
-                    row.AddElement(new CollectionCellElement(model, options.Info, options.ColumnName));
-                    goto end;
-                }*/
-
-                /*IEnumerable collection = (IEnumerable)options.Info.GetValue(model);
-
-                foreach (var element in collection)
-                {
-                    var viewModel = new MediatorViewModel<UniversalListView>(this, new Options[]
-                    {
-                        new Options
-                        {
-                            Model = element,
-                            Descriptions = new object[] { new ModelPropertyAttribute() }
-                        }
-                    });
-
-                    viewModel.Name = options.ColumnName;
-                    viewModel.ViewEventListener += SubViewEventListener;
-
-                    Properties.Add(viewModel);
-                }*/
-
-                return;
-            }
             else
             {
                 row.AddElement(new TextBoxCellElement(model,
