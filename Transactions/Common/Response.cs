@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions.Common
@@ -23,6 +25,34 @@ namespace xLibV100.Transactions.Common
             Values = elements.ToArray();
 
             return this;
+        }
+
+        public TValue this[int index]
+        {
+            get
+            {
+                try
+                {
+                    return Values[index];
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public TValue Value
+        {
+            get
+            {
+                if (Values == null || !(Values.Length > 0))
+                {
+                    throw new Exception("value missing");
+                }
+
+                return Values[0];
+            }
         }
     }
 

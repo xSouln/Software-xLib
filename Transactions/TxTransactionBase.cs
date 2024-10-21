@@ -6,7 +6,7 @@ using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions
 {
-    public class TxTransactionBase : RequestBase
+    public class TxTransactionBase<TResponse> : RequestBase<TResponse>
     {
         public PacketHeaderT ResponseHeader;
         public PacketHeaderT RequestHeader;
@@ -16,15 +16,14 @@ namespace xLibV100.Transactions
         public uint Id;
     }
 
-    public class TxTransactionBase<TResponse, TAction> : TxTransactionBase, IReceiver
+    public class TxTransactionBase<TResponse, TAction> : TxTransactionBase<TResponse>, IReceiver
         where TResponse : IResponseAdapter, new()
     {
-        protected TResponse response;
         protected TAction action;
 
         public event xEvent<RxPacketManager, TResponse> ResponseReceiver;
-        public TResponse Response => response;
-        public IResponseAdapter GetResponseAdapter() => response;
+
+        public IResponseAdapter GetResponseAdapter() => Response;
 
         public void SetResponseReceiver(xEvent<RxPacketManager, TResponse> receiver)
         {
@@ -68,11 +67,11 @@ namespace xLibV100.Transactions
                     content.Data += sizeof(PacketT);
                     content.DataSize -= sizeof(PacketT);
 
-                    response = new TResponse();
+                    Response = new TResponse();
                     manager.FoundObject = this;
 
-                    response.Recieve(manager, content);
-                    ResponseReceiver?.Invoke(manager, response);
+                    Response.Recieve(manager, content);
+                    ResponseReceiver?.Invoke(manager, Response);
 
                     return ReceiverResult.Accept;
                 }
@@ -112,16 +111,14 @@ namespace xLibV100.Transactions
         }
     }
 
-    public class TxTransactionBase<TResponse, TAction, TRequest> : TxTransactionBase, IReceiver
+    public class TxTransactionBase<TResponse, TAction, TRequest> : TxTransactionBase<TResponse>, IReceiver
         where TResponse : IResponseAdapter, new()
         where TRequest : IRequestAdapter
     {
-        protected TResponse response;
         protected TAction action;
 
         public event xEvent<RxPacketManager, TResponse> ResponseReceiver;
-        public TResponse Response => response;
-        public IResponseAdapter GetResponseAdapter() => response;
+        public IResponseAdapter GetResponseAdapter() => Response;
 
         protected static Random random = new Random();
         protected static AutoResetEvent randomSynchronize = new AutoResetEvent(true);
@@ -169,11 +166,11 @@ namespace xLibV100.Transactions
                     content.Data += sizeof(PacketT);
                     content.DataSize -= sizeof(PacketT);
 
-                    response = new TResponse();
+                    Response = new TResponse();
                     manager.FoundObject = this;
 
-                    response.Recieve(manager, content);
-                    ResponseReceiver?.Invoke(manager, response);
+                    Response.Recieve(manager, content);
+                    ResponseReceiver?.Invoke(manager, Response);
 
                     return ReceiverResult.Accept;
                 }

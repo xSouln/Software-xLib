@@ -52,6 +52,8 @@
         <Setter Property="Foreground" Value="#FFDEC316"/>
         <Setter Property="BorderBrush" Value="#FF834545"/>
         <Setter Property="CaretBrush" Value="#FFDEC316"/>
+        <Setter Property="Padding" Value="0,2,0,2"/>
+        <Setter Property="Margin" Value="0,3,0,3"/>
     </Style>
 
     <Style TargetType="{x:Type ListView}" x:Key="ListViewGlobalStyle">

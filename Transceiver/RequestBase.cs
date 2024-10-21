@@ -65,6 +65,19 @@ namespace xLibV100.Transceiver
 
         public int TryNumber => tryNumber;
 
+        public RequestBase(string name = null, byte[] data = null, int tryCount = 1, int responseTime = 3000)
+        {
+            this.name = name;
+            this.data = data;
+            this.tryCount = tryCount;
+            responseTimeOut = responseTime;
+        }
+
+        public RequestBase()
+        {
+
+        }
+
         public void Accept(TxResponses result)
         {
             try
@@ -326,10 +339,31 @@ namespace xLibV100.Transceiver
             }, cancellation);
         }
 
-
         public void Dispose()
         {
 
+        }
+    }
+
+    public class RequestBase<TResult> : RequestBase
+    {
+        public TResult Response { get; protected set; }
+
+        public virtual async Task<TResult> AwaitResponseAsync(CancellationToken cancellation = default)
+        {
+            await Await(cancellation);
+
+            if (ResponseResult != TxResponses.Accept)
+            {
+                throw new Exception("ResponseResult: error");
+            }
+
+            if (Response == null)
+            {
+                throw new Exception("Response == null");
+            }
+
+            return Response;
         }
     }
 }

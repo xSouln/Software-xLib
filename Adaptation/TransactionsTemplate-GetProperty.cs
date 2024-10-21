@@ -4,6 +4,7 @@ using xLibV100.Transactions.Common;
 using xLibV100.Common;
 using xLibV100.Transceiver;
 using System;
+using System.Linq;
 
 namespace xLibV100.Adaptation
 {
@@ -93,6 +94,8 @@ namespace xLibV100.Adaptation
 
         public PropertyRangeArg Range { get; protected set; }
 
+        public IRequestAdapter CustomHeader { get; protected set; }
+
 
         public RequestGetProperty(ushort propertyId,
             ushort mode = 0,
@@ -100,7 +103,8 @@ namespace xLibV100.Adaptation
             bool valueIsExcluded = false,
             bool typeInfoIsIncluded = false,
             bool sizeInfoIsIncluded = false,
-            PropertyRangeArg range = null)
+            PropertyRangeArg range = null,
+            IRequestAdapter customHeader = null)
         {
             PropertyHeader.Id = propertyId;
             Mode = mode;
@@ -115,11 +119,15 @@ namespace xLibV100.Adaptation
             PropertyHeader.ResponseTypeInfoIsIncluded = typeInfoIsIncluded;
             PropertyHeader.ResponseSizeInfoIsIncluded = sizeInfoIsIncluded;
             PropertyHeader.ResponseValueIsExcluded = valueIsExcluded;
+
+            CustomHeader = customHeader;
         }
 
         public virtual int Add(List<byte> buffer)
         {
-            int size = xMemory.Add(buffer, PropertyHeader.Value);
+            int size = CustomHeader != null ? CustomHeader.Add(buffer) : 0;
+
+            size += xMemory.Add(buffer, PropertyHeader.Value);
 
             if (Extension != 0)
             {
@@ -142,7 +150,9 @@ namespace xLibV100.Adaptation
 
         public virtual unsafe int GetSize()
         {
-            int size = sizeof(ushort); //PropertyId
+            int size = CustomHeader != null ? CustomHeader.GetSize() : 0;
+
+            size = sizeof(ushort); //PropertyId
 
             if (Extension != 0)
             {
@@ -245,17 +255,54 @@ namespace xLibV100.Adaptation
             return this;
         }
 
-        public ReceivedRedableProperty GetById(ushort id)
+        public ReceivedRedableProperty GetById(int id)
         {
-            foreach (var element in Properties)
+            return Properties.FirstOrDefault(element => element.ReceivedInfo.Id == id);
+        }
+
+        public ReceivedRedableProperty this[int index]
+        {
+            get
             {
-                if (element.ReceivedInfo.Id == id)
+                if (index < 0 || index >= Properties.Count)
                 {
-                    return element;
+                    throw new IndexOutOfRangeException("index");
                 }
+
+                return Properties[index];
+            }
+        }
+
+        public TValue GetValueById<TValue>(int id, int elementIndex = 0, bool checkOversize = false)
+            where TValue : unmanaged
+        {
+            ReceivedRedableProperty property = GetById(id) ?? throw new MissingMemberException();
+            try
+            {
+                return property.GetElement<TValue>(elementIndex, checkOversize);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public TValue GetValueByIndex<TValue>(int index = 0, int elementIndex = 0, bool checkOversize = false)
+            where TValue : unmanaged
+        {
+            if (index < 0 || index >= Properties.Count)
+            {
+                throw new IndexOutOfRangeException();
             }
 
-            return null;
+            try
+            {
+                return Properties[index].GetElement<TValue>(elementIndex, checkOversize);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -87,12 +87,15 @@ namespace xLibV100.Adaptation
 
         public byte[] Content { get; protected set; }
 
+        public IRequestAdapter CustomHeader { get; protected set; }
+
         public RequestSetProperty(ushort propertyId,
             byte[] content,
             ushort mode = 0,
             ushort extension = 0,
             ushort typeSize = 0x8000,
-            ushort offset = 0)
+            ushort offset = 0,
+            IRequestAdapter customHeader = null)
         {
             Info.Id = propertyId;
             Content = content;
@@ -105,13 +108,15 @@ namespace xLibV100.Adaptation
             Info.ExtensionIsIncluded = extension != 0;
             Info.TypeSizeVerificationIsIncluded = typeSize != 0x8000;
             Info.LimitsIsIncluded = offset != 0;
+
+            CustomHeader = customHeader;
         }
 
         public virtual int Add(List<byte> buffer)
         {
             ushort contentSize = (ushort)(Content == null ? 0 : Content.Length);
 
-            int size = 0;
+            int size = CustomHeader != null ? CustomHeader.Add(buffer) : 0;
 
             size += xMemory.Add(buffer, Info.Value);
             size += xMemory.Add(buffer, contentSize);

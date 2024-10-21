@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using xLibV100.Common;
 
 namespace xLibV100.Adaptation
@@ -137,6 +138,17 @@ namespace xLibV100.Adaptation
         private ushort value;
 #pragma warning restore CS0649
 
+        public enum Flags
+        {
+            IsReadOnly,
+            IsSequential,
+            IsConstant,
+            IsPointer,
+            IsSigned,
+            IsDynamic,
+            IsVirtual
+        }
+
         public SPropertyTypes Type
         {
             get => (SPropertyTypes)BitsFieldHelper.GetValue(value, mask: 0xf, offset: 0);
@@ -265,7 +277,76 @@ namespace xLibV100.Adaptation
             Extension = extension;
             CountOfElements = countOfElements;
         }
-    
+
+        public unsafe TElement GetElement<TElement>(int index = 0, bool checkOversize = false) where TElement : unmanaged
+        {
+            if (index >= Elements.Count || index < 0)
+            {
+                throw new IndexOutOfRangeException("index");
+            }
+
+            if (checkOversize && sizeof(TElement) != Elements[index].Length)
+            {
+                throw new Exception("TElement oversize error");
+            }
+
+            return xMemory.GetValue<TElement>(Elements[index]);
+        }
+
+        public unsafe int AddElementsTo<TElement>(IList<TElement> desteny,
+            int startIndex = 0,
+            int stopIndex = int.MaxValue,
+            bool checkOversize = false,
+            bool generateConvertException = false,
+            bool generateOversizeException = false)
+            where TElement : unmanaged
+        {
+            if (desteny == null || Elements == null)
+            {
+                return 0;
+            }
+
+            try
+            {
+                int i = startIndex;
+                int j = 0;
+                while (i < stopIndex && i < Elements.Count)
+                {
+                    if (checkOversize && Elements[i].Length != sizeof(TElement))
+                    {
+                        if (generateOversizeException)
+                        {
+                            throw new Exception("element oversize");
+                        }
+
+                        goto end;
+                    }
+
+                    try
+                    {
+                        desteny.Add(xMemory.GetValue<TElement>(Elements[j], generateException: true));
+                    }
+                    catch (Exception ex)
+                    {
+                        if (generateConvertException)
+                        {
+                            throw ex;
+                        }
+                    }
+
+                end:;
+                    i++;
+                    j++;
+                }
+
+                return j;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public int CopyElementsTo<TElement>(IList<TElement> desteny,
             int startIndex = 0,
             int stopIndex = int.MaxValue,

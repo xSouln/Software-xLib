@@ -1,4 +1,4 @@
-﻿using System.Windows.Markup;
+﻿using System;
 using xLibV100.Common;
 
 namespace xLibV100.Transceiver
@@ -8,12 +8,17 @@ namespace xLibV100.Transceiver
         public unsafe byte* Data;
         public int DataSize;
 
-        public unsafe int Get<DataT>(out DataT result) where DataT : unmanaged
+        public unsafe int Get<DataT>(out DataT result, bool typeSizeException = false) where DataT : unmanaged
         {
             result = default;
 
             if (sizeof(DataT) > DataSize)
             {
+                if (typeSizeException)
+                {
+                    throw new Exception("sizeof(DataT) > DataSize");
+                }
+
                 return -1;
             }
 
@@ -25,10 +30,14 @@ namespace xLibV100.Transceiver
             return 0;
         }
 
-        public unsafe byte[] GetSegment(int dataSize)
+        public unsafe byte[] GetSegment(int dataSize, bool typeSizeException = false)
         {
             if (DataSize < dataSize)
             {
+                if (typeSizeException)
+                {
+                    throw new Exception("sizeof(DataT) > DataSize");
+                }
                 return null;
             }
 
@@ -40,11 +49,15 @@ namespace xLibV100.Transceiver
             return data;
         }
 
-        public unsafe int Get(out byte[] data, int dataSize)
+        public unsafe int Get(out byte[] data, int dataSize, bool typeSizeException = false)
         {
             if (dataSize > DataSize)
             {
                 data = null;
+                if (typeSizeException)
+                {
+                    throw new Exception("sizeof(DataT) > DataSize");
+                }
                 return -1;
             }
 

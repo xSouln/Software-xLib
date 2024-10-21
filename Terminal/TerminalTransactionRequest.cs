@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using xLibV100.Components;
 using xLibV100.Ports;
 using xLibV100.Transactions;
+using xLibV100.Transceiver;
 using xLibV100.UI;
 
 namespace xLibV100.Controls
@@ -13,7 +14,7 @@ namespace xLibV100.Controls
     {
         public object Sender;
 
-        public TxTransactionBase Transaction;
+        public RequestBase Request;
         public string Description;
         public object Content;
 
@@ -62,7 +63,7 @@ namespace xLibV100.Controls
 
                 if (element != null)
                 {
-                    xTracer.Trace(await element.Transaction.TransmitAsync(port, 1, 2000), element.Description);
+                    xTracer.Trace(await element.Request.TransmitAsync(port, 1, 2000), element.Description);
 
                     transactionSynchronize.WaitOne();
                     transactionRequests.Remove(element);

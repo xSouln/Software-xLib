@@ -21,7 +21,7 @@ namespace xLibV100.Controls
             this.parent = parent;
         }
 
-        public object Parent => parent;
+        public virtual object Parent => parent;
 
         /// <summary>
         /// имя модели

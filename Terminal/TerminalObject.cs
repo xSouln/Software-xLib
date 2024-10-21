@@ -61,9 +61,9 @@ namespace xLibV100.Controls
 
                 if (element != null)
                 {
-                    if (element.Transaction.Status != TxStatus.Cancelled)
+                    if (element.Request.Status != TxStatus.Cancelled)
                     {
-                        xTracer.Trace(await element.Transaction.TransmitAsync(SelectedPort,
+                        xTracer.Trace(await element.Request.TransmitAsync(SelectedPort,
                             element.TryNumber > 0 ? element.TryNumber : 1,
                             element.Timeout > 0 ? element.Timeout : 2000), element.Description);
                     }
@@ -77,13 +77,13 @@ namespace xLibV100.Controls
             }
         }
 
-        public int AddTransactionToLine(TxTransactionBase transaction, string description = "", int tryNumber = 1, int timeout = 2000)
+        public int AddTransactionToLine(RequestBase request, string description = "", int tryNumber = 1, int timeout = 2000)
         {
             transactionSynchronize.WaitOne();
 
             transactionRequests.Add(new TerminalTransactionRequest
             {
-                Transaction = transaction,
+                Request = request,
                 Description = description,
                 TryNumber = tryNumber,
                 Timeout = timeout

@@ -15,7 +15,6 @@ using xLibV100.UI.Views;
 using System.ComponentModel;
 using xLib.UI.ViewElements;
 using static xLibV100.UI.CellElements.ListViewRow;
-using System.Runtime.InteropServices;
 
 namespace xLibV100.Common.UI
 {
@@ -739,12 +738,12 @@ namespace xLibV100.Common.UI
             }
         }
 
-        public MediatorViewModel(object model) : base(model)
+        public MediatorViewModel(TModel model) : base(model)
         {
 
         }
 
-        public MediatorViewModel(object model, Options[] options) : base(model, options)
+        public MediatorViewModel(TModel model, Options[] options) : base(model, options)
         {
 
         }

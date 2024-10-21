@@ -364,7 +364,12 @@
                                     </GradientBrush.GradientStops>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <TextBlock x:Name="HeaderContent" Text="{TemplateBinding Content}" Padding="0,2,0,2" Width="{TemplateBinding Width}" TextAlignment="Center">
+                            <TextBlock x:Name="HeaderContent" Text="{TemplateBinding Content}"
+                                       Padding="0,2,0,2"
+                                       Margin="4,0,4,0"
+                                       MinWidth="100"
+                                       Width="{TemplateBinding Width}"
+                                       TextAlignment="Center">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Style.Triggers>
