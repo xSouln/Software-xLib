@@ -34,5 +34,14 @@ namespace xLibV100.Common
 
             return (_source & mask) == mask;
         }
+
+        public static bool GetState<TSource>(TSource source, TSource state)
+            where TSource : unmanaged
+        {
+            ulong _source = Convert.ToUInt64(source);
+            ulong _state = Convert.ToUInt64(state);
+
+            return (_source & _state) == _state;
+        }
     }
 }

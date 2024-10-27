@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions.Common

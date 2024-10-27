@@ -87,6 +87,7 @@
     <Compile Include="Common\xConverter.cs" />
     <Compile Include="Common\xMath.cs" />
     <Compile Include="Common\xMemory.cs" />
+    <Compile Include="Common\xMemoryReader.cs" />
     <Compile Include="Common\xSupport.cs" />
     <Compile Include="Components\MQTT\Broker\Control.cs" />
     <Compile Include="Attributes\SynchronizedPropertyAttribute.cs" />

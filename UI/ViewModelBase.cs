@@ -280,11 +280,18 @@ namespace xLibV100.UI
 
         protected virtual int AddToModels(Type viewModelType, params object[] args)
         {
-            int number = models.Count;
+            try
+            {
+                int number = models.Count;
 
-            models.Add(Activator.CreateInstance(viewModelType, args));
+                models.Add(Activator.CreateInstance(viewModelType, args));
 
-            return number;
+                return number;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected virtual object GetModelFromViewModel(object element)
@@ -301,11 +308,17 @@ namespace xLibV100.UI
         protected virtual TViewModel AddToModels<TViewModel>(params object[] args)
             where TViewModel : ViewModelBase
         {
-            TViewModel viewModel = (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
+            try
+            {
+                TViewModel viewModel = (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
 
-            models.Add(viewModel);
-
-            return viewModel;
+                models.Add(viewModel);
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected void ClearModels()
@@ -318,6 +331,48 @@ namespace xLibV100.UI
 
                 disposable?.Dispose();
             }
+        }
+
+        protected bool TypeIsPresent(Type type)
+        {
+            if (type == null || models.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var element in models)
+            {
+                if (element != null && element.GetType().Name == type.Name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected int RemoveFromModels(Type type)
+        {
+            if (type == null || models.Count == 0)
+            {
+                return 0;
+            }
+
+            int i = 0;
+            int countOfRemovedElements = 0;
+            while (i < models.Count)
+            {
+                if (models[i] != null && models[i].GetType().Name == type.Name)
+                {
+                    countOfRemovedElements++;
+                    models.RemoveAt(i);
+                    continue;
+                }
+
+                i++;
+            }
+
+            return countOfRemovedElements;
         }
     }
 

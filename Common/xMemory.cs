@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using xLibV100.Components;
 
 namespace xLibV100.Common
 {
@@ -41,18 +40,26 @@ namespace xLibV100.Common
             return 0;
         }
 
-        public static unsafe int Add(List<byte> packet, string data)
+        public static unsafe int Add(List<byte> packet, string data, int maxLength = int.MaxValue)
         {
-            if (packet != null && data != null)
+            if (packet == null || data == null || maxLength < 1)
             {
-                foreach (byte ch in data)
-                {
-                    packet.Add(ch);
-                }
-
-                return data.Length;
+                return 0;
             }
-            return 0;
+
+            int i = 0;
+            foreach (byte ch in data)
+            {
+                packet.Add(ch);
+                i++;
+
+                if (i >= maxLength)
+                {
+                    break;
+                }
+            }
+
+            return i;
         }
 
         public static unsafe int GetSize<T>(T element) where T : unmanaged
@@ -103,11 +110,11 @@ namespace xLibV100.Common
         public static unsafe byte[] ToByteArray<TRequest>(TRequest request) where TRequest : unmanaged
         {
             byte[] result = new byte[sizeof(TRequest)];
-            byte* request_ptr = (byte*)&request;
+            byte* ptr = (byte*)&request;
 
             for (int i = 0; i < sizeof(TRequest); i++)
             {
-                result[i] = request_ptr[i];
+                result[i] = ptr[i];
             }
 
             return result;
@@ -592,6 +599,24 @@ namespace xLibV100.Common
             {
                 return *(TValue*)(sourcePtr + offset);
             }
+        }
+
+        public static string GetString(byte[] source, int offset = 0, int length = int.MaxValue)
+        {
+            if (source == null)
+            {
+                return null;
+            }
+
+            string value = "";
+            int i = offset;
+            while (i < source.Length && i < length)
+            {
+                value += source[i];
+                i++;
+            }
+
+            return value;
         }
 
         public static unsafe bool Compare<T>(ref T source, ref T element) where T : unmanaged
