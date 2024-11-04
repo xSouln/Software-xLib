@@ -6,13 +6,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using xLibV100.Components;
 using xLibV100.Ports;
-using xLibV100.Transactions;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Controls
 {
     public abstract class TerminalObject : ModelBase<TerminalBase>, ITerminalObject
     {
+        public const uint DisabledUpdateStatePeriod = uint.MaxValue;
+
         protected Task updateStatesTask;
         protected CancellationTokenSource updateStatesTaskTokenSource;
         protected CancellationTokenSource transactionRequestsHandlerTokenSource = new CancellationTokenSource();
@@ -173,6 +174,12 @@ namespace xLibV100.Controls
             {
                 while (true && !token.IsCancellationRequested)
                 {
+                    if (updateStatePeriod == DisabledUpdateStatePeriod)
+                    {
+                        await Task.Delay(100, token);
+                        continue;
+                    }
+
                     int time = 0;
 
                     if (SelectedPort != null)

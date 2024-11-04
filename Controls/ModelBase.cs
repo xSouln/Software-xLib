@@ -8,12 +8,10 @@ namespace xLibV100.Controls
     /// <summary>
     /// класс определяющий базовый набор для модели
     /// </summary>
-    public abstract class ModelBase : UINotifyPropertyChanged, IInheritable, INotifyCollectionChanged
+    public abstract class ModelBase : UINotifyPropertyChanged, IInheritable
     {
         protected object parent;
         protected string name;
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public ModelBase()
         {
@@ -23,21 +21,6 @@ namespace xLibV100.Controls
         public ModelBase(object parent)
         {
             this.parent = parent;
-        }
-
-        protected virtual void OnCollectionReset(IEnumerable collection)
-        {
-            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-
-        protected virtual void OnCollectionAdd(IEnumerable collection, object element)
-        {
-            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
-        }
-
-        protected virtual void OnCollectionRemove(IEnumerable collection, object element)
-        {
-            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
         }
 
         public virtual object Parent => parent;
@@ -66,8 +49,6 @@ namespace xLibV100.Controls
         public override void Dispose()
         {
             base.Dispose();
-
-            CollectionChanged = null;
         }
     }
 

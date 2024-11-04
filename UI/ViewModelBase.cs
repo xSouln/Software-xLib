@@ -247,7 +247,16 @@ namespace xLibV100.UI
 
         public virtual void Close()
         {
-
+            if (models != null)
+            {
+                foreach (var element in models)
+                {
+                    if (element is ViewModelBase viewModel)
+                    {
+                        viewModel.Close();
+                    }
+                }
+            }
         }
 
         protected virtual int RemoveFromModels(object model)

@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace xLibV100.UI
 {
-    public abstract class UINotifyPropertyChanged : INotifyPropertyChanged, IDisposable
+    public abstract class UINotifyPropertyChanged : INotifyPropertyChanged, IDisposable, INotifyCollectionChanged
     {
         /// <summary>
         /// событие изменения значения свойства
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// событие изменений коллекций
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// событие изменения значения свойства с возможностью просмотра нового состояния
@@ -34,6 +41,22 @@ namespace xLibV100.UI
         {
             PropertyChanged = null;
             ValuePropertyChanged = null;
+            CollectionChanged = null;
+        }
+
+        protected virtual void OnCollectionReset(IEnumerable collection)
+        {
+            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
+
+        protected virtual void OnCollectionAdd(IEnumerable collection, object element)
+        {
+            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
+        }
+
+        protected virtual void OnCollectionRemove(IEnumerable collection, object element)
+        {
+            CollectionChanged?.Invoke(collection, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
         }
     }
 }

@@ -143,6 +143,7 @@
     <Compile Include="Serialization\Serialization.cs" />
     <Compile Include="Serialization\Association.cs" />
     <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Terminal\Enums.cs" />
     <Compile Include="Terminal\TerminalTransactionRequest.cs" />
     <Compile Include="Transactions\Common\ActionResult.cs" />
     <Compile Include="Components\Peripherals\Controls\xADC\Control.cs" />

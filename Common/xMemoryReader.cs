@@ -29,5 +29,41 @@ namespace xLibV100.Common
                 throw ex;
             }
         }
+
+        public void Offset(int offset, bool generateException = true)
+        {
+            if (this.offset - offset < 0
+                || (data != null && (this.offset + offset > data.Length)))
+            {
+                if (generateException)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                return;
+            }
+
+            this.offset += offset;
+        }
+
+        public unsafe string GetString()
+        {
+            try
+            {
+                string result = xMemory.GetString(data, offset, generateException: true);
+                if (result == null)
+                {
+                    return null;
+                }
+
+                offset += result.Length + 1;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

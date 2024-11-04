@@ -166,10 +166,12 @@ namespace xLibV100.Transactions
                     content.Data += sizeof(PacketT);
                     content.DataSize -= sizeof(PacketT);
 
-                    Response = new TResponse();
+                    var response = new TResponse();
                     manager.FoundObject = this;
 
-                    Response.Recieve(manager, content);
+                    response.Recieve(manager, content);
+
+                    Response = response;
                     ResponseReceiver?.Invoke(manager, Response);
 
                     return ReceiverResult.Accept;

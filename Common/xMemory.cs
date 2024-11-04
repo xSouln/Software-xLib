@@ -601,10 +601,25 @@ namespace xLibV100.Common
             }
         }
 
-        public static string GetString(byte[] source, int offset = 0, int length = int.MaxValue)
+        public static string GetString(byte[] source, int offset = 0, int length = int.MaxValue, bool generateException = false)
         {
             if (source == null)
             {
+                if (generateException)
+                {
+                    throw new NullReferenceException();
+                }
+
+                return null;
+            }
+
+            if (offset >= source.Length)
+            {
+                if (generateException)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
                 return null;
             }
 
@@ -612,7 +627,12 @@ namespace xLibV100.Common
             int i = offset;
             while (i < source.Length && i < length)
             {
-                value += source[i];
+                if (source[i] == 0)
+                {
+                    break;
+                }
+
+                value += (char)source[i];
                 i++;
             }
 
