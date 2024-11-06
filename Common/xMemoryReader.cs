@@ -6,6 +6,11 @@ namespace xLibV100.Common
     {
         public object Data { get; protected set; }
 
+        public int DataLength => data != null ? data.Length : 0;
+
+        public int RemainLength => DataLength - offset;
+
+
         protected byte[] data;
         protected int offset;
 

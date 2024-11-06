@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using xLibV100.Common;
 
 namespace xLibV100.Adaptation

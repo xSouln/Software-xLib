@@ -420,6 +420,11 @@ namespace xLibV100.Common
         {
             List<byte> result = new List<byte>();
 
+            if (source == null)
+            {
+                result.ToArray();
+            }
+
             int i = 0;
             foreach(var element in source)
             {
@@ -440,7 +445,36 @@ namespace xLibV100.Common
             return result.ToArray();
         }
 
-        public static unsafe byte[] ConvertToArray(object source)
+        public static byte[] ToByteArray(string source, int startIndex = 0, int length = int.MaxValue)
+        {
+            List<byte> result = new List<byte>();
+
+            if (source == null)
+            {
+                result.ToArray();
+            }
+
+            int i = 0;
+            foreach (var element in source)
+            {
+                if (i >= length)
+                {
+                    break;
+                }
+
+                if (i < startIndex)
+                {
+                    continue;
+                }
+
+                Add(result, element);
+                i++;
+            }
+
+            return result.ToArray();
+        }
+
+        public static unsafe byte[] ToByteArray(object source)
         {
             if (source == null)
             {

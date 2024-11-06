@@ -66,9 +66,18 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptation\Attributes\PropertyProviderAttribute.cs" />
+    <Compile Include="Adaptation\GetterPropertyProvider.cs" />
+    <Compile Include="Adaptation\Interfaces\IGetterPropertyProvider.cs" />
+    <Compile Include="Adaptation\Interfaces\IGetterPropertyProviderResponseHandler.cs" />
+    <Compile Include="Adaptation\Interfaces\IPropertyConverter.cs" />
+    <Compile Include="Adaptation\Interfaces\ISetterPropertyProvider.cs" />
+    <Compile Include="Adaptation\SetterPropetyProvider.cs" />
+    <Compile Include="Adaptation\Templates\Converters.cs" />
     <Compile Include="Adaptation\TransactionsTemplate-GetProperty.cs" />
     <Compile Include="Adaptation\TransactionsTemplate-SetProperty.cs" />
     <Compile Include="Adaptation\TransactionsTemplate.cs" />
+    <Compile Include="Adaptation\Types.cs" />
     <Compile Include="Adaptation\WritableProperty.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -137,6 +146,7 @@
     <Compile Include="Net\MQTT\MqttClientTransmitRequest.cs" />
     <Compile Include="Net\MQTT\MqttTopic.cs" />
     <Compile Include="Net\MQTT\MqttTopicOptions.cs" />
+    <Compile Include="Net\TCP\Types.cs" />
     <Compile Include="Serialization\Enums.cs" />
     <Compile Include="Serialization\ISerializable.cs" />
     <Compile Include="Serialization\ISerializer.cs" />

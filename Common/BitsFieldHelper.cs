@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace xLibV100.Common
 {
@@ -15,6 +16,24 @@ namespace xLibV100.Common
             _source |= (_value & mask) << offset;
 
             return _source;
+        }
+
+        public static TValue SetValue<TValue>(TValue source, TValue mask, bool state)
+            where TValue : Enum
+        {
+            long _source = Convert.ToInt64(source);
+            long _mask = Convert.ToInt64(mask);
+
+            if (state)
+            {
+                _source |= _mask;
+            }
+            else
+            {
+                _source &= ~_mask;
+            }
+
+            return (TValue)Enum.ToObject(typeof(TValue), _source);
         }
 
         public static ulong GetValue<TSource>(TSource source, ulong mask = 1, int offset = 0)

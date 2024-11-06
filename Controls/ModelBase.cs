@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Specialized;
 using xLibV100.Interfaces;
 using xLibV100.UI;
@@ -8,7 +9,7 @@ namespace xLibV100.Controls
     /// <summary>
     /// класс определяющий базовый набор для модели
     /// </summary>
-    public abstract class ModelBase : UINotifyPropertyChanged, IInheritable
+    public abstract class ModelBase : UINotifyPropertyChanged, IInheritable, IDisposable
     {
         protected object parent;
         protected string name;

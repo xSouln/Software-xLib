@@ -136,7 +136,7 @@ namespace xLibV100.Peripherals.GsmControl
                             continue;
                         }
 
-                        var content = xMemory.ConvertToArray(property.GetValue(model));
+                        var content = xMemory.ToByteArray(property.GetValue(model));
 
                         if (content == null)
                         {
