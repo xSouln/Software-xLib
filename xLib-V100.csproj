@@ -67,12 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adaptation\Attributes\PropertyProviderAttribute.cs" />
-    <Compile Include="Adaptation\GetterPropertyProvider.cs" />
+    <Compile Include="Adaptation\Interfaces\ISetterPropertyProviderResponseHandler.cs" />
+    <Compile Include="Adaptation\PropertyProviders\GetterPropertyProvider.cs" />
     <Compile Include="Adaptation\Interfaces\IGetterPropertyProvider.cs" />
     <Compile Include="Adaptation\Interfaces\IGetterPropertyProviderResponseHandler.cs" />
     <Compile Include="Adaptation\Interfaces\IPropertyConverter.cs" />
     <Compile Include="Adaptation\Interfaces\ISetterPropertyProvider.cs" />
-    <Compile Include="Adaptation\SetterPropetyProvider.cs" />
+    <Compile Include="Adaptation\PropertyProviders\ProvidedProperty.cs" />
+    <Compile Include="Adaptation\PropertyProviders\SetterPropetyProvider.cs" />
     <Compile Include="Adaptation\Templates\Converters.cs" />
     <Compile Include="Adaptation\TransactionsTemplate-GetProperty.cs" />
     <Compile Include="Adaptation\TransactionsTemplate-SetProperty.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Attributes\ModelPropertyAttribute.cs" />
     <Compile Include="Attributes\SynchronizedPropertySelectorAttribute.cs" />
     <Compile Include="Attributes\SubmodelAttribute.cs" />
+    <Compile Include="Common\AttributeHelper.cs" />
     <Compile Include="Common\BitsFieldHelper.cs" />
     <Compile Include="Common\DataBuffer.cs" />
     <Compile Include="Common\EnumHelper.cs" />

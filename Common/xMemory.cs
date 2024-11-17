@@ -8,21 +8,38 @@ namespace xLibV100.Common
 {
     public class xMemory
     {
-        public static unsafe int Add<TData>(List<byte> packet, TData data) where TData : unmanaged
+        public static unsafe int Add<TData>(List<byte> packet, TData data, int offset = -1)
+            where TData : unmanaged
         {
-            if (packet != null)
+            if (packet == null && offset > packet.Count)
             {
-                byte* ptr = (byte*)&data;
+                return 0;
+            }
 
+            byte* ptr = (byte*)&data;
+
+            if (offset == -1)
+            {
                 for (int i = 0; i < sizeof(TData); i++)
                 {
                     packet.Add(ptr[i]);
                 }
-
-                return sizeof(TData);
             }
-            return 0;
+            else if (offset >= 0)
+            {
+                for (int i = 0; i < sizeof(TData); i++)
+                {
+                    packet.Insert(i + offset, ptr[i]);
+                }
+            }
+            else
+            {
+                return 0;
+            }
+
+            return sizeof(TData);
         }
+
 
         public static unsafe int Add(List<byte> packet, void* data, int size)
         {

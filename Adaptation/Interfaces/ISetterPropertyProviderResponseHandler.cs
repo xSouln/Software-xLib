@@ -2,7 +2,7 @@
 
 namespace xLibV100.Adaptation
 {
-    public interface IGetterPropertyProviderResponseHandler
+    public interface ISetterPropertyProviderResponseHandler
     {
         PropertyProviderInfoT ProviderInfo { get; }
 

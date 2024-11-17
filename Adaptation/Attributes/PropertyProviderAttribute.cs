@@ -26,5 +26,16 @@ namespace xLibV100.Adaptation
         {
             return null;
         }
+
+        public ProvidedProperty GetProvidedProperty(object model)
+        {
+            var _value = GetValue(model);
+            if (_value == null || _value.Length == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return new ProvidedProperty(PropertyId, _value, new PropertyInfoT { SizeInfo = SizeInfo, TypeInfo = Info });
+        }
     }
 }

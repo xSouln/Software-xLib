@@ -5,52 +5,11 @@ using xLibV100.Common;
 
 namespace xLibV100.Adaptation
 {
-    public class PropertyElement
-    {
-        public PropertyInfoT Info = new PropertyInfoT();
-        public ushort Id;
-
-        public byte[] Content { get; protected set; }
-
-        public PropertyElement()
-        {
-
-        }
-
-        public int Apply<TValue>(ushort id, TValue value) where TValue : unmanaged
-        {
-            var type = typeof(TValue);
-
-            Info.TypeInfo = PropertyTypeInfo.BaseType;
-            Id = id;
-
-            Content = xMemory.ToByteArray((object)value);
-
-            return 0;
-        }
-
-        public int Apply(ushort id, string content)
-        {
-            //Info.PropertyId = id;
-            Info.TypeInfo = PropertyTypeInfo.String;
-            Info.SizeInfo = PropertySizeInfo.Byte;
-
-            Content = xMemory.ToByteArray(content);
-
-            return 0;
-        }
-    }
-
     public class GetterPropertyProviderResponseHandler : IGetterPropertyProviderResponseHandler
     {
         protected PropertyProviderInfoT providerInfo = new PropertyProviderInfoT();
 
         public PropertyProviderInfoT ProviderInfo => providerInfo;
-
-        public IList<PropertyElement> HandleResponse(byte[] data)
-        {
-            return null;
-        }
 
         public void HandleResponse(object model, IEnumerable<PropertyProviderAttribute> properties, byte[] data)
         {
@@ -90,13 +49,18 @@ namespace xLibV100.Adaptation
                 throw ex;
             }
         }
+
+        public IList<ProvidedProperty> HandleResponse(byte[] data)
+        {
+            return null;
+        }
     }
 
     public class GetterPropertyProviderByRange : IGetterPropertyProvider
     {
         public PropertyAdaptionMode AdaptionMode => PropertyAdaptionMode.ByRange;
 
-        public PropertyAdaptionFlags Flags { get; }
+        public GetterPropertyAdaptionFlags Flags { get; }
 
         public ushort StartId { get; protected set; }
 
@@ -105,7 +69,7 @@ namespace xLibV100.Adaptation
 
         public GetterPropertyProviderByRange(ushort startId = 0,
             ushort countOfIds = ushort.MaxValue,
-            PropertyAdaptionFlags flags = PropertyAdaptionFlags.None)
+            GetterPropertyAdaptionFlags flags = GetterPropertyAdaptionFlags.None)
         {
             Flags = flags;
             StartId = startId;
@@ -130,11 +94,11 @@ namespace xLibV100.Adaptation
     {
         public PropertyAdaptionMode AdaptionMode => PropertyAdaptionMode.ByIds;
 
-        public PropertyAdaptionFlags Flags { get; }
+        public GetterPropertyAdaptionFlags Flags { get; }
 
         public List<ushort> Ids { get; protected set; }
 
-        public GetterPropertyProviderByIds(IList<ushort> ids = null, PropertyAdaptionFlags flags = PropertyAdaptionFlags.None)
+        public GetterPropertyProviderByIds(IList<ushort> ids = null, GetterPropertyAdaptionFlags flags = GetterPropertyAdaptionFlags.None)
         {
             Ids = new List<ushort>();
 

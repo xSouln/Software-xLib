@@ -13,12 +13,26 @@ namespace xLibV100.Adaptation
 
 
     [Flags]
-    public enum PropertyAdaptionFlags : byte
+    public enum GetterPropertyAdaptionFlags : byte
     {
         None = 0,
         IncludePropertiesInfo = 1 << 0,
         IncludePropertiesIds = 1 << 1,
         IncludePropertiesSize = 1 << 2,
+    }
+
+
+    [Flags]
+    public enum SetterPropertyAdaptionFlags : byte
+    {
+        None = 0,
+
+        IncludeInfo = 1 << 0,
+        IncludeIds = 1 << 1,
+        IncludeSize = 1 << 2,
+        IncludeSequenceRange = 1 << 3,
+
+        IncludeInfoInErrorCase = 1 << 4,
     }
 
     public enum PropertySizeInfo : byte

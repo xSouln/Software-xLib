@@ -4,7 +4,7 @@
     {
         PropertyAdaptionMode AdaptionMode { get; }
 
-        PropertyAdaptionFlags Flags { get; }
+        SetterPropertyAdaptionFlags Flags { get; }
 
         byte[] ComposeRequest();
     }
