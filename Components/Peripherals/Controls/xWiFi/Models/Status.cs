@@ -27,7 +27,7 @@ namespace xLibV100.Peripherals.xWiFi.Models
             Get.Status.ResponseReceiver += GetStatusEventReceive;
             Get.Address.ResponseReceiver += GetAddressEventReceive;
 
-            Events.StatusChanged.EventReceive += EventStatusChanged;
+            Events.StatusChanged.Receiver += EventStatusChanged;
 
             //ViewModel = new StatusViewModel(this);
         }

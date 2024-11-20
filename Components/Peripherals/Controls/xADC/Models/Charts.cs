@@ -96,7 +96,7 @@ namespace xLibV100.Peripherals.xADC.Models
                 };
             }
 
-            Events.NewPoint.EventReceive += NewPointEventReceive;
+            Events.NewPoint.Receiver += NewPointEventReceive;
 
             //ViewModel = new ChartsViewModel(this);
         }

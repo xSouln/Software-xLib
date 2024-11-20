@@ -8,7 +8,7 @@ namespace xLibV100.Transactions
     {
         protected TAction action;
 
-        public xEvent<RxPacketManager, TResponse> EventReceive { get; set; }
+        public event xEvent<RxPacketManager, TResponse> Receiver;
 
         public TAction Action
         {
@@ -59,7 +59,7 @@ namespace xLibV100.Transactions
 
                 Response = result;
 
-                EventReceive?.Invoke(manager, result);
+                Receiver?.Invoke(manager, result);
 
                 receiverResult = ReceiverResult.Accept;
 
