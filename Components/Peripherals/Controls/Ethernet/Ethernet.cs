@@ -8,7 +8,7 @@
         public Transactions.Control Transactions;
 
 
-        public Ethernet(Control model) : base(model)
+        public Ethernet(PeripheralControl model) : base(model)
         {
             Name = nameof(Ethernet);
 

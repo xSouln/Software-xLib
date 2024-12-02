@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using xLibV100.Transceiver;
+﻿using xLibV100.Transceiver;
 
 namespace xLibV100.Transactions.Common
 {

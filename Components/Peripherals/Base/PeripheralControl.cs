@@ -5,21 +5,26 @@ using xLibV100.Transceiver;
 
 namespace xLibV100.Peripherals
 {
-    public class Control : TerminalObject
+    public class PeripheralControl : TerminalObject
     {
         protected bool gsmIsEnabled;
         protected bool ethernetIsEnabled;
         protected bool mqttIsEnabled;
+        protected bool memoryControlIsEnabled;
 
         protected GsmControl.Gsm gsm;
         protected EthernetControl.Ethernet ethernet;
         protected MqttControl.Mqtt mqtt;
+        protected MemoryControl.MemoryControl memoryControl;
 
         public ObservableCollection<PeripheralBase> Peripherals { get; protected set; } = new ObservableCollection<PeripheralBase>();
 
-        public Control(TerminalBase model) : base(model)
+        public PeripheralControl(TerminalBase model) : base(model)
         {
             GsmIsEnabled = true;
+            MemoryControlIsEnabled = true;
+
+            Services.RegisterByType(this);
 
             PortSubscriptions.Open(this, "Components\\PeripheralsControl\\Saves");
         }
@@ -102,6 +107,34 @@ namespace xLibV100.Peripherals
 
                         ethernet.Dispose();
                         ethernet = null;
+                    }
+                }
+            }
+        }
+
+
+        [ModelProperty]
+        public bool MemoryControlIsEnabled
+        {
+            get => memoryControlIsEnabled;
+            set
+            {
+                if (memoryControlIsEnabled != value)
+                {
+                    memoryControlIsEnabled = value;
+                    OnPropertyChanged(nameof(MemoryControlIsEnabled), memoryControlIsEnabled);
+
+                    if (memoryControlIsEnabled)
+                    {
+                        memoryControl = new MemoryControl.MemoryControl(this);
+                        Peripherals.Add(memoryControl);
+                    }
+                    else
+                    {
+                        Peripherals.Remove(memoryControl);
+
+                        memoryControl.Dispose();
+                        memoryControl = null;
                     }
                 }
             }

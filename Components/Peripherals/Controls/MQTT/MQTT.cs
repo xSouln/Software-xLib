@@ -8,7 +8,7 @@
 
         public Transactions.Control Transactions;
 
-        public Mqtt(Control model) : base(model)
+        public Mqtt(PeripheralControl model) : base(model)
         {
             Name = nameof(Mqtt);
 

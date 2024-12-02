@@ -23,7 +23,7 @@ namespace xLibV100.Common.UI.Models
             Device = model;
             Model = model;
 
-            Terminal = model.Terminal;
+            Terminal = model.Terminal as TerminalBase;
 
             Terminal.UI.ValuePropertyChanged += PropertyValueChangedHandler;
 

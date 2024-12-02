@@ -5,7 +5,7 @@
         public Transactions.Control Transactions;
 
 
-        public Port(Control model) : base(model)
+        public Port(PeripheralControl model) : base(model)
         {
             Name = nameof(Port);
 

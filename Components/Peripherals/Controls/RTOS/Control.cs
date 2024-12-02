@@ -4,7 +4,7 @@ namespace xLibV100.Peripherals.RTOSControl
 {
     public class RTOS : PeripheralBase
     {
-        public RTOS(Control model) : base(model)
+        public RTOS(PeripheralControl model) : base(model)
         {
             Name = nameof(RTOS);
 

@@ -4,7 +4,7 @@ namespace xLibV100.Peripherals
 {
     public class Usart : PeripheralBase
     {
-        public Usart(Control model) : base(model)
+        public Usart(PeripheralControl model) : base(model)
         {
             Name = nameof(Usart);
 

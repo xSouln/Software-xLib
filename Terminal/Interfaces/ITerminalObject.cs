@@ -6,7 +6,7 @@ namespace xLibV100.Controls
     public interface ITerminalObject : IDisposable
     {
         string Name { get; set; }
-        TerminalBase Terminal { get; set; }
+        ITerminal Terminal { get; set; }
         bool ResponseIdentification(RxPacketManager manager, xContent content);
     }
 }

@@ -13,13 +13,14 @@ namespace xLibV100.Peripherals.GsmControl
 
         public Transactions.Control Transactions;
 
-        public Gsm(Control model) : base(model)
+        public Gsm(PeripheralControl model) : base(model)
         {
             Name = nameof(Gsm);
 
             Transactions = new Transactions.Control(this, Info.UID);
-
             Instances.Add(new Instance(this));
+
+            Services.RegisterByType(Transactions);
         }
 
         public virtual Task<ActionResult> GetInfoAsync()

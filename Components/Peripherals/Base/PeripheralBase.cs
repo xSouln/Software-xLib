@@ -1,16 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using xLibV100.Controls;
 using xLibV100.Transceiver;
 
 namespace xLibV100.Peripherals
 {
-    public class PeripheralBase : ModelBase<Control>
+    public class PeripheralBase : ModelBase<PeripheralControl>, IPeripheral
     {
-        protected object instances;
+        protected IEnumerable instances;
 
-        public object GetInstances => instances;
+        public IEnumerable<IInstance> Instances
+        {
+            get => instances as IEnumerable<IInstance>;
+            set => instances = value;
+        }
 
-        public PeripheralBase(Control model) : base(model)
+        public PeripheralBase(PeripheralControl model) : base(model)
         {
 
         }
@@ -23,15 +29,15 @@ namespace xLibV100.Peripherals
 
     public class PeripheralBase<TInstance> : PeripheralBase where TInstance : Instance
     {
-        public ObservableCollection<Instance> Instances
+        public new ObservableCollection<Instance> Instances
         {
             get => instances as ObservableCollection<Instance>;
             protected set => instances = value;
         }
 
-        public PeripheralBase(Control model) : base(model)
+        public PeripheralBase(PeripheralControl model) : base(model)
         {
-            instances = new ObservableCollection<Instance>();
+            Instances = new ObservableCollection<Instance>();
         }
     }
 }

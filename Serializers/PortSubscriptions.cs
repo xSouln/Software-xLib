@@ -26,7 +26,7 @@ namespace xLibV100.Serializers
                 {
                     try
                     {
-                        File.WriteAllText(Environment.CurrentDirectory + "\\" + subDirectory + "\\ports" + ".json", string.Empty);
+                        File.WriteAllText(System.Environment.CurrentDirectory + "\\" + subDirectory + "\\ports" + ".json", string.Empty);
                     }
                     catch { }
 
@@ -53,8 +53,8 @@ namespace xLibV100.Serializers
                     };
                 }
 
-                Json.CreateFolder(Environment.CurrentDirectory, subDirectory);
-                return Json.Save(Environment.CurrentDirectory + "\\" + subDirectory + "\\ports" + ".json", portSubscriptions);
+                Json.CreateFolder(System.Environment.CurrentDirectory, subDirectory);
+                return Json.Save(System.Environment.CurrentDirectory + "\\" + subDirectory + "\\ports" + ".json", portSubscriptions);
             }
             return -1;
         }
@@ -64,7 +64,7 @@ namespace xLibV100.Serializers
             if (device != null)
             {
                 PortSubscriptions subscriptions;
-                Json.Open(Environment.CurrentDirectory + "\\" + subDirectory + "\\ports.json", out subscriptions);
+                Json.Open(System.Environment.CurrentDirectory + "\\" + subDirectory + "\\ports.json", out subscriptions);
 
                 if (subscriptions == null)
                 {

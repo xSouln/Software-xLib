@@ -54,15 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>9.0.0</Version>
+    </PackageReference>
     <PackageReference Include="MQTTnet" Version="4.3.3.952" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.Memory" Version="4.5.5" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.Buffers" Version="4.6.0" />
+    <PackageReference Include="System.Memory" Version="4.6.0" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.6.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +104,17 @@
     <Compile Include="Common\xMemory.cs" />
     <Compile Include="Common\xMemoryReader.cs" />
     <Compile Include="Common\xSupport.cs" />
+    <Compile Include="Components\Peripherals\Controls\MemoryControl\Instance.cs" />
+    <Compile Include="Components\Peripherals\Controls\MemoryControl\MemoryControl.cs" />
+    <Compile Include="Components\Peripherals\Controls\MemoryControl\Types.cs" />
+    <Compile Include="Components\Peripherals\Interfaces\IInstance.cs" />
+    <Compile Include="Components\Peripherals\Interfaces\IPeripheral.cs" />
+    <Compile Include="Components\Peripherals\Transactions\MemoryControl\Control.cs" />
+    <Compile Include="Components\Peripherals\Controls\MemoryControl\Info.cs" />
+    <Compile Include="Components\Peripherals\Transactions\MemoryControl\Types.cs" />
     <Compile Include="Components\MQTT\Broker\Control.cs" />
     <Compile Include="Attributes\SynchronizedPropertyAttribute.cs" />
-    <Compile Include="Components\Peripherals\Base\Control.cs" />
+    <Compile Include="Components\Peripherals\Base\PeripheralControl.cs" />
     <Compile Include="Components\Peripherals\Base\Types.cs" />
     <Compile Include="Components\Peripherals\Base\SynchronizedPropertyControl.cs" />
     <Compile Include="Components\Peripherals\Controls\Common\Types.cs" />
@@ -135,6 +146,8 @@
     <Compile Include="Adaptation\ReadableProperty.cs" />
     <Compile Include="Components\Peripherals\Transactions\Port\Control.cs" />
     <Compile Include="Components\Peripherals\Transactions\Port\Types.cs" />
+    <Compile Include="Container\Service.cs" />
+    <Compile Include="Container\ServiceContainer.cs" />
     <Compile Include="Controls\ComponentInfo.cs" />
     <Compile Include="Controls\IComponent.cs" />
     <Compile Include="Controls\IEnvironment.cs" />

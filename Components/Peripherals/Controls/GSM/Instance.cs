@@ -21,7 +21,7 @@ namespace xLibV100.Peripherals.GsmControl
         protected NetworkState networkState;
         protected StatusRegisterT statusRegister;
 
-        protected Control Control;
+        protected PeripheralControl Control;
 
         static Instance()
         {

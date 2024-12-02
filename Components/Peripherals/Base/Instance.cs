@@ -2,7 +2,7 @@
 
 namespace xLibV100.Peripherals
 {
-    public class Instance : ModelBase
+    public class Instance : ModelBase, IInstance
     {
         protected static SynchronizedPropertyControl PropertyControl;
 

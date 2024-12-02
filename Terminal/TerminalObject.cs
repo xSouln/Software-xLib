@@ -31,7 +31,7 @@ namespace xLibV100.Controls
 
         public ObservableCollection<object> Models = new ObservableCollection<object>();
 
-        public TerminalBase Terminal { get; set; }
+        public ITerminal Terminal { get; set; }
 
         public TerminalObject(TerminalBase model) : base(model)
         {
@@ -78,7 +78,7 @@ namespace xLibV100.Controls
             }
         }
 
-        public int AddTransactionToLine(RequestBase request, string description = "", int tryNumber = 1, int timeout = 2000)
+        public virtual int AddTransactionToLine(RequestBase request, string description = "", int tryNumber = 1, int timeout = 2000)
         {
             transactionSynchronize.WaitOne();
 
@@ -93,6 +93,31 @@ namespace xLibV100.Controls
             transactionSynchronize.Set();
 
             return 0;
+        }
+
+        public virtual Task<TResponse> SendRequestAsync<TResponse>(RequestBase<TResponse> request,
+            string description = null,
+            CancellationToken cancellationToken = default)
+            where TResponse : IResponseAdapter
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (AddTransactionToLine(request, description) != 0)
+            {
+                throw new System.Exception("error AddTransactionToLine");
+            }
+
+            try
+            {
+                return request.AwaitResponseAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public uint Id
