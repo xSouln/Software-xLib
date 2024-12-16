@@ -35,10 +35,24 @@ namespace xLibV100.Common
             }
         }
 
+        public unsafe void GetValue<TValue>(out TValue result) where TValue : unmanaged
+        {
+            result = GetValue<TValue>();
+        }
+
         public void Offset(int offset, bool generateException = true)
         {
-            if (this.offset - offset < 0
-                || (data != null && (this.offset + offset > data.Length)))
+            if (offset > 0 && (this.offset + offset > data.Length))
+            {
+                if (generateException)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                return;
+            }
+
+            if (offset < 0 && (this.offset - offset < 0))
             {
                 if (generateException)
                 {
