@@ -21,7 +21,7 @@ namespace xLibV100.Adaptation
 
                 if (providerInfo.AdaptionMode == PropertyAdaptionMode.ByRange)
                 {
-                    int id = memoryReader.GetValue<ushort>();
+                    ushort id = memoryReader.GetValue<ushort>();
 
                     while (memoryReader.RemainLength > 0)
                     {
@@ -29,9 +29,9 @@ namespace xLibV100.Adaptation
                             ? memoryReader.GetValue<PropertyInfoT>() : new PropertyInfoT();
 
                         ushort propertyId = providerInfo.PropertiesIdsIsIncluded
-                            ? memoryReader.GetValue<ushort>() : ushort.MaxValue;
+                            ? memoryReader.GetValue<ushort>() : id;
 
-                        PropertyProviderAttribute attribute = properties.FirstOrDefault(x => x.PropertyId == id);
+                        PropertyProviderAttribute attribute = properties.FirstOrDefault(x => x.PropertyId == propertyId);
 
                         if (attribute == null && !providerInfo.PropertiesInfoIsIncluded)
                         {

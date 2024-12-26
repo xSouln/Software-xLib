@@ -73,6 +73,48 @@ namespace xLibV100.Adaptation
         }
     }
 
+    public class StringArrayConverter : IPropertyConverter
+    {
+        public object Convert(xMemoryReader memoryReader)
+        {
+            try
+            {
+                List<string> result = new List<string>();
+                var countOfElements = memoryReader.GetValue<ushort>();
+
+                while (countOfElements > 0)
+                {
+                    result.Add(memoryReader.GetString());
+                    countOfElements--;
+                }
+
+                return result.ToArray();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public byte[] ToBinary(object property)
+        {
+            List<byte> content = new List<byte>();
+
+            if (!(property is string[] list))
+            {
+                throw new FormatException();
+            }
+
+            foreach (var item in list)
+            {
+                xMemory.Add(content, (string)property);
+                xMemory.Add(content, (byte)0);
+            }
+
+            return content.ToArray();
+        }
+    }
+
     public class BaseTypesConverter<T> : IPropertyConverter
         where T : unmanaged
     {

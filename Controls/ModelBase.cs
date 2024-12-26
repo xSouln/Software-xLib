@@ -27,7 +27,7 @@ namespace xLibV100.Controls
         /// <summary>
         /// имя модели
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get => name;
             set

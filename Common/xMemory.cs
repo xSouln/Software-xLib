@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
 namespace xLibV100.Common
 {
@@ -77,6 +78,49 @@ namespace xLibV100.Common
             }
 
             return i;
+        }
+
+        public static unsafe int AddAndFill(List<byte> packet, string data, int length, byte value)
+        {
+            if (packet == null || data == null || length < 1)
+            {
+                return 0;
+            }
+
+            int i = 0;
+            foreach (byte ch in data)
+            {
+                packet.Add(ch);
+                i++;
+
+                if (i >= length)
+                {
+                    break;
+                }
+            }
+
+            while (i < length)
+            {
+                packet.Add(value);
+                i++;
+            }
+
+            return length;
+        }
+
+        public static unsafe int Fill(List<byte> packet, byte value, int length)
+        {
+            if (packet == null || length < 1)
+            {
+                return 0;
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                packet.Add(value);
+            }
+
+            return length;
         }
 
         public static unsafe int GetSize<T>(T element) where T : unmanaged
