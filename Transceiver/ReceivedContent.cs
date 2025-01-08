@@ -5,14 +5,18 @@ namespace xLibV100.Transceiver
 {
     public struct xContent
     {
-        private int offset;
+        private int dataOffset;
 
         public unsafe byte* Data;
         public int DataSize;
 
-        public int Offset { get => offset; private set => offset = value; }
+        public int DataOffset
+        {
+            get => dataOffset;
+            private set => dataOffset = value;
+        }
 
-        public int RemainLength => DataSize - offset;
+        public int RemainLength => DataSize - dataOffset;
 
         public unsafe int Get<DataT>(out DataT result, bool typeSizeException = false) where DataT : unmanaged
         {
@@ -33,7 +37,7 @@ namespace xLibV100.Transceiver
             Data += sizeof(DataT);
             DataSize -= sizeof(DataT);
 
-            offset += sizeof(DataT);
+            dataOffset += sizeof(DataT);
 
             return 0;
         }
@@ -96,7 +100,7 @@ namespace xLibV100.Transceiver
             return 0;
         }
 
-        public unsafe void SetOffset(int offset)
+        public unsafe void Offset(int offset)
         {
             if (offset > DataSize)
             {
