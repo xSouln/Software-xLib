@@ -63,8 +63,7 @@ namespace xLibV100.Serializers
         {
             if (device != null)
             {
-                PortSubscriptions subscriptions;
-                Json.Open(System.Environment.CurrentDirectory + "\\" + subDirectory + "\\ports.json", out subscriptions);
+                Json.Open(System.Environment.CurrentDirectory + "\\" + subDirectory + "\\ports.json", out PortSubscriptions subscriptions);
 
                 if (subscriptions == null)
                 {
@@ -117,6 +116,7 @@ namespace xLibV100.Serializers
 
                 return 0;
             }
+
             return -1;
         }
     }
